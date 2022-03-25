@@ -1,7 +1,7 @@
 # infinito_wallet
 
 A new Flutter project.
-Start with a login page
+Start with a login page.
 
 ## Getting Started
 
