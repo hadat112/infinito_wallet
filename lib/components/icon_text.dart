@@ -12,12 +12,12 @@ class IconText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [    
-        Icon(icon, size: 50),
+        Icon(icon, size: 36, color: Color.fromRGBO(0, 0, 0, 0.8),),
         Text(
           text,
           style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
+            color: Color.fromRGBO(0, 0, 0, 0.6),
+            fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),

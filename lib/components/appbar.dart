@@ -18,8 +18,8 @@ class Appbar extends StatelessWidget with PreferredSizeWidget {
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: <Color>[
-                Color.fromRGBO(20, 109, 137, 1),
-                Color.fromRGBO(87, 196, 203, 0.37)
+                Color.fromRGBO(7, 15, 87, 1),
+                Color.fromRGBO(80, 178, 200, 1)
               ]),
         ),
       ),
