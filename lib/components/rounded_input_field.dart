@@ -19,7 +19,7 @@ class RoundedInputField extends StatelessWidget {
       Align(
             alignment: Alignment.centerLeft,
             child: Text(inputTitle,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600))),
       SizedBox(height: size.height*0.005),
        TextField(
         onChanged: onChanged,

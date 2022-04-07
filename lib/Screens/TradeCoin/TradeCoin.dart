@@ -111,19 +111,20 @@ class TradeCoinPage extends StatelessWidget {
             ),
             RoundedInputField(onChanged: (value) {}, inputTitle: 'Mật khẩu giao dịch'),
             SizedBox(
-              height: 20,
+              height: size.height*0.15,
             ),
-            Center(
-                child: WhiteButton(
-              press: () {},
-              text: 'Trở về',
-              textColor: Colors.black,
-            )),
-             Center(
-                child: RoundedButton(
-              press: () {},
-              text: 'Giao dịch ngay',
-            )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                WhiteButton(
+                  text: "Trở về",
+                  press: () {},
+                  textColor: Colors.black,
+                  btnSize: "S",
+                ),
+                RoundedButton(text: "Giao dịch ngay", press: () {}, btnSize: "S",),
+              ],
+            ),
           ],
         ));
   }

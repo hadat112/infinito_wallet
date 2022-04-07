@@ -24,6 +24,7 @@ class SignUpPage extends StatelessWidget {
           RoundedPasswordField(
             onChanged: (value) {},
             inputTitle: 'Mật khẩu đăng nhập tài khoản',
+            aToZ: true,
           ),
           RoundedInputField(
             inputTitle: "Quốc gia",
@@ -45,7 +46,7 @@ class SignUpPage extends StatelessWidget {
                   )
                 )
               ],),
-              RoundedPasswordField(onChanged: (value) {}, inputTitle: 'Mật khẩu giao dịch',),
+              RoundedPasswordField(onChanged: (value) {}, inputTitle: 'Mật khẩu giao dịch', aToZ: true,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

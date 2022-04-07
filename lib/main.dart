@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:infinito_wallet/Screens/BuyCrypto/BuyCrypto.dart';
+import 'package:infinito_wallet/Screens/ConfirmSend/ConfirmSend.dart';
 
+import 'Screens/SendCrypto/SendCrypto.dart';
 import 'Screens/Signup/SignUpPage.dart';
 import 'Screens/TradeCoin/TradeCoin.dart';
 import 'Screens/login/LoginPage.dart';

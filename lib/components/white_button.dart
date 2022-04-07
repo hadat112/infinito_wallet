@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class WhiteButton extends StatelessWidget {
   final String text;
+  final String btnSize;
   final void Function() press;
   final Color color, textColor;
   const WhiteButton({
@@ -9,7 +10,7 @@ class WhiteButton extends StatelessWidget {
     this.text = "",
     this.color = const Color.fromRGBO(90, 195, 240, 1),
     this.textColor = Colors.white,
-    required this.press,
+    required this.press, this.btnSize = "M",
   }) : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class WhiteButton extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      width: size.width * 0.7,
+      width: btnSize == "M" ? size.width * 0.7 : size.width * 0.45,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(29),
         child: FlatButton(

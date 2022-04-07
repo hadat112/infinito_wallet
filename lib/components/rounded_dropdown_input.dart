@@ -26,60 +26,55 @@ class RoundedDropdownInput extends StatelessWidget {
                 child: Text(inputTitle,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
           ),
-          Card(
-            color: Color(0xFFF4F4F4),
-            shape: RoundedRectangleBorder(
+          Container(
+            height: 60,
+            width: size.width * 0.9,
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            decoration: BoxDecoration(
+              border: Border.all(color: Color.fromRGBO(0, 0, 0, 0.4)),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Container(
-              height: 60,
-              width: size.width * 0.9,
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    // color: Colors.purple,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/usa.png'),
-                      ),
+            child: Row(
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  // color: Colors.purple,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/usa.png'),
                     ),
                   ),
-                  DropdownButton<String>(
-                    value: dropdownValue,
-                    icon: const Icon(Icons.expand_more),
-                    elevation: 16,
-                    style: const TextStyle(color: Colors.deepPurple),
-                    onChanged: (String? newValue) {
-                      // setState(() {
-                      //   dropdownValue = newValue!;
-                      // });
-                    },
-                    items:
-                        locations.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                ),
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  icon: const Icon(Icons.expand_more),
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  onChanged: (String? newValue) {
+                    // setState(() {
+                    //   dropdownValue = newValue!;
+                    // });
+                  },
+                  items:
+                      locations.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                VerticalDivider(
+                  thickness: 2,
+                ),
+                SizedBox(width: 5),
+                Flexible(
+                    child: TextField(
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
                   ),
-                  VerticalDivider(
-                    thickness: 2,
-                  ),
-                  SizedBox(width: 5),
-                  Flexible(
-                      child: TextField(
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                    ),
-                  ))
-                ],
-              ),
+                ))
+              ],
             ),
           ),
         ],

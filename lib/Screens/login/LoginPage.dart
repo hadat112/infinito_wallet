@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
                 inputTitle: "Email",
                 onChanged: (value) {}
               ),
-              RoundedPasswordField(onChanged:(value) {}, inputTitle: 'Mật khẩu'),
+              RoundedPasswordField(onChanged:(value) {}, inputTitle: 'Mật khẩu', aToZ: false,),
               TextButton(
                 onPressed: () {
                   //forgot password screen
