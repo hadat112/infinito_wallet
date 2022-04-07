@@ -19,7 +19,7 @@ class ChangePassword extends StatelessWidget {
               RoundedPasswordField(
                 inputTitle: "Mật khẩu hiện tại",
                 onChanged: (value) {},
-                aToZ: true,
+                aToZ: false,
               ),
               RoundedPasswordField(onChanged:(value) {}, inputTitle: 'Mật khẩu mới',
               aToZ: true,),

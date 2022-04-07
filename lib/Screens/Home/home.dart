@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:infinito_wallet/Screens/SendCrypto/SendCrypto.dart';
 
 import '../../components/bottom_navigation.dart';
 import '../../components/circle_button.dart';
 import '../../components/small_button.dart';
+import '../BuyCrypto/BuyCrypto.dart';
+import '../TradeCoin/TradeCoin.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -82,12 +85,45 @@ class Home extends StatelessWidget {
         ),
       ),
       body: Wrap(children: <Widget>[
-        CircleBtn(title: "Nạp-Gửi"),
-        CircleBtn(title: "Mua Crypto"),
-        CircleBtn(title: "Trade Crypto"),
-        CircleBtn(title: "Tỷ giá"),
-        CircleBtn(title: "Tín hiệu thị trường"),
-        CircleBtn(title: "Tặng thưởng"),
+        CircleBtn(title: "Nạp-Gửi", tap: (){
+          Navigator.push(
+              context, 
+              MaterialPageRoute(
+                builder: (context) {
+                  return SendCryptoPage();
+                }
+              )
+            );
+        },),
+        CircleBtn(title: "Mua Crypto", tap: (){
+          Navigator.push(
+              context, 
+              MaterialPageRoute(
+                builder: (context) {
+                  return BuyCryptoPage();
+                }
+              )
+            );
+        },),
+        CircleBtn(title: "Trade Crypto", tap: (){
+          Navigator.push(
+              context, 
+              MaterialPageRoute(
+                builder: (context) {
+                  return TradeCoinPage();
+                }
+              )
+            );
+        },),
+        CircleBtn(title: "Tỷ giá", tap: (){
+         
+        },),
+        CircleBtn(title: "Tín hiệu thị trường", tap: (){
+         
+        },),
+        CircleBtn(title: "Tặng thưởng", tap: (){
+          
+        },),
       ]),
       bottomNavigationBar: BottomNavigation(),
     );

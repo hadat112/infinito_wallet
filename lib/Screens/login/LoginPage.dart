@@ -5,6 +5,7 @@ import '../../components/appbar.dart';
 import '../../components/rounded_button.dart';
 import '../../components/rounded_input_field.dart';
 import '../../components/rounded_password_field.dart';
+import '../Home/home.dart';
 import '../Signup/SignUpPage.dart';
 
 class LoginPage extends StatelessWidget {
@@ -22,6 +23,7 @@ class LoginPage extends StatelessWidget {
                 inputTitle: "Email",
                 onChanged: (value) {}
               ),
+              SizedBox(height: 30,),
               RoundedPasswordField(onChanged:(value) {}, inputTitle: 'Mật khẩu', aToZ: false,),
               TextButton(
                 onPressed: () {
@@ -31,7 +33,14 @@ class LoginPage extends StatelessWidget {
                   'Quên mật khẩu',
                 ),
               ),
-              RoundedButton(text: "Đăng nhập", press: () {}),
+              RoundedButton(text: "Đăng nhập", press: () {Navigator.push(
+              context, 
+              MaterialPageRoute(
+                builder: (context) {
+                  return Home();
+                }
+              )
+            );}),
               AlreadyHaveAccount(press:() {
                 Navigator.push(
                 context, 

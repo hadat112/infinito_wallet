@@ -1,11 +1,10 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 
 import '../../components/rounded_button.dart';
 import '../../components/rounded_input_field.dart';
 import '../../components/sendcoin_appbar.dart';
 import '../../components/white_button.dart';
+import '../ConfirmSend/ConfirmSend.dart';
 
 class SendCryptoPage extends StatelessWidget {
   const SendCryptoPage({Key? key}) : super(key: key);
@@ -147,22 +146,32 @@ class SendCryptoPage extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: size.height*0.29,
+              height: size.height * 0.29,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 WhiteButton(
                   text: "Huỷ bỏ",
-                  press: () {},
+                  press: () {
+                    Navigator.pop(context);
+                  },
                   textColor: Colors.black,
                   btnSize: "S",
                 ),
-                RoundedButton(text: "Gửi", press: () {}, btnSize: "S",),
+                RoundedButton(
+                  text: "Tiếp tục",
+                  press: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ConfirmSendCryptoPage();
+                    }));
+                  },
+                  btnSize: "S",
+                ),
               ],
             ),
           ],
         ));
   }
 }
-

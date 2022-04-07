@@ -1,9 +1,6 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 
 import '../../components/rounded_button.dart';
-import '../../components/rounded_input_field.dart';
 import '../../components/rounded_password_field.dart';
 import '../../components/sendcoin_appbar.dart';
 import '../../components/white_button.dart';
@@ -45,7 +42,9 @@ class ConfirmSendCryptoPage extends StatelessWidget {
                             color: Colors.black,
                             fontSize: 26),
                       ),
-                      SizedBox(width: 5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       Text(
                         '0.0043 USD',
                         style: TextStyle(
@@ -129,12 +128,14 @@ class ConfirmSendCryptoPage extends StatelessWidget {
                             color: Colors.black,
                             fontSize: 16),
                       ),
-                      SizedBox(width: 5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       Text(
                         '0.0043 USD',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                        color: Color.fromRGBO(0, 0, 0, 0.5),
+                            color: Color.fromRGBO(0, 0, 0, 0.5),
                             fontSize: 16),
                       ),
                     ],
@@ -146,21 +147,28 @@ class ConfirmSendCryptoPage extends StatelessWidget {
               height: 30,
             ),
             RoundedPasswordField(
-                inputTitle: "Mật khẩu giao dịch", onChanged: (value) {}, aToZ: false ),
+                inputTitle: "Mật khẩu giao dịch",
+                onChanged: (value) {},
+                aToZ: false),
             SizedBox(
-              height: size.height*0.24,
+              height: size.height * 0.24,
             ),
-            
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 WhiteButton(
                   text: "Huỷ bỏ",
-                  press: () {},
+                  press: () {
+                    Navigator.pop(context);
+                  },
                   textColor: Colors.black,
                   btnSize: "S",
                 ),
-                RoundedButton(text: "Gửi", press: () {}, btnSize: "S",),
+                RoundedButton(
+                  text: "Gửi",
+                  press: () {},
+                  btnSize: "S",
+                ),
               ],
             ),
           ],

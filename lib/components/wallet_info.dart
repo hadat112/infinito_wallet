@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'circle_icon.dart';
+
 class WalletInfo extends StatelessWidget {
   final String walletName;
   final String walletAdd;
@@ -37,25 +39,7 @@ class WalletInfo extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Container(
-                  height: 60,
-                  width: 60,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(90, 195, 240, 1),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(40.0),
-                        bottomRight: Radius.circular(40.0),
-                        topLeft: Radius.circular(40.0),
-                        bottomLeft: Radius.circular(40.0)),
-                  ),
-                  child: Center(child: Text("PW",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w400
-                    ),
-                  )),
-                ),
+                IconCircle(textInside: 'IW', circleSize: 60,),
                 SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,3 +69,4 @@ class WalletInfo extends StatelessWidget {
     );
   }
 }
+

@@ -8,9 +8,7 @@ import '../../components/wallet_info.dart';
 import '../../components/white_button.dart';
 
 class TradeCoinPage extends StatelessWidget {
-  bool _value = false;
-
-  TradeCoinPage({Key? key}) : super(key: key);
+  const TradeCoinPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -26,14 +24,14 @@ class TradeCoinPage extends StatelessWidget {
                 width: size.width * 0.45,
                 margin: EdgeInsets.only(top: 40, bottom: 10),
                 padding: EdgeInsets.only(bottom: 10),
-                child: Align(
+                child: const Align(
                   alignment: Alignment.center,
                   child: Text(
                     'Tạo giao dịch',
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(color: Colors.black, width: 2),
                   ),
@@ -52,11 +50,11 @@ class TradeCoinPage extends StatelessWidget {
               dropdownValue: 'ETH',
               locations: ['BTN', 'ETH'],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -82,7 +80,7 @@ class TradeCoinPage extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'Cung cấp bởi',
+                        "Cung cấp bởi",
                         style: TextStyle(
                             fontWeight: FontWeight.w300,
                             color: Color.fromRGBO(7, 15, 87, 1)),
@@ -98,7 +96,7 @@ class TradeCoinPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 35,
             ),
             WalletInfo(
@@ -106,23 +104,30 @@ class TradeCoinPage extends StatelessWidget {
               walletName: 'Infinito Wallet',
               walletAdd: '1acw2sdw1da2wd3sad12aw3d1d',
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            RoundedInputField(onChanged: (value) {}, inputTitle: 'Mật khẩu giao dịch'),
+            RoundedInputField(
+                onChanged: (value) {}, inputTitle: 'Mật khẩu giao dịch'),
             SizedBox(
-              height: size.height*0.15,
+              height: size.height * 0.15,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 WhiteButton(
                   text: "Trở về",
-                  press: () {},
+                  press: () {
+                    Navigator.pop(context);
+                  },
                   textColor: Colors.black,
                   btnSize: "S",
                 ),
-                RoundedButton(text: "Giao dịch ngay", press: () {}, btnSize: "S",),
+                RoundedButton(
+                  text: "Giao dịch ngay",
+                  press: () {},
+                  btnSize: "S",
+                ),
               ],
             ),
           ],

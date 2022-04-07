@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:infinito_wallet/Screens/ConfirmSend/ConfirmSend.dart';
 
-import 'Screens/SendCrypto/SendCrypto.dart';
 import 'Screens/Signup/SignUpPage.dart';
-import 'Screens/TradeCoin/TradeCoin.dart';
 import 'Screens/login/LoginPage.dart';
 import 'components/appbar.dart';
 import 'components/rounded_button.dart';
@@ -18,8 +15,8 @@ class MyApp extends StatelessWidget {
     const String _title = 'Bắt đầu';
     return MaterialApp(
       home: Scaffold(
-        // appBar: Appbar(title: _title),
-        body: TradeCoinPage(),
+        appBar: Appbar(title: _title),
+        body: StartPage(),
       ),
     );
   }
