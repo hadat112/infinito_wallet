@@ -25,7 +25,7 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
             Center(
               child: Container(
                 width: size.width * 0.45,
-                margin: EdgeInsets.only(top: 30, bottom: 20),
+                margin: EdgeInsets.only(top: 20, bottom: 0),
                 padding: EdgeInsets.only(bottom: 10),
                 child: Align(
                   alignment: Alignment.center,
@@ -54,7 +54,7 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
               locations: ['BTN', 'ETH'],
             ),
             SizedBox(
-              height: 35,
+              height: 20,
             ),
             WalletInfo(
               size: size,
@@ -86,7 +86,7 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +125,7 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Center(
                 child: RoundedButton(
@@ -133,7 +133,7 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
               text: 'Tiếp tục',
             )),
             SizedBox(
-              height: 30,
+              height: 10,
             ),
             Center(
               child: Card(

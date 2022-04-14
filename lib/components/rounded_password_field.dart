@@ -5,12 +5,14 @@ class RoundedPasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final String inputTitle;
   final bool aToZ;
+  final TextEditingController passwordController;
+
 
   const RoundedPasswordField(
       {Key? key,
       required this.onChanged,
       required this.inputTitle,
-      required this.aToZ})
+      required this.aToZ, required this.passwordController})
       : super(key: key);
 
   @override
@@ -24,8 +26,23 @@ class RoundedPasswordField extends StatelessWidget {
             child: Text(inputTitle,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600))),
         SizedBox(height: size.height * 0.005),
-        TextField(
-            obscureText: true,
+        TextFormField(
+            autofocus: false,
+        controller: passwordController,
+        obscureText: true,
+        validator: (value) {
+          RegExp regex = new RegExp(r'^.{6,}$');
+          if (value!.isEmpty) {
+            return ("Yêu cầu nhập mật khẩu");
+          }
+          if (!regex.hasMatch(value)) {
+            return ("Enter Valid Password(Min. 6 Character)");
+          }
+        },
+        onSaved: (value) {
+          passwordController.text = value!;
+        },
+        textInputAction: TextInputAction.done,
             onChanged: onChanged,
             decoration: InputDecoration(
               suffixIcon: Icon(Icons.visibility,

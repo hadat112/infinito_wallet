@@ -13,8 +13,10 @@ class CircleBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-      child: Column(children: [
+      padding: EdgeInsets.symmetric(vertical: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
         GestureDetector(
           onTap: tap,
           child: CircleAvatar(
@@ -22,9 +24,9 @@ class CircleBtn extends StatelessWidget {
             backgroundColor: const Color(0xFFC4C4C4),
           ),
         ),
-        Container(
-            width: 100,
-            child: Align(alignment: Alignment.center, child: Text(title))),
+        SizedBox(height: 5,),
+        Text(title,
+        textAlign: TextAlign.center,),
       ]),
     );
   }

@@ -11,9 +11,9 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(150.0),
+      preferredSize: Size.fromHeight(150),
       child: Container(
-        margin: const EdgeInsets.only(top: 35, left: 20, right: 20),
+        margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(9),
           gradient: const LinearGradient(

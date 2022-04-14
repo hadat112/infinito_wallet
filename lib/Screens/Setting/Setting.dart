@@ -75,7 +75,7 @@ class SettingPage extends StatelessWidget {
                         fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
-                    width: size.width * 0.49,
+                    width: size.width * 0.46,
                   ),
                   Icon(Icons.arrow_forward_ios)
                 ]),
@@ -85,10 +85,11 @@ class SettingPage extends StatelessWidget {
 
             RoundedButton(
               press: () {},
-              btnSize: 'S',
+              btnWidth: 130,
+              btnHeight: 30,
               text: 'Thêm ví',
             ),
-                        SizedBox(height: 10,),
+            SizedBox(height: 10,),
             TitleItem(size: size, text: 'Cài đặt vào những mục khác'),
             Container(
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -107,14 +108,14 @@ class SettingPage extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  'Infinito Wallet',
+                  'Cài đặt',
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
                       fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
-                  width: size.width * 0.49,
+                  width: size.width * 0.58,
                 ),
                 Icon(Icons.arrow_forward_ios)
               ]),
@@ -136,14 +137,14 @@ class SettingPage extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  'Infinito Wallet',
+                  'Những mục khác',
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
                       fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
-                  width: size.width * 0.49,
+                  width: size.width * 0.40,
                 ),
                 Icon(Icons.arrow_forward_ios)
               ]),

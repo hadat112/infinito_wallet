@@ -22,7 +22,7 @@ class TradeCoinPage extends StatelessWidget {
             Center(
               child: Container(
                 width: size.width * 0.45,
-                margin: EdgeInsets.only(top: 40, bottom: 10),
+                margin: EdgeInsets.only(top: 20, bottom: 0),
                 padding: EdgeInsets.only(bottom: 10),
                 child: const Align(
                   alignment: Alignment.center,
@@ -107,10 +107,10 @@ class TradeCoinPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            RoundedInputField(
-                onChanged: (value) {}, inputTitle: 'Mật khẩu giao dịch'),
+            // RoundedInputField(
+            //     onChanged: (value) {}, inputTitle: 'Mật khẩu giao dịch'),
             SizedBox(
-              height: size.height * 0.15,
+              height: 110,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -121,12 +121,13 @@ class TradeCoinPage extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   textColor: Colors.black,
-                  btnSize: "S",
+                  btnWidth: 180,
+
                 ),
                 RoundedButton(
                   text: "Giao dịch ngay",
                   press: () {},
-                  btnSize: "S",
+                  btnWidth: 180,
                 ),
               ],
             ),

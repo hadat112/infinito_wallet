@@ -7,7 +7,8 @@ import '../../components/white_button.dart';
 import '../ConfirmSend/ConfirmSend.dart';
 
 class SendCryptoPage extends StatelessWidget {
-  const SendCryptoPage({Key? key}) : super(key: key);
+  SendCryptoPage({Key? key}) : super(key: key);
+    final inputEditingController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class SendCryptoPage extends StatelessWidget {
               height: 30,
             ),
             RoundedInputField(
+              inputEditingController: inputEditingController,
                 inputTitle: "Gửi tới địa chỉ", onChanged: (value) {}),
             SizedBox(
               height: 25,
@@ -146,7 +148,7 @@ class SendCryptoPage extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: size.height * 0.29,
+              height: 120,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -157,7 +159,7 @@ class SendCryptoPage extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   textColor: Colors.black,
-                  btnSize: "S",
+                  btnWidth: 180,
                 ),
                 RoundedButton(
                   text: "Tiếp tục",
@@ -167,7 +169,7 @@ class SendCryptoPage extends StatelessWidget {
                       return ConfirmSendCryptoPage();
                     }));
                   },
-                  btnSize: "S",
+                  btnWidth: 180,
                 ),
               ],
             ),

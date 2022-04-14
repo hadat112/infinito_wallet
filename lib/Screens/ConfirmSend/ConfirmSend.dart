@@ -6,7 +6,8 @@ import '../../components/sendcoin_appbar.dart';
 import '../../components/white_button.dart';
 
 class ConfirmSendCryptoPage extends StatelessWidget {
-  const ConfirmSendCryptoPage({Key? key}) : super(key: key);
+  ConfirmSendCryptoPage({Key? key}) : super(key: key);
+  final TextEditingController passwordController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +96,7 @@ class ConfirmSendCryptoPage extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,14 +145,15 @@ class ConfirmSendCryptoPage extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             RoundedPasswordField(
+                passwordController: passwordController,
                 inputTitle: "Mật khẩu giao dịch",
                 onChanged: (value) {},
                 aToZ: false),
             SizedBox(
-              height: size.height * 0.24,
+              height: 100,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -162,12 +164,12 @@ class ConfirmSendCryptoPage extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   textColor: Colors.black,
-                  btnSize: "S",
+                  btnWidth: 180,
                 ),
                 RoundedButton(
                   text: "Gửi",
                   press: () {},
-                  btnSize: "S",
+                  btnWidth: 180,
                 ),
               ],
             ),

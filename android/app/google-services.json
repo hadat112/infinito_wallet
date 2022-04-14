@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "10319697662",
+    "project_id": "infinito-wallet-fea37",
+    "storage_bucket": "infinito-wallet-fea37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10319697662:android:ab94551ce1a25bfcab77af",
+        "android_client_info": {
+          "package_name": "com.example.infinito_wallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "10319697662-4nt5gk5sf34jsl0jvl8849ee9vf1mk4e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.infinito_wallet",
+            "certificate_hash": "2d42913947a818ad2bd85208e0c256ebc74cdbab"
+          }
+        },
+        {
+          "client_id": "10319697662-9kdvdftti5bsu5tdt2lqjm6g4n5350d6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUOXWTxxb2je7EkAFsPRcm1jW1BPnr07E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "10319697662-9kdvdftti5bsu5tdt2lqjm6g4n5350d6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
