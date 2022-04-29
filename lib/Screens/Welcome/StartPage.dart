@@ -7,10 +7,12 @@ import '../Signup/SignUpPage.dart';
 import '../login/LoginPage.dart';
 
 class StartPage extends StatelessWidget {
+  const StartPage({Key? key}) : super(key: key);
+
   
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     const String _title = 'Bắt đầu';
 
     return Scaffold(
@@ -19,32 +21,28 @@ class StartPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Align(
-            alignment: Alignment.center,
             child: Container(
-              margin: EdgeInsets.only(bottom: 40),
+              margin: const EdgeInsets.only(bottom: 40),
               width: size.width,
               child: Image.asset('assets/start.jpg')
             ),
           ),
-          Align(alignment: Alignment.center,
-          child: RoundedButton(
-            text: "Đăng nhập",
+          RoundedButton(
+            text: 'Đăng nhập',
             press: (){
               Navigator.push(
                 context, 
                 MaterialPageRoute(
                   builder: (context) {
-                    return LoginPage();
+                    return const LoginPage();
                   }
                 )
               );
               }
           ),
-          ),
-          Align(alignment: Alignment.center,
-          child: WhiteButton(
-            text: "Đăng Ký",
-            textColor: Color.fromRGBO(90, 195, 240, 1),
+          Align(child: WhiteButton(
+            text: 'Đăng Ký',
+            textColor: const Color.fromRGBO(90, 195, 240, 1),
             press: (){
               Navigator.push(
                 context, 

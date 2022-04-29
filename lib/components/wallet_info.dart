@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'circle_icon.dart';
 
 class WalletInfo extends StatelessWidget {
-  final String walletName;
-  final String walletAdd;
   const WalletInfo({
     Key? key,
     required this.size, required this.walletName, required this.walletAdd,
   }) : super(key: key);
 
+  final String walletName;
+  final String walletAdd;
   final Size size;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20),
+        const Padding(
+          padding: EdgeInsets.only(left: 20),
           child: Align(
               alignment: Alignment.centerLeft,
               child: Text('Ví',
@@ -26,7 +26,7 @@ class WalletInfo extends StatelessWidget {
                       fontSize: 18, fontWeight: FontWeight.w600))),
         ),
         Card(
-          color: Color(0xFFF4F4F4),
+          color: const Color(0xFFF4F4F4),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(29),
           ),
@@ -39,8 +39,8 @@ class WalletInfo extends StatelessWidget {
             ),
             child: Row(
               children: [
-                IconCircle(textInside: 'IW', circleSize: 60,),
-                SizedBox(width: 10),
+                const IconCircle(textInside: 'IW', circleSize: 60,),
+                const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -48,13 +48,13 @@ class WalletInfo extends StatelessWidget {
                   children: [
                     Text(
                       walletName,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
                       walletAdd,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w300,
                         color: Color.fromRGBO(7, 15, 87, 1)
                       ),

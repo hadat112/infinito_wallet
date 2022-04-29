@@ -11,55 +11,53 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(150),
+      preferredSize: const Size.fromHeight(170),
       child: Container(
-        margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
+        margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(9),
           gradient: const LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
               colors: <Color>[
                 Color.fromRGBO(7, 15, 87, 1),
                 Color.fromRGBO(80, 178, 200, 1)
               ]),
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+          padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
           child: Column(children: [
             Container(
-              margin: EdgeInsets.only(bottom: 20),
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
+              margin: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: const BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: Colors.white, width: 1),
+                  bottom: BorderSide(color: Colors.white),
                 ),
               ),
               child: Row(children: [
                 Container(
                   height: 20,
                   width: 20,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(40.0),
-                        bottomRight: Radius.circular(40.0),
-                        topLeft: Radius.circular(40.0),
-                        bottomLeft: Radius.circular(40.0)),
+                        topRight: Radius.circular(40),
+                        bottomRight: Radius.circular(40),
+                        topLeft: Radius.circular(40),
+                        bottomLeft: Radius.circular(40)),
                   ),
-                  child: Center(
+                  child: const Center(
                       child: Text(
-                    "IW",
+                    'IW',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400),
                   )),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                Text(
+                const Text(
                   'Infinito Wallet',
                   style: TextStyle(
                       fontSize: 16,
@@ -69,7 +67,7 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
               ]),
             ),
             Card(
-              color: Color.fromRGBO(71, 145, 176, 1),
+              color: const Color.fromRGBO(71, 145, 176, 1),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(29),
               ),
@@ -84,35 +82,35 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
                     Container(
                       height: 35,
                       width: 35,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color.fromRGBO(90, 195, 240, 1),
                         borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(40.0),
-                            bottomRight: Radius.circular(40.0),
-                            topLeft: Radius.circular(40.0),
-                            bottomLeft: Radius.circular(40.0)),
+                            topRight: Radius.circular(40),
+                            bottomRight: Radius.circular(40),
+                            topLeft: Radius.circular(40),
+                            bottomLeft: Radius.circular(40)),
                       ),
-                      child: Center(
+                      child: const Center(
                           child: Text(
-                        "PW",
+                        'PW',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,
                             fontWeight: FontWeight.w400),
                       )),
                     ),
-                    SizedBox(width: 10),
-                    Text(
+                    const SizedBox(width: 10),
+                    const Text(
                       '0.321898',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Colors.white,
                           fontSize: 16),
                     ),
-                    SizedBox(width: 2),
+                    const SizedBox(width: 2),
                     Container(
-                      padding: EdgeInsets.only(bottom: 4),
-                      child: Text(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: const Text(
                         'ADA',
                         style: TextStyle(
                             fontWeight: FontWeight.w300,
@@ -124,10 +122,10 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               '(E 0.000138 ETH)',
               style: TextStyle(
                   fontWeight: FontWeight.w300,
@@ -142,5 +140,5 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(150);
+  Size get preferredSize => const Size.fromHeight(170);
 }

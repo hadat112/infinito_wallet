@@ -5,17 +5,13 @@ import 'package:infinito_wallet/Screens/ChangePassword/ChangePassword.dart';
 import '../../components/appbar.dart';
 
 class SettingWalletPage extends StatelessWidget {
-  bool _value = false;
-
-  SettingWalletPage({Key? key}) : super(key: key);
+  const SettingWalletPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    const String _title = "Infinito Wallet";
+    const String _title = 'Infinito Wallet';
     return Scaffold(
         appBar: const Appbar(title: _title),
         body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Column(
@@ -41,33 +37,30 @@ class SettingWalletPage extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 30.0),
+              padding: const EdgeInsets.only(bottom: 30),
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 5),
+                    margin: const EdgeInsets.symmetric(vertical: 5),
                     width: 44,
                     height: 44,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(29),
                       child: FlatButton(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 2, horizontal: 4),
                           onPressed: () {},
-                          child: Icon(
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: const Icon(
                             Icons.close,
                             color: Colors.red,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.red,
-                                width: 1,
-                                style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(50),
                           )),
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Xoá ví',
                     style: TextStyle(
                         fontSize: 16,
@@ -83,32 +76,32 @@ class SettingWalletPage extends StatelessWidget {
 }
 
 class LineBtn extends StatelessWidget {
-  final String title;
-  final void Function() tap;
   const LineBtn({
     Key? key,
     required this.title,
     required this.tap,
   }) : super(key: key);
 
+  final String title;
+  final void Function() tap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: tap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        decoration: const BoxDecoration(
             border: Border(
-          bottom: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.4), width: 1),
+          bottom: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.4)),
         )),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
           ),
-          Icon(Icons.arrow_forward_ios)
+          const Icon(Icons.arrow_forward_ios)
         ]),
       ),
     );

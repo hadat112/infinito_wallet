@@ -8,32 +8,31 @@ import '../ConfirmSend/ConfirmSend.dart';
 
 class SendCryptoPage extends StatelessWidget {
   SendCryptoPage({Key? key}) : super(key: key);
-    final inputEditingController = new TextEditingController();
+    final inputEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: SendCoinAppBar(size: size),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             RoundedInputField(
               inputEditingController: inputEditingController,
-                inputTitle: "Gửi tới địa chỉ", onChanged: (value) {}),
-            SizedBox(
+                inputTitle: 'Gửi tới địa chỉ', onChanged: (value) {}),
+            const SizedBox(
               height: 25,
             ),
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20),
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("Số lượng",
+                      child: Text('Số lượng',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600))),
                 ),
@@ -41,13 +40,13 @@ class SendCryptoPage extends StatelessWidget {
                 Container(
                   height: 60,
                   width: size.width * 0.9,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromRGBO(0, 0, 0, 0.4)),
+                    border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.4)),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
-                    children: [
+                    children: const [
                       Text(
                         'ADA',
                         style: TextStyle(
@@ -75,24 +74,24 @@ class SendCryptoPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Column(
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   height: 45,
                   width: size.width * 0.9,
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(150, 227, 244, 1),
-                    border: Border.all(color: Color.fromRGBO(150, 227, 244, 1)),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(8.0),
-                      topLeft: Radius.circular(8.0),
+                    color: const Color.fromRGBO(150, 227, 244, 1),
+                    border: Border.all(color: const Color.fromRGBO(150, 227, 244, 1)),
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(8),
+                      topLeft: Radius.circular(8),
                     ),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'Giao dịch',
                       style: TextStyle(
@@ -103,21 +102,21 @@ class SendCryptoPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   height: 45,
                   width: size.width * 0.9,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromRGBO(150, 227, 244, 1)),
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(8.0),
-                        bottomLeft: Radius.circular(8.0)),
+                    border: Border.all(color: const Color.fromRGBO(150, 227, 244, 1)),
+                    borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(8),
+                        bottomLeft: Radius.circular(8)),
                   ),
                   child: Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
-                      Text(
+                      const Text(
                         'Tổng',
                         style: TextStyle(
                           fontSize: 18,
@@ -125,17 +124,17 @@ class SendCryptoPage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: size.width * 0.28),
-                      Text(
+                      const Text(
                         '0.170103 ADA',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
-                      Text(
+                      const Text(
                         '0.0073 USD',
                         style: TextStyle(
                             fontSize: 14,
@@ -147,14 +146,14 @@ class SendCryptoPage extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 120,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 WhiteButton(
-                  text: "Huỷ bỏ",
+                  text: 'Huỷ bỏ',
                   press: () {
                     Navigator.pop(context);
                   },
@@ -162,7 +161,7 @@ class SendCryptoPage extends StatelessWidget {
                   btnWidth: 180,
                 ),
                 RoundedButton(
-                  text: "Tiếp tục",
+                  text: 'Tiếp tục',
                   press: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {

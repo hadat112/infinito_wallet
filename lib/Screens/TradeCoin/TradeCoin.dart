@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:infinito_wallet/components/rounded_button.dart';
-import 'package:infinito_wallet/components/rounded_input_field.dart';
 
 import '../../components/appbar.dart';
 import '../../components/rounded_dropdown_input.dart';
@@ -11,29 +10,27 @@ class TradeCoinPage extends StatelessWidget {
   const TradeCoinPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    const String _title = "Giao dịch";
+    final Size size = MediaQuery.of(context).size;
+    const String _title = 'Giao dịch';
     return Scaffold(
         appBar: const Appbar(title: _title),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Center(
               child: Container(
                 width: size.width * 0.45,
-                margin: EdgeInsets.only(top: 20, bottom: 0),
-                padding: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(bottom: 10),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(width: 2),
+                  ),
+                ),
                 child: const Align(
-                  alignment: Alignment.center,
                   child: Text(
                     'Tạo giao dịch',
                     style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.black, width: 2),
                   ),
                 ),
               ),
@@ -42,13 +39,13 @@ class TradeCoinPage extends StatelessWidget {
               inputTitle: 'Gửi',
               size: size,
               dropdownValue: 'ONT',
-              locations: ['ONT', 'VND'],
+              locations: const ['ONT', 'VND'],
             ),
             RoundedDropdownInput(
               inputTitle: 'Nhận',
               size: size,
               dropdownValue: 'ETH',
-              locations: ['BTN', 'ETH'],
+              locations: const ['BTN', 'ETH'],
             ),
             const SizedBox(
               height: 10,
@@ -62,7 +59,7 @@ class TradeCoinPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+                    children: const [
                       Text(
                         'Tỷ giá',
                         style: TextStyle(
@@ -78,9 +75,9 @@ class TradeCoinPage extends StatelessWidget {
                     ],
                   ),
                   Column(
-                    children: [
+                    children: const [
                       Text(
-                        "Cung cấp bởi",
+                        'Cung cấp bởi',
                         style: TextStyle(
                             fontWeight: FontWeight.w300,
                             color: Color.fromRGBO(7, 15, 87, 1)),
@@ -109,14 +106,14 @@ class TradeCoinPage extends StatelessWidget {
             ),
             // RoundedInputField(
             //     onChanged: (value) {}, inputTitle: 'Mật khẩu giao dịch'),
-            SizedBox(
+            const SizedBox(
               height: 110,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 WhiteButton(
-                  text: "Trở về",
+                  text: 'Trở về',
                   press: () {
                     Navigator.pop(context);
                   },
@@ -125,7 +122,7 @@ class TradeCoinPage extends StatelessWidget {
 
                 ),
                 RoundedButton(
-                  text: "Giao dịch ngay",
+                  text: 'Giao dịch ngay',
                   press: () {},
                   btnWidth: 180,
                 ),

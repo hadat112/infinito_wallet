@@ -16,7 +16,7 @@ class RoundedDropdownInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top:30),
+      margin: const EdgeInsets.only(top:30),
       child: Column(
         children: [
           Padding(
@@ -24,14 +24,14 @@ class RoundedDropdownInput extends StatelessWidget {
             child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(inputTitle,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
           ),
           Container(
             height: 60,
             width: size.width * 0.9,
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             decoration: BoxDecoration(
-              border: Border.all(color: Color.fromRGBO(0, 0, 0, 0.4)),
+              border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.4)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -40,7 +40,7 @@ class RoundedDropdownInput extends StatelessWidget {
                   height: 30,
                   width: 30,
                   // color: Colors.purple,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/usa.png'),
                     ),
@@ -64,11 +64,11 @@ class RoundedDropdownInput extends StatelessWidget {
                     );
                   }).toList(),
                 ),
-                VerticalDivider(
+                const VerticalDivider(
                   thickness: 2,
                 ),
-                SizedBox(width: 5),
-                Flexible(
+                const SizedBox(width: 5),
+                const Flexible(
                     child: TextField(
                   decoration: InputDecoration(
                     border: InputBorder.none,

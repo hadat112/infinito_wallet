@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infinito_wallet/Screens/Home/home.dart';
 import 'package:infinito_wallet/Screens/Setting/Setting.dart';
 
 import 'icon_text.dart';
@@ -18,36 +19,35 @@ class BottomNavigation extends StatelessWidget {
           border: Border.all(color: const Color(0xffE0E0E0))),
       child: Center(
         child: Padding(
-          padding: EdgeInsets.only(left: 40, right: 51, top: 10),
+          padding: const EdgeInsets.only(left: 40, right: 51, top: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconText(
-                  text: "Home",
+                  text: 'Home',
                   icon: Icons.home,
                   tap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return SettingPage();
+                      return Home();
                     }));
                   }),
               IconText(
-                  text: "Wallet",
+                  text: 'Wallet',
                   icon: Icons.wallet_membership_outlined,
                   tap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return SettingPage();
+                      return const SettingPage();
                     }));
                   }),
               IconText(
-                  text: "Account",
+                  text: 'Account',
                   icon: Icons.account_circle_outlined,
                   tap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return SettingPage();
+                      return const SettingPage();
                     }));
                   }),
             ],

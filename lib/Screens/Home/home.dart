@@ -1,126 +1,85 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto_font_icons/crypto_font_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:infinito_wallet/Screens/Home/walletInfo.dart';
 import 'package:infinito_wallet/Screens/SendCrypto/SendCrypto.dart';
+import 'package:infinito_wallet/models/wallet.dart';
+import 'package:infinito_wallet/services/database.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/bottom_navigation.dart';
 import '../../components/circle_button.dart';
 import '../../components/small_button.dart';
+import '../../services/auth.dart';
 import '../BuyCrypto/BuyCrypto.dart';
 import '../TradeCoin/TradeCoin.dart';
+import 'package:infinito_wallet/services/database.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+   Home({Key? key}) : super(key: key);
+    final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(150.0),
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: <Color>[
-                  Color.fromRGBO(7, 15, 87, 1),
-                  Color.fromRGBO(80, 178, 200, 1)
-                ]),
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(top: 70, left: 20, right: 20),
-            child: Column(children: [
-              Row(children: [
-                Container(
-                    margin: EdgeInsets.only(right: 10),
-                    child: Text(
-                      '\$',
-                      style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300),
-                    )),
-                Container(
-                    child: Text(
-                  '0.00',
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ))
-              ]),
-              Row(
-                children: [
-                  SmallWhiteButton(text: 'USD', press: () {}),
-                  SmallWhiteButton(text: 'Làm mới', press: () {}),
-                  SmallWhiteButton(text: 'Ẩn', press: () {}),
-                ],
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(177, 238, 252, 1),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12.0),
-                  ),
-                ),
-                margin: EdgeInsets.only(top: 5),
-                height: 55,
-                width: size.width * 0.9,
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                child: Center(
-                  child: Column(children: [
-                    Text('Xin chào,'),
-                    Text('Ha dat',
-                        style: TextStyle(color: Color.fromRGBO(40, 43, 150, 1)))
-                  ]),
-                ),
-              )
-            ]),
-          ),
+    final Size size = MediaQuery.of(context).size;
+    return StreamProvider<Wallet?>.value(
+      value: DatabaseService(uid: _auth.getCurrentUser()!.uid).wallets,
+      initialData: null,
+      child: Scaffold(
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(150),
+          child: walletInfo()
         ),
-      ),
-      body: Table(children: [
-        TableRow(children: [
-          CircleBtn(
-            title: "Nạp-Gửi",
-            tap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return SendCryptoPage();
-              }));
-            },
-          ),
-          CircleBtn(
-            title: "Mua Crypto",
-            tap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return BuyCryptoPage();
-              }));
-            },
-          ),
-          CircleBtn(
-            title: "Trade Crypto",
-            tap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return TradeCoinPage();
-              }));
-            },
-          ),
+        body: Table(children: [
+          TableRow(children: [
+            CircleBtn(
+              path: 'assets/send.png',
+              text: 'Nạp-Gửi',
+              tap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return SendCryptoPage();
+                }));
+              },
+            ),
+            CircleBtn(
+              path: 'assets/buy.png',
+              text: 'Mua Crypto',
+              tap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const BuyCryptoPage();
+                }));
+              },
+            ),
+            CircleBtn(
+              path: 'assets/trade.png',
+              text: 'Trade Crypto',
+              tap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const TradeCoinPage();
+                }));
+              },
+            ),
+          ]),
+          TableRow(children: [
+            CircleBtn(
+              path: 'assets/tygia.png',
+              text: 'Tỷ giá',
+              tap: () {},
+            ),
+            CircleBtn(
+              path: 'assets/thitruong.png',
+              text: 'Tín hiệu thị trường',
+              tap: () {},
+            ),
+            CircleBtn(
+              path: 'assets/gift.png',
+              text: 'Tặng thưởng',
+              tap: () {},
+            ),
+          ])
         ]),
-        TableRow(children: [
-          CircleBtn(
-            title: "Tỷ giá",
-            tap: () {},
-          ),
-          CircleBtn(
-            title: "Tín hiệu thị trường",
-            tap: () {},
-          ),
-          CircleBtn(
-            title: "Tặng thưởng",
-            tap: () {},
-          ),
-        ])
-      ]),
-      bottomNavigationBar: const BottomNavigation(),
+        bottomNavigationBar: const BottomNavigation(),
+      ),
     );
   }
 }

@@ -1,5 +1,7 @@
 # infinito_wallet
 
+[![style: lint](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lint)
+
 A new Flutter project.
 Start with a login page.
 

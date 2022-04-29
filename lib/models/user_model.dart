@@ -1,9 +1,4 @@
 class UserModel {
-  String? uid;
-  String? email;
-  String? country;
-  String? transactionPassword;
-
   UserModel({this.uid, this.email, this.country, this.transactionPassword});
 
   // receiving data from server
@@ -15,6 +10,11 @@ class UserModel {
       transactionPassword: map['transactionPassword']
     );
   }
+
+  String? uid;
+  String? email;
+  String? country;
+  String? transactionPassword;
 
   // sending data to our server
   Map<String, dynamic> toMap() {

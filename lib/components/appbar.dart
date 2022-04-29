@@ -15,8 +15,6 @@ class Appbar extends StatelessWidget with PreferredSizeWidget {
       flexibleSpace: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
               colors: <Color>[
                 Color.fromRGBO(7, 15, 87, 1),
                 Color.fromRGBO(80, 178, 200, 1)
@@ -27,5 +25,5 @@ class Appbar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
