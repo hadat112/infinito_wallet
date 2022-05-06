@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:infinito_wallet/components/text_field_container.dart';
 
-class RoundedPasswordField extends StatelessWidget {
-  const RoundedPasswordField(
+class RoundedPasswordField extends StatefulWidget {
+  RoundedPasswordField(
       {Key? key,
       required this.onChanged,
       required this.inputTitle,
@@ -15,44 +15,65 @@ class RoundedPasswordField extends StatelessWidget {
   final TextEditingController passwordController;
 
   @override
+  State<RoundedPasswordField> createState() => _RoundedPasswordFieldState();
+}
+
+class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
+  bool hide = true;
+
+  void _toggle() {  
+    setState(() {
+      hide= !hide;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
     return TextFieldContainer(
         child: Column(
       children: [
         Align(
             alignment: Alignment.centerLeft,
-            child: Text(inputTitle,
+            child: Text(widget.inputTitle,
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600))),
         SizedBox(height: size.height * 0.005),
         TextFormField(
           scrollPadding: EdgeInsets.only(
             bottom: 80),
-            controller: passwordController,
-        obscureText: true,
+            controller: widget.passwordController,
+        obscureText: hide,
         validator: (value) {
           final RegExp regex = RegExp(r'^.{6,}$');
+
+          // final RegExp regex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
           if (value!.isEmpty) {
             return 'Yêu cầu nhập mật khẩu';
           }
           if (!regex.hasMatch(value)) {
-            return 'Enter Valid Password(Min. 6 Character)';
+            return 'Nhập đúng định dạng mật khẩu (Tối thiểu 8 kí tự)';
           }
           return null;
         },
         onSaved: (value) {
-          passwordController.text = value!;
+          widget.passwordController.text = value!;
         },
         textInputAction: TextInputAction.done,
-            onChanged: onChanged,
-            decoration: const InputDecoration(
-              suffixIcon: Icon(Icons.visibility,
+            onChanged: widget.onChanged,
+            decoration:  InputDecoration(
+              suffixIcon: IconButton(
+                onPressed: (){
+                  _toggle();              
+                },
+                icon: Icon(Icons.visibility,
                   color: Color.fromRGBO(90, 195, 240, 1)),
+              ), 
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
             )),
-        if (aToZ == true)
+        if (widget.aToZ == true)
           const Align(
               alignment: Alignment.centerRight,
               child: Text('A-Z, a-z, 0-9, !@#%',

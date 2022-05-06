@@ -6,41 +6,42 @@ class DatabaseService {
 
   DatabaseService({required this.uid});
 
-  final CollectionReference walletCollection =
-      FirebaseFirestore.instance.collection('wallet');
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
 
   Future updateUserData(double amount, String name) async {
-    return await walletCollection.doc(uid).set({
+    return await users.doc(uid).collection('wallet').doc('wallet1').set({
       'amount': amount,
       'name': name,
     });
   }
 
-  Future getUser(String uid) async {
-    return await walletCollection.doc(uid).snapshots().map((doc) {
-      _userDataFromSnapshot(doc);
-    });
-  }
+  // Future getUser(String uid) async {
+  //   return await users.doc(uid).collection('wallet').doc('wallet1').snapshots().map((doc) {
+  //     _userDataFromSnapshot(doc);
+  //   });
+  // }
 
   // userData from snapshot
   Wallet _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return Wallet(
+      wallet_name: snapshot.get('wallet_name') ?? '',
       amount: snapshot.get('field'),
-      name: snapshot.get('name'),
+      name: snapshot.get('name').toDouble(),
     );
   }
 
-  // brew list from snapshot
-  Wallet _brewListFromSnapshot(DocumentSnapshot doc) {
-    print(uid);
+  // wallet from snapshot
+  Wallet _walletListFromSnapshot(DocumentSnapshot doc) {
       return Wallet(
+        wallet_name: doc.get('wallet_name') ?? '',
         name: doc.get('name') ?? '',
-        amount: doc.get('amount') ?? 0,
+        amount: doc.get('amount').toDouble() ?? 0.0,
       );
   }
 
   // get brews stream
-  Stream<Wallet> get wallets {
-    return walletCollection.doc(uid).snapshots().map(_brewListFromSnapshot);
+  Stream<Wallet> get wallet {
+    return users.doc(uid).collection('wallet').doc('wallet1').snapshots().map(_walletListFromSnapshot);
   }
 }

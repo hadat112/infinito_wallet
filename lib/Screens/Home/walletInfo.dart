@@ -11,11 +11,14 @@ class walletInfo extends StatefulWidget {
 }
 
 class _walletInfoState extends State<walletInfo> {
+  bool pressHide = true;
+  String hideBtnText = 'Ẩn';
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final wallet = Provider.of<Wallet?>(context);
-    print('check');
+    final double? amount = wallet?.amount;
     return Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -38,7 +41,8 @@ class _walletInfoState extends State<walletInfo> {
                             fontWeight: FontWeight.w300),
                       )),
                     Text(
-                    '${wallet?.amount ?? ''}',
+                      
+                    pressHide ? '${amount}' : '*********',
                     style: const TextStyle(
                     fontSize: 24,
                     color: Colors.white,
@@ -47,9 +51,15 @@ class _walletInfoState extends State<walletInfo> {
                 ]),
                 Row(
                   children: [
-                    SmallWhiteButton(text: 'USD', press: () {}),
-                    SmallWhiteButton(text: 'Làm mới', press: () {}),
-                    SmallWhiteButton(text: 'Ẩn', press: () {}),
+                    SmallWhiteButton(text: 'USD', btnWidth: 48, press: () {}),
+                    // if(pressHide) SmallWhiteButton(text: 'Làm mới', press: () {}),
+                    SmallWhiteButton(text: hideBtnText, btnWidth: 50, press: () {
+                      print('press');
+                      setState(() {
+                        hideBtnText == 'Ẩn' ? hideBtnText = 'Hiện': hideBtnText = 'Ẩn';
+                        pressHide = !pressHide;
+                      } );
+                    }),
                   ],
                 ),
                 Container(
@@ -67,7 +77,7 @@ class _walletInfoState extends State<walletInfo> {
                     child: Column(children: [
                       const Text('Xin chào,'),
                       Text(
-                        '${wallet?.name}',
+                        '${wallet?.name.toString()}',
                         style: const TextStyle(color: Color.fromRGBO(40, 43, 150, 1)))
                     ]),
                   ),
@@ -76,7 +86,4 @@ class _walletInfoState extends State<walletInfo> {
             ),
           );
   }
-}
-
-class $ {
 }

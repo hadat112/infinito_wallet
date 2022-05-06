@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
-  const SendCoinAppBar({
+import '../models/wallet.dart';
+import '../services/coin_data.dart';
+
+class SendCoinAppBar extends StatefulWidget with PreferredSizeWidget {
+  SendCoinAppBar({
     Key? key,
     required this.size,
   }) : super(key: key);
@@ -9,18 +13,38 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
   final Size size;
 
   @override
+  State<SendCoinAppBar> createState() => _SendCoinAppBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(170);
+}
+
+class _SendCoinAppBarState extends State<SendCoinAppBar> {
+  String getInitials({String? string, int? limitTo}) {
+    var buffer = StringBuffer();
+    var split = string?.split(' ');
+    for (var i = 0; i < (limitTo ?? split!.length); i++) {
+      buffer.write(split?[i][0]);
+    }
+    return buffer.toString().toUpperCase();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final wallet = Provider.of<Wallet?>(context);
+    final double? amount = wallet?.amount;
+    final String? walletName = wallet?.wallet_name;
+    final String initialsName = getInitials(string: walletName, limitTo: 2);
     return PreferredSize(
       preferredSize: const Size.fromHeight(170),
       child: Container(
         margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(9),
-          gradient: const LinearGradient(
-              colors: <Color>[
-                Color.fromRGBO(7, 15, 87, 1),
-                Color.fromRGBO(80, 178, 200, 1)
-              ]),
+          gradient: const LinearGradient(colors: <Color>[
+            Color.fromRGBO(7, 15, 87, 1),
+            Color.fromRGBO(80, 178, 200, 1)
+          ]),
         ),
         child: Padding(
           padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
@@ -45,10 +69,10 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
                         topLeft: Radius.circular(40),
                         bottomLeft: Radius.circular(40)),
                   ),
-                  child: const Center(
+                  child: Center(
                       child: Text(
-                    'IW',
-                    style: TextStyle(
+                    initialsName,
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400),
@@ -57,8 +81,8 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                const Text(
-                  'Infinito Wallet',
+                Text(
+                  '${wallet?.wallet_name}',
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -73,7 +97,7 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
               ),
               child: Container(
                 height: 37,
-                width: size.width * 0.4,
+                width: widget.size.width * 0.4,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -90,18 +114,18 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
                             topLeft: Radius.circular(40),
                             bottomLeft: Radius.circular(40)),
                       ),
-                      child: const Center(
+                      child: Center(
                           child: Text(
-                        'PW',
-                        style: TextStyle(
+                        initialsName,
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 14,
                             fontWeight: FontWeight.w400),
                       )),
                     ),
                     const SizedBox(width: 10),
-                    const Text(
-                      '0.321898',
+                    Text(
+                      '${amount}',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Colors.white,
@@ -137,8 +161,4 @@ class SendCoinAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
     );
   }
-
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => const Size.fromHeight(170);
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:infinito_wallet/Screens/Signup/SignUpPage.dart';
 import 'package:infinito_wallet/models/user_model.dart';
 import 'package:infinito_wallet/services/database.dart';
 
@@ -42,7 +43,6 @@ class AuthService {
       switch (error.code) {
         case 'invalid-email':
           errorMessage = 'Your email address appears to be malformed.';
-
           break;
         case 'wrong-password':
           errorMessage = 'Your password is wrong.';
@@ -67,7 +67,7 @@ class AuthService {
   }
 
   Future signUp(String email, String password, String country,
-      String transactionPassword, BuildContext context) async {
+      String transactionPassword, BuildContext context, bool loading) async {
     try {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -81,6 +81,11 @@ class AuthService {
       String? userName = user!.email!.replaceAll('@gmail.com', '');
       await DatabaseService(uid: user.uid).updateUserData(0, userName);
     } on FirebaseAuthException catch (error) {
+      await Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => SignUpPage()),
+        (route) => false);
+      loading = false;
       switch (error.code) {
         case 'invalid-email':
           errorMessage = 'Your email address appears to be malformed.';

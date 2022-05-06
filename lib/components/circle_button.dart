@@ -28,6 +28,7 @@ class CircleBtn extends StatelessWidget {
             ),
             Text(
               text,
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Color.fromRGBO(0, 0, 0, 0.6),
                 fontSize: 16,

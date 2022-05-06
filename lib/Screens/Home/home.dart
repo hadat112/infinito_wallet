@@ -21,9 +21,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return StreamProvider<Wallet?>.value(
-      value: DatabaseService(uid: _auth.getCurrentUser()!.uid).wallets,
+      value: DatabaseService(uid: _auth.getCurrentUser()!.uid).wallet,
       initialData: null,
       child: Scaffold(
         appBar: const PreferredSize(
