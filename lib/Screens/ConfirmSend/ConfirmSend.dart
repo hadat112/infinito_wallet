@@ -13,7 +13,7 @@ class ConfirmSendCryptoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: SendCoinAppBar(size: size),
+        // appBar: SendCoinAppBar(size: size, selectedCurrency: '', coinValue: ,),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

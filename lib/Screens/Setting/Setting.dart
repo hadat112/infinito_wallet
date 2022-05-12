@@ -1,15 +1,18 @@
-// ignore_for_file: unnecessary_const
-
 import 'package:flutter/material.dart';
 import 'package:infinito_wallet/Screens/SettingWallet/SettingWallet.dart';
+import 'package:infinito_wallet/Screens/Welcome/StartPage.dart';
 import 'package:infinito_wallet/components/circle_icon.dart';
 import 'package:infinito_wallet/components/rounded_button.dart';
+import 'package:infinito_wallet/services/auth.dart';
 
 import '../../components/appbar.dart';
 import '../../components/bottom_navigation.dart';
 
 class SettingPage extends StatelessWidget {
-  const SettingPage({Key? key}) : super(key: key);
+  SettingPage({Key? key, required this.onSignedOut}) : super(key: key);
+  AuthService _authService = AuthService();
+      final VoidCallback onSignedOut;
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -151,9 +154,23 @@ class SettingPage extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
             TitleItem(size: size, text: 'Theo dõi chúng tôi'),
+            RoundedButton(press: () {
+              onSignedOut;
+              _authService.signOut();
+               Navigator.pushAndRemoveUntil(context,
+                            MaterialPageRoute(builder: (context) => StartPage())
+                        , (Route<dynamic> route) => false,
+                        );
+            },
+            text: 'Đăng xuất',
+            btnWidth: 200,
+            btnHeight: 50,
+            )
           ],
         ),
-        bottomNavigationBar: const BottomNavigation(),
+        bottomNavigationBar:  BottomNavigation(onSignedOut: (() {
+          
+        }),),
 
         );
   }

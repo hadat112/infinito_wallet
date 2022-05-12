@@ -6,8 +6,10 @@ import 'icon_text.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({
-    Key? key,
+    Key? key, required this.onSignedOut,
   }) : super(key: key);
+  final VoidCallback onSignedOut;
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class BottomNavigation extends StatelessWidget {
                   tap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return Home();
+                      return Home(onSignedOut: () {  },);
                     }));
                   }),
               IconText(
@@ -38,7 +40,7 @@ class BottomNavigation extends StatelessWidget {
                   tap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const SettingPage();
+                      return SettingPage(onSignedOut: onSignedOut,);
                     }));
                   }),
               IconText(
@@ -47,7 +49,7 @@ class BottomNavigation extends StatelessWidget {
                   tap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const SettingPage();
+                      return SettingPage(onSignedOut: onSignedOut,);
                     }));
                   }),
             ],

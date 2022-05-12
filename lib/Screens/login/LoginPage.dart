@@ -10,7 +10,8 @@ import '../../components/rounded_password_field.dart';
 import '../Signup/SignUpPage.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key, required this.onSignedIn}) : super(key: key);
+  final VoidCallback onSignedIn;
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -47,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     RoundedEmailField(
+                      key: Key('email'),
                         emailController: emailController,
                         validateText: 'Bạn chưa nhập Email',
                         inputTitle: 'Email',
@@ -55,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 30,
                     ),
                     RoundedPasswordField(
+                      key: Key('password'),
                       passwordController: passwordController,
                       onChanged: (value) {},
                       inputTitle: 'Mật khẩu',
@@ -69,6 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     RoundedButton(
+                      key: Key('signIn'),
                         text: 'Đăng nhập',
                         press: () async {
                           if (_formKey.currentState!.validate()) {

@@ -1,19 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:infinito_wallet/models/wallet.dart';
+import 'package:infinito_wallet/services/database.dart';
 
+import '../services/auth.dart';
 import 'circle_icon.dart';
 
-class WalletInfo extends StatelessWidget {
-  const WalletInfo({
+class WalletInfo extends StatefulWidget {
+  WalletInfo({
     Key? key,
-    required this.size, required this.walletName, required this.walletAdd,
   }) : super(key: key);
 
-  final String walletName;
-  final String walletAdd;
-  final Size size;
+  @override
+  State<WalletInfo> createState() => _WalletInfoState();
+}
+
+class _WalletInfoState extends State<WalletInfo> {
+  final AuthService _auth = AuthService();
+  Wallet? wallet;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final double? amount = wallet?.amount;
+    final String? walletName = wallet?.wallet_name;
     return Column(
       children: [
         const Padding(
@@ -22,8 +38,9 @@ class WalletInfo extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text('Ví',
                   style: TextStyle(
-                     color: Color.fromRGBO(0, 0, 0, 0.5),
-                      fontSize: 18, fontWeight: FontWeight.w600))),
+                      color: Color.fromRGBO(0, 0, 0, 0.5),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600))),
         ),
         Card(
           color: const Color(0xFFF4F4F4),
@@ -39,26 +56,39 @@ class WalletInfo extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const IconCircle(textInside: 'IW', circleSize: 60,),
+                const IconCircle(
+                  textInside: 'IW',
+                  circleSize: 60,
+                ),
                 const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      walletName,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                      ),
+                    FutureBuilder<DocumentSnapshot>(
+                      future: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(_auth.getCurrentUser()?.uid)
+                    .get(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                    return const Center();
+                  }
+                        return Text(
+                          snapshot.data!.get('wallet_name'),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        );
+                      }
                     ),
-                    Text(
-                      walletAdd,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Color.fromRGBO(7, 15, 87, 1)
-                      ),
-                    ),
+                     Text(
+                        _auth.getCurrentUser()!.uid,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w300,
+                            color: Color.fromRGBO(7, 15, 87, 1)),
+                      )     
                   ],
                 ),
               ],
@@ -69,4 +99,3 @@ class WalletInfo extends StatelessWidget {
     );
   }
 }
-

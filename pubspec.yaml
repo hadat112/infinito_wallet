@@ -29,8 +29,8 @@ environment:
 dependencies:
   firebase_auth: ^3.3.14
   firebase_core: ^1.14.1
-  fluttertoast: ^8.0.9
   cloud_firestore: ^3.1.12
+  fluttertoast: ^8.0.9
   cupertino_icons: ^1.0.2
   lint: ^1.0.0
   country_picker: ^2.0.14
@@ -41,6 +41,10 @@ dependencies:
   http: ^0.13.4
   test: 
   flutter:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_test:
     sdk: flutter
 dependency_overrides:
 
@@ -61,7 +65,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/start.jpg
-    - assets/usa.png
+    - assets/USD.png
     - assets/visa.png
     - assets/tygia.png
     - assets/gift.png
@@ -69,7 +73,9 @@ flutter:
     - assets/send.png
     - assets/thitruong.png
     - assets/buy.png
-
+    - assets/BTC.png
+    - assets/ETH.png
+    - assets/EUR.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

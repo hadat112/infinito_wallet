@@ -26,7 +26,13 @@ class AuthService {
   // }
 
   User? getCurrentUser() {
-    return _auth.currentUser;
+    if(_auth != null)
+      return _auth.currentUser;
+  }
+
+  Future<String?> currentUser() async {
+    final User? user =  _auth.currentUser;
+    return user?.uid;
   }
 
   Future signInWithEmailAndPassword(
@@ -37,7 +43,7 @@ class AuthService {
           .then((uid) => {
                 Fluttertoast.showToast(msg: 'Login Successful'),
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => Home())),
+                    MaterialPageRoute(builder: (context) => Home(onSignedOut: () {  },))),
               });
     } on FirebaseAuthException catch (error) {
       switch (error.code) {
@@ -79,7 +85,7 @@ class AuthService {
 
       User? user = _auth.currentUser;
       String? userName = user!.email!.replaceAll('@gmail.com', '');
-      await DatabaseService(uid: user.uid).updateUserData(0, userName);
+      await DatabaseService(uid: user.uid).updateUserData(userName);
     } on FirebaseAuthException catch (error) {
       await Navigator.pushAndRemoveUntil(
         context,
@@ -136,7 +142,11 @@ class AuthService {
 
     await Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => Home()),
+        MaterialPageRoute(builder: (context) => Home(onSignedOut: () {  },)),
         (route) => false);
+  }
+
+  Future<void> signOut() async {
+    return _auth.signOut();
   }
 }

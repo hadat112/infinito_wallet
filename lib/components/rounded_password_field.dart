@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:infinito_wallet/components/text_field_container.dart';
 
+class PasswordFieldValidator {
+  static String? validate(String? value) {
+    final RegExp regex = RegExp(r'^.{6,}$');
+
+    // final RegExp regex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+    if (value!.isEmpty) {
+      return 'Yêu cầu nhập mật khẩu';
+    }
+    if (!regex.hasMatch(value)) {
+      return 'Nhập đúng định dạng mật khẩu (Tối thiểu 8 kí tự)';
+    }
+    return null;
+  }
+}
+
 class RoundedPasswordField extends StatefulWidget {
   RoundedPasswordField(
       {Key? key,
       required this.onChanged,
       required this.inputTitle,
-      required this.aToZ, required this.passwordController})
+      required this.aToZ,
+      required this.passwordController})
       : super(key: key);
 
   final ValueChanged<String> onChanged;
@@ -15,15 +31,17 @@ class RoundedPasswordField extends StatefulWidget {
   final TextEditingController passwordController;
 
   @override
-  State<RoundedPasswordField> createState() => _RoundedPasswordFieldState();
+  State<RoundedPasswordField> createState() => _RoundedPasswordFieldState(key: key);
 }
 
 class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
+  _RoundedPasswordFieldState({required this.key});
+  final Key? key;
   bool hide = true;
 
-  void _toggle() {  
+  void _toggle() {
     setState(() {
-      hide= !hide;
+      hide = !hide;
     });
   }
 
@@ -37,38 +55,28 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
         Align(
             alignment: Alignment.centerLeft,
             child: Text(widget.inputTitle,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600))),
+                style: const TextStyle(
+                    fontSize: 16, fontWeight: FontWeight.w600))),
         SizedBox(height: size.height * 0.005),
         TextFormField(
-          scrollPadding: EdgeInsets.only(
-            bottom: 80),
+            key: key,
+            scrollPadding: EdgeInsets.only(bottom: 80),
             controller: widget.passwordController,
-        obscureText: hide,
-        validator: (value) {
-          final RegExp regex = RegExp(r'^.{6,}$');
-
-          // final RegExp regex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
-          if (value!.isEmpty) {
-            return 'Yêu cầu nhập mật khẩu';
-          }
-          if (!regex.hasMatch(value)) {
-            return 'Nhập đúng định dạng mật khẩu (Tối thiểu 8 kí tự)';
-          }
-          return null;
-        },
-        onSaved: (value) {
-          widget.passwordController.text = value!;
-        },
-        textInputAction: TextInputAction.done,
+            obscureText: hide,
+            validator: PasswordFieldValidator.validate,
+            onSaved: (value) {
+              widget.passwordController.text = value!;
+            },
+            textInputAction: TextInputAction.done,
             onChanged: widget.onChanged,
-            decoration:  InputDecoration(
+            decoration: InputDecoration(
               suffixIcon: IconButton(
-                onPressed: (){
-                  _toggle();              
+                onPressed: () {
+                  _toggle();
                 },
                 icon: Icon(Icons.visibility,
-                  color: Color.fromRGBO(90, 195, 240, 1)),
-              ), 
+                    color: Color.fromRGBO(90, 195, 240, 1)),
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),

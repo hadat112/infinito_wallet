@@ -13,72 +13,68 @@ import '../../components/small_button.dart';
 import '../../services/auth.dart';
 import '../BuyCrypto/BuyCrypto.dart';
 import '../TradeCoin/TradeCoin.dart';
-import 'package:infinito_wallet/services/database.dart';
 
 class Home extends StatelessWidget {
-   Home({Key? key}) : super(key: key);
+   Home({Key? key, required this.onSignedOut}) : super(key: key);
     final AuthService _auth = AuthService();
+    final VoidCallback onSignedOut;
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<Wallet?>.value(
-      value: DatabaseService(uid: _auth.getCurrentUser()!.uid).wallet,
-      initialData: null,
-      child: Scaffold(
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(150),
-          child: walletInfo()
-        ),
-        body: Table(children: [
-          TableRow(children: [
-            CircleBtn(
-              path: 'assets/send.png',
-              text: 'Nạp-Gửi',
-              tap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return SendCryptoPage();
-                }));
-              },
-            ),
-            CircleBtn(
-              path: 'assets/buy.png',
-              text: 'Mua Crypto',
-              tap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const BuyCryptoPage();
-                }));
-              },
-            ),
-            CircleBtn(
-              path: 'assets/trade.png',
-              text: 'Trade Crypto',
-              tap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const TradeCoinPage();
-                }));
-              },
-            ),
-          ]),
-          TableRow(children: [
-            CircleBtn(
-              path: 'assets/tygia.png',
-              text: 'Tỷ giá',
-              tap: () {},
-            ),
-            CircleBtn(
-              path: 'assets/thitruong.png',
-              text: 'Tín hiệu thị trường',
-              tap: () {},
-            ),
-            CircleBtn(
-              path: 'assets/gift.png',
-              text: 'Tặng thưởng',
-              tap: () {},
-            ),
-          ])
-        ]),
-        bottomNavigationBar: const BottomNavigation(),
+    return Scaffold(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(150),
+        child: walletInfo()
       ),
+      body: Table(children: [
+        TableRow(children: [
+          CircleBtn(
+            path: 'assets/send.png',
+            text: 'Nạp-Gửi',
+            tap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return SendCryptoPage();
+              }));
+            },
+          ),
+          CircleBtn(
+            path: 'assets/buy.png',
+            text: 'Mua Crypto',
+            tap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const BuyCryptoPage();
+              }));
+            },
+          ),
+          CircleBtn(
+            path: 'assets/trade.png',
+            text: 'Trade Crypto',
+            tap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const TradeCoinPage();
+              }));
+            },
+          ),
+        ]),
+        TableRow(children: [
+          CircleBtn(
+            path: 'assets/tygia.png',
+            text: 'Tỷ giá',
+            tap: () {},
+          ),
+          CircleBtn(
+            path: 'assets/thitruong.png',
+            text: 'Tín hiệu thị trường',
+            tap: () {},
+          ),
+          CircleBtn(
+            path: 'assets/gift.png',
+            text: 'Tặng thưởng',
+            tap: () {},
+          ),
+        ])
+      ]),
+      bottomNavigationBar: BottomNavigation(onSignedOut: onSignedOut,),
     );
   }
 }

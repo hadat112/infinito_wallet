@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:infinito_wallet/components/text_field_container.dart';
 
+class EmailFieldValidator {
+  static String? validate(String? value) {
+    if (value!.isEmpty) {
+            return 'Hãy nhập Email của bạn';
+          }
+          // reg expression for email validation
+          if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
+              .hasMatch(value)) {
+            return 'Email không hợp lệ';
+          }
+          return null;
+  }
+}
+
 class RoundedEmailField extends StatelessWidget {
   const RoundedEmailField({
     Key? key,
@@ -26,21 +40,12 @@ class RoundedEmailField extends StatelessWidget {
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600))),
       SizedBox(height: size.height*0.005),
        TextFormField(
+         key: key,
          scrollPadding: EdgeInsets.only(
             bottom: 80),
         controller: emailController,
         keyboardType: TextInputType.emailAddress,
-        validator: (value) {
-          if (value!.isEmpty) {
-            return 'Hãy nhập Email của bạn';
-          }
-          // reg expression for email validation
-          if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
-              .hasMatch(value)) {
-            return 'Email không hợp lệ';
-          }
-          return null;
-        },
+        validator: EmailFieldValidator.validate,
         onSaved: (value) {
           emailController.text = value!;
         },

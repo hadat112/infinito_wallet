@@ -146,7 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             press: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return const LoginPage();
+                                return LoginPage(onSignedIn: () {  },);
                               }));
                             },
                             login: false,
