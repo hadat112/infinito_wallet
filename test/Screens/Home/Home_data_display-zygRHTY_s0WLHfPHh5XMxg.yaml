@@ -1,0 +1,167 @@
+id: i-MCVzKdnUqs7KMk-ugW_Q
+projectId: qfh00_FG30y796lTMTELHg
+projectName: My first Project
+created: 2022-05-13T07:58:32.7449612Z
+owner: 19021234 Hà Văn Đạt
+protocol: 1
+tests:
+- id: zygRHTY_s0WLHfPHh5XMxg
+  name: Home_data_display
+  description: ''
+  platform: Android
+  type: Mobile
+  driverType: Appium_Android
+  version: 0.1
+  creationDate: 2022-05-13T07:52:46.0000000
+  modificationDate: 2022-05-13T07:53:31.0000000
+  settings:
+    automationAssistant: true
+    deviceId: emulator-5554
+    appId: Mhcs3xZFyUehXx_Jd9LbHw
+    stepSleepTime: 500
+    stepTimeout: 15000
+    stepSleepTiming: Before
+    stepFailureBehaviorType: Abort
+    stepTakeScreenshotConditionType: Failure
+  application:
+    id: Mhcs3xZFyUehXx_Jd9LbHw
+    androidActivity: com.example.infinito_wallet.MainActivity
+    androidPackage: com.example.infinito_wallet
+    name: infinito_wallet
+    platform: Android
+  steps:
+  - id: CdNVkkvbB0ejywWBeKe2ig
+    comments: Clear application data and restart (Auto-generated)
+    enabled: true
+    invertResult: false
+    order: 1
+    repeat: 1
+    type: Action
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 1b89acc3-5003-4ae6-a8c1-c1732e09ef45
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: hKdExw1RoEyC4Dxi9a3TLw
+    enabled: true
+    invertResult: false
+    order: 2
+    repeat: 1
+    type: Action
+    elementId: sl4H9oI17E6jBKvKgPsb-w
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: u6BfILbOt0OvmlWYEA7veQ
+    comments: ''
+    enabled: true
+    invertResult: false
+    order: 3
+    repeat: 1
+    type: Action
+    elementId: Go-9lHrH20q2kuAY3-FcSg
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: a9ab4ae7-38ca-4451-a636-1b801a774503
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: TnD6ixfwgUmL90h_0DPnUg
+    comments: ''
+    enabled: true
+    invertResult: false
+    order: 4
+    repeat: 1
+    type: Action
+    elementId: gpP5FyYKw0aD1Hf4CBFSyQ
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: a9ab4ae7-38ca-4451-a636-1b801a774503
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  parameters: []
+auxTests: []
+elements:
+- id: sl4H9oI17E6jBKvKgPsb-w
+  name: Đăng nhập
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDU
+    name: android.widget.Button
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.Button[@content-desc = 'Đăng nhập']
+    priority: 1
+  - name: XPATH
+    value: //android.widget.Button[1]
+    priority: 0
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.Button[1]
+    priority: 2
+- id: Go-9lHrH20q2kuAY3-FcSg
+  name: 1234.000000000
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.view.View[@content-desc = '1234.000000000']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View/android.view.View[1]/android.view.View[1]/android.view.View/android.view.View[1]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]
+    priority: 2
+- id: gpP5FyYKw0aD1Hf4CBFSyQ
+  name: hadta
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.view.View[@content-desc = 'hadta']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View[3]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[3]
+    priority: 2
+projectParameters: []
+addons: []

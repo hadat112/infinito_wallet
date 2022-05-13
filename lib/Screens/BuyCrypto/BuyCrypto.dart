@@ -102,11 +102,11 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
         icon: const Icon(Icons.expand_more),
         style: const TextStyle(color: Colors.deepPurple),
         onChanged: (initValue) {
-          setState(() {
+          setState(() async {
             selectedCurrency = initValue!;
             amountToCrypto =
                 amountValue / double.parse(coinValue[selectedCurrency] ?? '1');
-            getData();
+           await getData();
           });
         },
       )

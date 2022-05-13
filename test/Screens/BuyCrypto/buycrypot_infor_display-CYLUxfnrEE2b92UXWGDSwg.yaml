@@ -1,0 +1,179 @@
+id: AaOiqXO8V0qHVh1CL9jWaQ
+projectId: qfh00_FG30y796lTMTELHg
+projectName: My first Project
+created: 2022-05-13T07:58:37.4737619Z
+owner: 19021234 Hà Văn Đạt
+protocol: 1
+tests:
+- id: CYLUxfnrEE2b92UXWGDSwg
+  name: buycrypot_infor_display
+  description: ''
+  platform: Android
+  type: Mobile
+  driverType: Appium_Android
+  version: 0.1
+  creationDate: 2022-05-13T07:44:20.0000000
+  modificationDate: 2022-05-13T07:52:07.0000000
+  settings:
+    automationAssistant: true
+    deviceId: emulator-5554
+    appId: Mhcs3xZFyUehXx_Jd9LbHw
+    stepSleepTime: 500
+    stepTimeout: 15000
+    stepSleepTiming: Before
+    stepFailureBehaviorType: Abort
+    stepTakeScreenshotConditionType: Failure
+  application:
+    id: Mhcs3xZFyUehXx_Jd9LbHw
+    androidActivity: com.example.infinito_wallet.MainActivity
+    androidPackage: com.example.infinito_wallet
+    name: infinito_wallet
+    platform: Android
+  steps:
+  - id: dRe7y_hztEKEdF8gw3_Hnw
+    comments: Clear application data and restart (Auto-generated)
+    enabled: true
+    invertResult: false
+    order: 1
+    repeat: 1
+    type: Action
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 1b89acc3-5003-4ae6-a8c1-c1732e09ef45
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: 3jN26KpWLkmy9Q-1_jrrWA
+    enabled: true
+    invertResult: false
+    order: 2
+    repeat: 1
+    type: Action
+    elementId: sl4H9oI17E6jBKvKgPsb-w
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: mhK7nUwh-kKPVpBw3M5t7g
+    enabled: true
+    invertResult: false
+    order: 3
+    repeat: 1
+    type: Action
+    elementId: kvu2VUpmI0iIGstvuDm7fQ
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 02d572b2-d610-4700-9ad3-40076ddb9807
+      source: System
+    parameterMaps: []
+    conditions: []
+    validations: []
+    contexts: []
+  - id: -qlHOkj_B0-FBH3oPgG3Hw
+    comments: ''
+    enabled: true
+    invertResult: false
+    order: 4
+    repeat: 1
+    type: Action
+    elementId: WKDRY1ZzEE2QOMoUTjLtNw
+    settings:
+      sleepTime: -1
+      timeout: -1
+      sleepTiming: Inherit
+      failureBehaviorType: Inherit
+      takeScreenshotConditionType: Inherit
+    action:
+      id: 85da72d0-c5a4-4587-be33-8cb3b5fa7910
+      source: System
+    parameterMaps:
+    - name: text
+      value: 1YCUO5UXNkOEUxoXKNNN4CVOEwH2
+      direction: Input
+    conditions: []
+    validations: []
+    contexts: []
+  parameters: []
+auxTests: []
+elements:
+- id: sl4H9oI17E6jBKvKgPsb-w
+  name: Đăng nhập
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDU
+    name: android.widget.Button
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.Button[@content-desc = 'Đăng nhập']
+    priority: 1
+  - name: XPATH
+    value: //android.widget.Button[1]
+    priority: 0
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.Button[1]
+    priority: 2
+- id: kvu2VUpmI0iIGstvuDm7fQ
+  name: Mua Crypto
+  type:
+    id: jUwODgyNjAyNzk2NTk3MjI
+    name: android.widget.ImageView
+    source: System
+  locators:
+  - name: XPATH
+    value: //android.widget.ImageView[@content-desc = 'Mua Crypto']
+    priority: 0
+  - name: XPATH
+    value: //android.widget.ImageView[2]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.ImageView[2]
+    priority: 2
+- id: WKDRY1ZzEE2QOMoUTjLtNw
+  name: >-
+    IW
+
+    Infinito Wallet
+
+    1YCUO5UXNkOEUxoXKN...
+  type:
+    id: jUwODgyNjAyNzk2NTk4NDY
+    name: android.view.View
+    source: System
+  locators:
+  - name: XPATH
+    value: >-
+      //android.view.View[@content-desc = 'IW
+
+      Infinito Wallet
+
+      1YCUO5UXNkOEUxoXKNNN4CVOEwH2']
+    priority: 0
+  - name: XPATH
+    value: //android.view.View[6]
+    priority: 1
+  - name: XPATH
+    value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[2]/android.view.View[6]
+    priority: 2
+projectParameters: []
+addons: []
