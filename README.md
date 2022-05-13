@@ -37,3 +37,5 @@ Change Password Screen
 Change Name Wallet
 ![Simulator Screen Shot - iPhone 13 Pro Max - 2022-04-01 at 13 25 52](https://user-images.githubusercontent.com/63113835/161207269-41e111ee-b33b-40c3-bf3c-682caabb3b75.png)
 
+Kiểm thử: 
+Kiểm thử bằng TestProject(file kiểm thử tự động, ảnh kiểm thử) bên trong thư mục ./test/Screens
