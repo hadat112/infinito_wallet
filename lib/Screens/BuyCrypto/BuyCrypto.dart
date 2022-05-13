@@ -146,8 +146,8 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: const Text("AlertDialog"),
-    content: const Text("Would you like to continue learning how to use Flutter alerts?"),
+    title: const Text("Xác nhận"),
+    content: const Text("Bạn có đồng ý mua Crypto?"),
     actions: [
       cancelButton,
       continueButton,

@@ -3,9 +3,9 @@ import 'package:infinito_wallet/components/text_field_container.dart';
 
 class PasswordFieldValidator {
   static String? validate(String? value) {
-    final RegExp regex = RegExp(r'^.{6,}$');
+    // final RegExp regex = RegExp(r'^.{6,}$');
 
-    // final RegExp regex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+    final RegExp regex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
     if (value!.isEmpty) {
       return 'Yêu cầu nhập mật khẩu';
     }
@@ -60,7 +60,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
         SizedBox(height: size.height * 0.005),
         TextFormField(
             key: key,
-            scrollPadding: EdgeInsets.only(bottom: 80),
+            scrollPadding: const EdgeInsets.only(bottom: 80),
             controller: widget.passwordController,
             obscureText: hide,
             validator: PasswordFieldValidator.validate,
@@ -74,10 +74,10 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
                 onPressed: () {
                   _toggle();
                 },
-                icon: Icon(Icons.visibility,
+                icon: const Icon(Icons.visibility,
                     color: Color.fromRGBO(90, 195, 240, 1)),
               ),
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
             )),

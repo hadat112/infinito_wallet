@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:infinito_wallet/Screens/Signup/SignUpPage.dart';
+import 'package:infinito_wallet/models/coin_model.dart';
 import 'package:infinito_wallet/models/user_model.dart';
 import 'package:infinito_wallet/services/database.dart';
 
@@ -33,6 +34,13 @@ class AuthService {
   Future<String?> currentUser() async {
     final User? user =  _auth.currentUser;
     return user?.uid;
+  }
+
+  void _createNewUserInFirestore() {
+        final CoinModel coinModel = CoinModel();
+        coinModel.amount = 0;
+        FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid).collection('wallet')
+        .doc('BTC').set(coinModel.toMap());
   }
 
   Future signInWithEmailAndPassword(
@@ -77,15 +85,14 @@ class AuthService {
     try {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) =>
-              {postDetailsToFirestore(context, country, transactionPassword)})
+          .then((value) 
+              {
+                postDetailsToFirestore(context, country, transactionPassword);
+                _createNewUserInFirestore();
+              })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message as String);
       });
-
-      User? user = _auth.currentUser;
-      String? userName = user!.email!.replaceAll('@gmail.com', '');
-      await DatabaseService(uid: user.uid).updateUserData(userName);
     } on FirebaseAuthException catch (error) {
       await Navigator.pushAndRemoveUntil(
         context,
@@ -133,6 +140,11 @@ class AuthService {
     userModel.uid = user.uid;
     userModel.country = country;
     userModel.transactionPassword = transactionPassword;
+
+    String? userName = user.email!.replaceAll('@gmail.com', '');
+
+    userModel.name = userName;
+    userModel.name = 'Infinito Wallet';
 
     await firebaseFirestore
         .collection('users')

@@ -1,5 +1,5 @@
 class UserModel {
-  UserModel({this.uid, this.email, this.country, this.transactionPassword});
+  UserModel({this.uid, this.email, this.country, this.transactionPassword, this.name, walletName});
 
   // receiving data from server
   factory UserModel.fromMap(map) {
@@ -7,12 +7,16 @@ class UserModel {
       uid: map['uid'],
       email: map['email'],
       country: map['country'],
-      transactionPassword: map['transactionPassword']
+      transactionPassword: map['transactionPassword'],
+      name: map['name'],
+      walletName: map['wallet_name']
     );
   }
 
   String? uid;
   String? email;
+  String? name;
+  String? walletName;
   String? country;
   String? transactionPassword;
 
@@ -23,6 +27,8 @@ class UserModel {
       'email': email,
       'country': country,
       'transactionPassword': transactionPassword,
+      'name': name,
+      'wallet_name': walletName,
     };
   }
 }
