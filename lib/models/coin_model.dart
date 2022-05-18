@@ -1,19 +1,31 @@
-class CoinModel {
-  CoinModel({this.amount});
+class Coin {
+  Coin({
+    required this.name,
+    required this.symbol,
+    required this.imageUrl,
+    required this.price,
+    required this.change,
+    required this.changePercentage,
+  });
 
-  // receiving data from server
-  factory CoinModel.fromMap(map) {
-    return CoinModel(
-      amount: map['amount']
+  factory Coin.fromJson(Map<String, dynamic> json) {
+    return Coin(
+      name: json['name'],
+      symbol: json['symbol'],
+      imageUrl: json['image'],
+      price: json['current_price'],
+      change: json['price_change_24h'],
+      changePercentage: json['price_change_percentage_24h'],
     );
   }
+  
+  String name;
+  String symbol;
+  String imageUrl;
+  num price;
+  num change;
+  num changePercentage;
 
-  double? amount;
-
-  // sending data to our server
-  Map<String, dynamic> toMap() {
-    return {
-      'amount': amount
-    };
-  }
 }
+
+List<Coin> coinList = [];

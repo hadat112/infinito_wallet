@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinito_wallet/components/text_field_container.dart';
 
-class EmailFieldValidator {
+mixin EmailFieldValidator {
   static String? validate(String? value) {
     if (value!.isEmpty) {
             return 'Hãy nhập Email của bạn';
@@ -41,7 +41,7 @@ class RoundedEmailField extends StatelessWidget {
       SizedBox(height: size.height*0.005),
        TextFormField(
          key: key,
-         scrollPadding: EdgeInsets.only(
+         scrollPadding: const EdgeInsets.only(
             bottom: 80),
         controller: emailController,
         keyboardType: TextInputType.emailAddress,

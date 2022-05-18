@@ -1,23 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../models/wallet.dart';
 import '../services/auth.dart';
-import '../services/coin_data.dart';
-import '../services/database.dart';
 
 class SendCoinAppBar extends StatefulWidget with PreferredSizeWidget {
-  SendCoinAppBar(
+  SendCoinAppBar(this.amountToCrypto,
       {Key? key,
       required this.size,
       this.selectedCrypto = 'BTC',
-      required this.amountToCrypto})
+      })
       : super(key: key);
 
   final Size size;
-  String selectedCrypto;
-  double amountToCrypto;
+  final String selectedCrypto;
+  final double amountToCrypto;
 
   @override
   State<SendCoinAppBar> createState() => _SendCoinAppBarState();
@@ -35,25 +31,29 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
 
   @override
   void initState() {
-    // print(widget.amountToCrypto);
-    // TODO: implement initState
     super.initState();
   }
 
-
-
   String getInitials({String? string, int? limitTo}) {
-    var buffer = StringBuffer();
-    var split = string?.split(' ');
+    final buffer = StringBuffer();
+    final split = string?.split(' ');
     for (var i = 0; i < (limitTo ?? split!.length); i++) {
       buffer.write(split?[i][0]);
     }
     return buffer.toString().toUpperCase();
   }
 
+  Future<DocumentSnapshot<Object?>> getData() async {
+   return FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(_auth.getCurrentUser()?.uid)
+                            .collection('wallet')
+                            .doc(widget.selectedCrypto)
+                            .get();
+  }
+
   @override
-  Widget build(BuildContext context) {    
-    usdToCrypto = (amount ?? 0.0) * widget.amountToCrypto;
+  Widget build(BuildContext context) {
     return PreferredSize(
         preferredSize: const Size.fromHeight(170),
         child: FutureBuilder<DocumentSnapshot>(
@@ -112,7 +112,7 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                           width: 10,
                         ),
                         Text(
-                          '${walletName}',
+                          '$walletName',
                           style: const TextStyle(
                               fontSize: 16,
                               color: Colors.white,
@@ -155,24 +155,23 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                             ),
                             const SizedBox(width: 10),
                             FutureBuilder<DocumentSnapshot>(
-                              future: FirebaseFirestore.instance
-                    .collection('users')
-                    .doc(_auth.getCurrentUser()?.uid)
-                    .collection('wallet')
-                    .doc(widget.selectedCrypto)
-                    .get(),
-                              builder: (context, snapshot) {
-                                amount = snapshot.data?.get('amount').toDouble();
-                                print(amount);
-                                return Text(
-                                  '${amount?.toStringAsFixed(9)} ',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                                );
-                              }
-                            ),
+                                future: FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(_auth.getCurrentUser()?.uid)
+                                    .collection('wallet')
+                                    .doc(widget.selectedCrypto)
+                                    .get(),
+                                builder: (context, snapshot) {
+                                  amount =
+                                      snapshot.data?.get('amount').toDouble();
+                                  return Text(
+                                    '${amount?.toStringAsFixed(9)} ',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                        fontSize: 16),
+                                  );
+                                }),
                             const SizedBox(width: 2),
                             Container(
                               padding: const EdgeInsets.only(bottom: 4),
@@ -191,13 +190,18 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      '(${usdToCrypto?.toStringAsFixed(8)} USD)',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Color.fromRGBO(255, 255, 255, 0.6),
-                          fontSize: 16),
-                    ),
+                    FutureBuilder<DocumentSnapshot>(
+                        future: getData(),
+                        builder: (context, snapshot) {
+                          amount = snapshot.data?.get('amount').toDouble();
+                          return Text(
+                            '(${((amount ?? 0) * widget.amountToCrypto).toStringAsFixed(8)} USD)',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w300,
+                                color: Color.fromRGBO(255, 255, 255, 0.6),
+                                fontSize: 16),
+                          );
+                        }),
                   ]),
                 ),
               );

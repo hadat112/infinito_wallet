@@ -5,7 +5,7 @@ import 'package:infinito_wallet/services/auth.dart';
 import 'package:infinito_wallet/services/coin_data.dart';
 
 import '../../components/appbar.dart';
-import '../../components/wallet_info.dart';
+import '../../components/info_card.dart';
 import '../../components/white_button.dart';
 import '../../services/database.dart';
 import '../Loading/loading.dart';
@@ -18,8 +18,8 @@ class TradeCoinPage extends StatefulWidget {
 }
 
 class _TradeCoinPageState extends State<TradeCoinPage> {
-  var selectedCrypto;
-  var selectedReceiveCrypto;
+  dynamic selectedCrypto;
+  dynamic selectedReceiveCrypto;
 
   bool setDefaultCrypto = true;
   bool setDefaultReceiveCrypto = true;
@@ -49,7 +49,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
               return DropdownMenuItem(
                 value: value.id,
                 child: Text(
-                  '${value.id}',
+                  value.id,
                 ),
               );
             }).toList(),
@@ -65,6 +65,8 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
               await getReceiveData();
               amountToCrypto = double.parse(coinValue['USD'] ?? '1') *
                   amountValue /
+                  double.parse(coinReceiveValue['USD'] ?? '1');
+              tygia = double.parse(coinValue['USD'] ?? '1') /
                   double.parse(coinReceiveValue['USD'] ?? '1');
 
               setState(() {
@@ -105,7 +107,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
               return DropdownMenuItem(
                 value: value.id,
                 child: Text(
-                  '${value.id}',
+                  value.id,
                 ),
               );
             }).toList(),
@@ -122,9 +124,8 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
               amountToCrypto = double.parse(coinValue['USD'] ?? '1') *
                   amountValue /
                   double.parse(coinReceiveValue['USD'] ?? '1');
-              print('object');
-              print(coinReceiveValue['USD']);
-              print(coinValue['USD']);
+              tygia = double.parse(coinValue['USD'] ?? '1') /
+                  double.parse(coinReceiveValue['USD'] ?? '1');
               setState(() {
                 selectedReceiveCrypto = value!;
                 isWaiting = false;
@@ -144,46 +145,47 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
   bool isWaiting = false;
 
 //  String coinValue = '?';
-  getData() async {
+  Future<void> getData() async {
     try {
-      var data = await CoinData().getCoinData(selectedCrypto);
+      final data = await CoinData().getCoinData(selectedCrypto);
       coinValue = data;
     } catch (error) {
-      print(error);
+      debugPrint(error.toString());
     }
   }
 
-  getReceiveData() async {
+  Future<void> getReceiveData() async {
     try {
-      var data1 = await CoinData().getCoinData(selectedReceiveCrypto);
+      final data1 = await CoinData().getCoinData(selectedReceiveCrypto);
       coinReceiveValue = data1;
     } catch (error) {
-      print(error);
+      debugPrint(error.toString());
     }
   }
 
   void showAlertDialog(BuildContext context) {
     // set up the buttons
-    Widget cancelButton = TextButton(
-      child: const Text("Huỷ"),
+    final Widget cancelButton = TextButton(
+      child: const Text('Huỷ'),
       onPressed: () {
         Navigator.pop(context, false);
       },
     );
-    Widget continueButton = TextButton(
-      child: const Text("Đồng ý"),
+    final Widget continueButton = TextButton(
+      child: const Text('Đồng ý'),
       onPressed: () {
-        DatabaseService(uid: _auth.getCurrentUser()!.uid).addCoin(selectedReceiveCrypto, amountToCrypto);
-        DatabaseService(uid: _auth.getCurrentUser()!.uid).addCoin(selectedCrypto, -amountValue);
-              Navigator.pop(context, false);
+        DatabaseService(uid: _auth.getCurrentUser()!.uid)
+            .addCoin(selectedReceiveCrypto, amountToCrypto);
+        DatabaseService(uid: _auth.getCurrentUser()!.uid)
+            .addCoin(selectedCrypto, -amountValue);
+        Navigator.pop(context, false);
       },
     );
 
     // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: const Text("Tạo giao dịch"),
-      content: const Text(
-          "Bạn có đồng ý tạo giao dịch này?"),
+    final AlertDialog alert = AlertDialog(
+      title: const Text('Tạo giao dịch'),
+      content: const Text('Bạn có đồng ý tạo giao dịch này?'),
       actions: [
         cancelButton,
         continueButton,
@@ -191,7 +193,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
     );
 
     // show the dialog
-    showDialog(
+    showDialog<dynamic>(
       context: context,
       builder: (BuildContext context) {
         return alert;
@@ -206,14 +208,17 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
     amountToCrypto = double.parse(coinValue['USD'] ?? '1') *
         amountValue /
         double.parse(coinReceiveValue['USD'] ?? '1');
+    tygia = double.parse(coinValue['USD'] ?? '1') /
+        double.parse(coinReceiveValue['USD'] ?? '1');
+        super.initState();
   }
 
   late double amountValue = 0;
-  bool _value = false;
   late double amountToCrypto = double.parse(coinValue['USD'] ?? '1') *
       amountValue /
       double.parse(coinReceiveValue['USD'] ?? '1');
-
+  late double tygia = double.parse(coinValue['USD'] ?? '1') /
+      double.parse(coinReceiveValue['USD'] ?? '1');
   final AuthService _auth = AuthService();
 
   @override
@@ -263,8 +268,8 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 20, horizontal: 10),
                       decoration: BoxDecoration(
-                        border:
-                            Border.all(color: const Color.fromRGBO(0, 0, 0, 0.4)),
+                        border: Border.all(
+                            color: const Color.fromRGBO(0, 0, 0, 0.4)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -276,7 +281,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(selectedCrypto != null
-                                    ? 'assets/${selectedCrypto}.png'
+                                    ? 'assets/$selectedCrypto.png'
                                     : 'assets/BTC.png'),
                               ),
                             ),
@@ -289,13 +294,16 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                           Flexible(
                               child: TextField(
                             onChanged: (value) {
-                              if (value == '') value = '0';
+                              if (value == '') {
+                                value = '0';
+                              }
                               amountValue = double.parse(value);
                               setState(() {
-                                amountToCrypto = double.parse(
-                                        coinValue['USD'] ?? '1') *
-                                    amountValue /
-                                    double.parse(coinReceiveValue['USD'] ?? '1');
+                                amountToCrypto =
+                                    double.parse(coinValue['USD'] ?? '1') *
+                                        amountValue /
+                                        double.parse(
+                                            coinReceiveValue['USD'] ?? '1');
                               });
                             },
                             decoration: const InputDecoration(
@@ -326,8 +334,8 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 20, horizontal: 10),
                       decoration: BoxDecoration(
-                        border:
-                            Border.all(color: const Color.fromRGBO(0, 0, 0, 0.4)),
+                        border: Border.all(
+                            color: const Color.fromRGBO(0, 0, 0, 0.4)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -339,7 +347,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(selectedCrypto != null
-                                    ? 'assets/${selectedReceiveCrypto}.png'
+                                    ? 'assets/$selectedReceiveCrypto.png'
                                     : 'assets/BTC.png'),
                               ),
                             ),
@@ -350,7 +358,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                           ),
                           const SizedBox(width: 5),
                           if (isWaiting)
-                            Loading(
+                            const Loading(
                               size: 30,
                             )
                           else
@@ -386,10 +394,10 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                           'Tỷ giá',
                           style: TextStyle(
                               fontWeight: FontWeight.w300,
-                              color: const Color.fromRGBO(7, 15, 87, 1)),
+                              color: Color.fromRGBO(7, 15, 87, 1)),
                         ),
                         Text(
-                          '1 ${selectedCrypto ?? 'BTC'} ~ ${amountToCrypto} ${selectedReceiveCrypto ?? 'BTC'}',
+                          '1 ${selectedCrypto ?? 'BTC'} ~ $tygia ${selectedReceiveCrypto ?? 'BTC'}',
                           style: const TextStyle(
                             fontWeight: FontWeight.w600,
                           ),
@@ -418,7 +426,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
               const SizedBox(
                 height: 35,
               ),
-              WalletInfo(),
+              const WalletInfo(),
               const SizedBox(
                 height: 20,
               ),

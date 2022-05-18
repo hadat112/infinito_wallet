@@ -5,8 +5,8 @@ import '../../components/appbar.dart';
 import '../../components/rounded_button.dart';
 import '../../components/white_button.dart';
 import '../Home/home.dart';
-import '../Signup/SignUpPage.dart';
-import '../login/LoginPage.dart';
+import '../Signup/sign_up_page.dart';
+import '../login/login_page.dart';
 
 enum AuthStatus {
   notDetermined,
@@ -68,7 +68,7 @@ class _StartPageState extends State<StartPage> {
             RoundedButton(
                 text: 'Đăng nhập',
                 press: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  Navigator.push(context, MaterialPageRoute<dynamic>(builder: (context) {
                     switch (authStatus) {
                       case AuthStatus.notSignedIn:
                         return LoginPage(
@@ -78,8 +78,11 @@ class _StartPageState extends State<StartPage> {
                         return Home(
                           onSignedOut: _signedOut,
                         );
+                      case AuthStatus.notDetermined:
+                        // TODO: Handle this case.
+                        break;
                     }
-                    return StartPage();
+                    return const StartPage();
                   }));
                 }),
             Align(
@@ -88,8 +91,8 @@ class _StartPageState extends State<StartPage> {
                   textColor: const Color.fromRGBO(90, 195, 240, 1),
                   press: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return SignUpPage();
+                        MaterialPageRoute<dynamic>(builder: (context) {
+                      return const SignUpPage();
                     }));
                   }),
             ),

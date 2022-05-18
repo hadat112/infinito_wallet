@@ -29,7 +29,7 @@ class RoundedInputField extends StatelessWidget {
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600))),
       SizedBox(height: size.height * 0.005),
       TextFormField(
-        scrollPadding: EdgeInsets.only(
+        scrollPadding: const EdgeInsets.only(
             bottom: 80),
         controller: inputEditingController,
         keyboardType: TextInputType.name,

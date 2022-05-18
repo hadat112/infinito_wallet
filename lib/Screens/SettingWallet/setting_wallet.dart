@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:infinito_wallet/Screens/ChangeName/ChangeName.dart';
-import 'package:infinito_wallet/Screens/ChangePassword/ChangePassword.dart';
+import 'package:infinito_wallet/Screens/ChangePassword/change_password.dart';
 
 import '../../components/appbar.dart';
+import '../ChangeWalletName/change_wallet_name.dart';
 
 class SettingWalletPage extends StatelessWidget {
   const SettingWalletPage({Key? key}) : super(key: key);
@@ -20,8 +20,8 @@ class SettingWalletPage extends StatelessWidget {
                   title: 'Đặt lại tên ví',
                   tap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return ChangeName();
+                        MaterialPageRoute<dynamic>(builder: (context) {
+                      return ChangeWalletName();
                     }));
                   },
                 ),
@@ -29,46 +29,12 @@ class SettingWalletPage extends StatelessWidget {
                   title: 'Thay đổi mật khẩu giao dịch',
                   tap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
+                        MaterialPageRoute<dynamic>(builder: (context) {
                       return ChangePassword();
                     }));
                   },
                 ),
               ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 30),
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    width: 44,
-                    height: 44,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(29),
-                      child: FlatButton(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 2, horizontal: 4),
-                          onPressed: () {},
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: const Icon(
-                            Icons.close,
-                            color: Colors.red,
-                          )),
-                    ),
-                  ),
-                  const Text(
-                    'Xoá ví',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.red,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
             ),
           ],
         ));

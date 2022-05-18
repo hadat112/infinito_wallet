@@ -1,4 +1,4 @@
-import 'dart:ffi';
+import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +10,10 @@ import '../../components/sendcoin_appbar.dart';
 import '../../components/white_button.dart';
 import '../../services/auth.dart';
 import '../../services/coin_data.dart';
-import '../ConfirmSend/ConfirmSend.dart';
+import '../ConfirmSend/confirm_send.dart';
 
 class SendCryptoPage extends StatefulWidget {
-  SendCryptoPage({Key? key}) : super(key: key);
+  const SendCryptoPage({Key? key}) : super(key: key);
 
   @override
   State<SendCryptoPage> createState() => _SendCryptoPageState();
@@ -23,6 +23,8 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
   String? selectedCrypto = 'BTC';
   double cryptoToCurrency = 0;
   bool setDefaultCrypto = true;
+  bool validAddress = true;
+  bool validAmount = true;
   StreamBuilder<QuerySnapshot> cryptoDropdown() {
     return StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -48,7 +50,7 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
               return DropdownMenuItem(
                 value: value.id,
                 child: Text(
-                  '${value.id}',
+                  value.id,
                 ),
               );
             }).toList(),
@@ -79,22 +81,39 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
   bool isWaiting = false;
 
 //  String coinValue = '?';
-  getData() async {
+  Future<void> getData() async {
     try {
-      var data = await CoinData().getCoinData(selectedCrypto!);
+      final data = await CoinData().getCoinData(selectedCrypto!);
       coinValue = data;
-      print(coinValue);
+      setState(() {
+      });
     } catch (error) {
-      print(error);
+      debugPrint(error.toString());
+    }
+  }
+
+  final inputEditingController = TextEditingController();
+  dynamic snapshot;
+  Future<bool> checkAddress() async {
+    if (inputEditingController.text != '') {
+      snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(inputEditingController.text)
+          .get();
+    }
+
+    if (!snapshot.exists) {
+      return false;
+    } else {
+      return true;
     }
   }
 
   @override
   void initState() {
     getData();
+    super.initState();
   }
-
-  final inputEditingController = TextEditingController();
 
   final TextEditingController amountController = TextEditingController();
 
@@ -112,9 +131,9 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
           appBar: SendCoinAppBar(
+            cryptoToCurrency,
             size: size,
-            selectedCrypto: selectedCrypto?? 'USD',
-            amountToCrypto: cryptoToCurrency ,
+            selectedCrypto: selectedCrypto ?? 'USD',
           ),
           body: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
@@ -126,7 +145,18 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                 RoundedInputField(
                     inputEditingController: inputEditingController,
                     inputTitle: 'Gửi tới địa chỉ',
-                    onChanged: (value) {}),
+                    onChanged: (value) async {
+                      validAddress = await checkAddress();
+                    }),
+                if (validAddress)
+                  const Text('')
+                else
+                  const Text(
+                    'Vui lòng nhập địa chỉ hợp lệ',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
                 const SizedBox(
                   height: 25,
                 ),
@@ -152,7 +182,7 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                       ),
                       child: Row(
                         children: [
-                         cryptoDropdown(),
+                          cryptoDropdown(),
                           // const Text(
                           //   'ADA',
                           //   textAlign: TextAlign.right,
@@ -169,7 +199,14 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                               child: TextField(
                             controller: amountController,
                             onChanged: (String value) {
-                              if (value == '') value = '0';
+                              if (value == '') {
+                                value = '0';
+                              }
+                              if (double.parse(value) <= 0) {
+                                validAmount = false;
+                              } else {
+                                validAmount = true;
+                              }
                               amountValue = double.parse(value);
                             },
                             keyboardType: TextInputType.number,
@@ -181,7 +218,7 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                             ),
                           )),
                           if (isWaiting)
-                            Loading(
+                            const Loading(
                               size: 30,
                             )
                           else
@@ -196,6 +233,18 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 3,
+                ),
+                if (validAmount)
+                  const Text('')
+                else
+                  const Text(
+                    'Vui lòng nhập số lượng hợp lệ',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
                 const SizedBox(
                   height: 30,
                 ),
@@ -249,7 +298,7 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                           Row(
                             children: [
                               Text(
-                                '${amountController.text} ${selectedCrypto}',
+                                '${amountController.text} $selectedCrypto',
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
@@ -273,7 +322,7 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                   ],
                 ),
                 const SizedBox(
-                  height: 120,
+                  height: 80,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -289,10 +338,24 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                     RoundedButton(
                       text: 'Tiếp tục',
                       press: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return ConfirmSendCryptoPage();
-                        }));
+                        if (inputEditingController.text == '') {
+                          setState(() {
+                            validAddress = false;
+                          });
+                        } else if (amountController.text == '') {
+                          setState(() {
+                            validAmount = false;
+                          });
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute<dynamic>(
+                                  builder: (context) => ConfirmSendCryptoPage(
+                                      selectedCrypto ?? 'BTC',
+                                      amountValue,
+                                      inputEditingController.text,
+                                      cryptoToCurrency)));
+                        }
                       },
                       btnWidth: 180,
                     ),

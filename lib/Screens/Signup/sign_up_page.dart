@@ -8,10 +8,10 @@ import '../../components/appbar.dart';
 import '../../components/rounded_email_field.dart';
 import '../../components/rounded_password_field.dart';
 import '../Loading/loading.dart';
-import '../login/LoginPage.dart';
+import '../login/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
-  SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -41,7 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
     const String _title = 'Thiết lập';
     return loading
-        ? Loading()
+        ? const Loading()
         : GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Scaffold(
@@ -145,7 +145,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           AlreadyHaveAccount(
                             press: () {
                               Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
+                                  MaterialPageRoute<dynamic>(builder: (context) {
                                 return LoginPage(onSignedIn: () {  },);
                               }));
                             },
@@ -158,7 +158,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               press: () async {
                                 if (_formKey.currentState!.validate()) {
                                   setState(() => loading = true);
-                                  dynamic result = await _auth.signUp(
+                                  final dynamic result = await _auth.signUp(
                                       emailEditingController.text,
                                       passwordEditingController.text,
                                       countryEditingController.text,
@@ -166,7 +166,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                       context,
                                       loading);
         
-                                  print(result);
                                   if (result == null) {
                                     setState(() {
                                       loading = false;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinito_wallet/components/text_field_container.dart';
 
-class PasswordFieldValidator {
+mixin PasswordFieldValidator {
   static String? validate(String? value) {
     // final RegExp regex = RegExp(r'^.{6,}$');
 
@@ -17,7 +17,7 @@ class PasswordFieldValidator {
 }
 
 class RoundedPasswordField extends StatefulWidget {
-  RoundedPasswordField(
+  const RoundedPasswordField(
       {Key? key,
       required this.onChanged,
       required this.inputTitle,
@@ -31,12 +31,10 @@ class RoundedPasswordField extends StatefulWidget {
   final TextEditingController passwordController;
 
   @override
-  State<RoundedPasswordField> createState() => _RoundedPasswordFieldState(key: key);
+  State<RoundedPasswordField> createState() => _RoundedPasswordFieldState();
 }
 
 class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
-  _RoundedPasswordFieldState({required this.key});
-  final Key? key;
   bool hide = true;
 
   void _toggle() {
@@ -59,7 +57,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
                     fontSize: 16, fontWeight: FontWeight.w600))),
         SizedBox(height: size.height * 0.005),
         TextFormField(
-            key: key,
+            key: widget.key,
             scrollPadding: const EdgeInsets.only(bottom: 80),
             controller: widget.passwordController,
             obscureText: hide,
@@ -71,9 +69,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
             onChanged: widget.onChanged,
             decoration: InputDecoration(
               suffixIcon: IconButton(
-                onPressed: () {
-                  _toggle();
-                },
+                onPressed: _toggle,
                 icon: const Icon(Icons.visibility,
                     color: Color.fromRGBO(90, 195, 240, 1)),
               ),

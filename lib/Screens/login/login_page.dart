@@ -7,7 +7,7 @@ import '../../components/appbar.dart';
 import '../../components/rounded_button.dart';
 import '../../components/rounded_email_field.dart';
 import '../../components/rounded_password_field.dart';
-import '../Signup/SignUpPage.dart';
+import '../Signup/sign_up_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.onSignedIn}) : super(key: key);
@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     const String _title = 'Đăng nhập';
-    return loading ? Loading() : GestureDetector(
+    return loading ? const Loading() : GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
           appBar: const Appbar(title: _title),
@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     RoundedEmailField(
-                      key: Key('email'),
+                      key: const Key('email'),
                         emailController: emailController,
                         validateText: 'Bạn chưa nhập Email',
                         inputTitle: 'Email',
@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 30,
                     ),
                     RoundedPasswordField(
-                      key: Key('password'),
+                      key: const Key('password'),
                       passwordController: passwordController,
                       onChanged: (value) {},
                       inputTitle: 'Mật khẩu',
@@ -72,12 +72,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     RoundedButton(
-                      key: Key('signIn'),
+                      key: const Key('signIn'),
                         text: 'Đăng nhập',
                         press: () async {
                           if (_formKey.currentState!.validate()) {
                             setState(() => loading = true);
-                            dynamic result =
+                            final dynamic result =
                                 await _auth.signInWithEmailAndPassword(
                                     emailController.text,
                                     passwordController.text,
@@ -94,8 +94,8 @@ class _LoginPageState extends State<LoginPage> {
                     AlreadyHaveAccount(
                       press: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return SignUpPage();
+                            MaterialPageRoute<dynamic>(builder: (context) {
+                          return const SignUpPage();
                         }));
                       },
                     ),

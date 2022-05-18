@@ -1,178 +1,229 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:infinito_wallet/Screens/SettingWallet/SettingWallet.dart';
-import 'package:infinito_wallet/Screens/Welcome/StartPage.dart';
+import 'package:infinito_wallet/Screens/ChangeName/change_name.dart';
+import 'package:infinito_wallet/Screens/Welcome/start_page.dart';
 import 'package:infinito_wallet/components/circle_icon.dart';
 import 'package:infinito_wallet/components/rounded_button.dart';
 import 'package:infinito_wallet/services/auth.dart';
 
 import '../../components/appbar.dart';
 import '../../components/bottom_navigation.dart';
+import '../SettingWallet/setting_wallet.dart';
 
 class SettingPage extends StatelessWidget {
   SettingPage({Key? key, required this.onSignedOut}) : super(key: key);
-  AuthService _authService = AuthService();
-      final VoidCallback onSignedOut;
+  final AuthService _auth = AuthService();
+  final VoidCallback onSignedOut;
+  String getInitials({String? string, int? limitTo}) {
+    final buffer = StringBuffer();
+    final split = string?.split(' ');
+    for (var i = 0; i < (limitTo ?? split!.length); i++) {
+      buffer.write(split?[i][0]);
+    }
+    return buffer.toString().toUpperCase();
+  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     const String _title = 'Infinito Wallet';
     return Scaffold(
-        appBar: const Appbar(title: _title),
-        body: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children: const [
-                  IconCircle(
-                    circleSize: 53,
-                    textInside: 'QD',
-                    textSize: 18,
+      appBar: const Appbar(title: _title),
+      body: FutureBuilder<DocumentSnapshot>(
+          future: FirebaseFirestore.instance
+              .collection('users')
+              .doc(_auth.getCurrentUser()?.uid)
+              .get(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center();
+            }
+
+            final String name = snapshot.data?.get('name');
+            final String walletName = snapshot.data?.get('wallet_name');
+
+            return Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    children: [
+                      IconCircle(
+                        circleSize: 53,
+                        textInside: getInitials(string: name, limitTo: 2),
+                        textSize: 18,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        name,
+                        style: const TextStyle(
+                            fontSize: 18,
+                            color: Color.fromRGBO(29, 35, 46, 0.65),
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Quý Dương',
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Color.fromRGBO(29, 35, 46, 0.65),
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            ),
-            TitleItem(
-              size: size,
-              text: 'Ví của tôi',
-            ),
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return SettingWalletPage();
+                ),
+
+                TitleItem(
+                  size: size,
+                  text: 'Ví của tôi',
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<dynamic>(builder: (context) {
+                      return const SettingWalletPage();
                     }));
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                decoration: const BoxDecoration(
-                    border: Border(
-                  bottom:
-                      BorderSide(color: Color.fromRGBO(0, 0, 0, 0.4)),
-                )),
-                child: Row(children: [
-                  const IconCircle(
-                    circleSize: 35,
-                    textInside: 'IW',
-                    textSize: 12,
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 20),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      bottom: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.4)),
+                    )),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              IconCircle(
+                                circleSize: 35,
+                                textInside:
+                                    getInitials(string: walletName, limitTo: 2),
+                                textSize: 12,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                walletName,
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                          const Icon(Icons.arrow_forward_ios)
+                        ]),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    'Infinito Wallet',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    width: size.width * 0.46,
-                  ),
-                  const Icon(Icons.arrow_forward_ios)
-                ]),
-              ),
-            ),
-                        const SizedBox(height: 10,),
-
-            RoundedButton(
-              press: () {},
-              btnWidth: 130,
-              btnHeight: 30,
-              text: 'Thêm ví',
-            ),
-            const SizedBox(height: 10,),
-            TitleItem(size: size, text: 'Cài đặt vào những mục khác'),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              decoration: const BoxDecoration(
-                  border: const Border(
-                bottom:
-                    const BorderSide(color: Color.fromRGBO(0, 0, 0, 0.4)),
-              )),
-              child: Row(children: [
-                const Icon(
-                  Icons.settings,
-                  color: const Color.fromRGBO(90, 195, 240, 1),
-                  size: 35,
                 ),
                 const SizedBox(
-                  width: 10,
+                  height: 10,
                 ),
-                const Text(
-                  'Cài đặt',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500),
+
+                // RoundedButton(
+                //   press: () {},
+                //   btnWidth: 130,
+                //   btnHeight: 30,
+                //   text: 'Thêm ví',
+                // ),
+                const SizedBox(
+                  height: 10,
                 ),
-                SizedBox(
-                  width: size.width * 0.58,
+                TitleItem(size: size, text: 'Cài đặt vào những mục khác'),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<dynamic>(builder: (context) {
+                      return ChangeName();
+                    }));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 20),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      bottom: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.4)),
+                    )),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: const [
+                              Icon(
+                                Icons.settings,
+                                color: Color.fromRGBO(90, 195, 240, 1),
+                                size: 35,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'Đổi tên người dùng',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                          const Icon(Icons.arrow_forward_ios)
+                        ]),
+                  ),
                 ),
-                const Icon(Icons.arrow_forward_ios)
-              ]),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              decoration: const BoxDecoration(
-                  border: const Border(
-                bottom:
-                    const BorderSide(color: Color.fromRGBO(0, 0, 0, 0.4)),
-              )),
-              child: Row(children: [
-                const Icon(
-                  Icons.menu_outlined,
-                  color: const Color.fromRGBO(90, 195, 240, 1),
-                  size: 35,
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  decoration: const BoxDecoration(
+                      border: Border(
+                    bottom: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.4)),
+                  )),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: const [
+                            Icon(
+                              Icons.menu_outlined,
+                              color: Color.fromRGBO(90, 195, 240, 1),
+                              size: 35,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Những mục khác',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                        const Icon(Icons.arrow_forward_ios)
+                      ]),
                 ),
                 const SizedBox(
-                  width: 10,
+                  height: 20,
                 ),
-                const Text(
-                  'Những mục khác',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500),
-                ),
-                SizedBox(
-                  width: size.width * 0.40,
-                ),
-                const Icon(Icons.arrow_forward_ios)
-              ]),
-            ),
-            const SizedBox(height: 20,),
-            TitleItem(size: size, text: 'Theo dõi chúng tôi'),
-            RoundedButton(press: () {
-              onSignedOut;
-              _authService.signOut();
-               Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(builder: (context) => StartPage())
-                        , (Route<dynamic> route) => false,
-                        );
-            },
-            text: 'Đăng xuất',
-            btnWidth: 200,
-            btnHeight: 50,
-            )
-          ],
-        ),
-        bottomNavigationBar:  BottomNavigation(onSignedOut: (() {
-          
-        }),),
-
-        );
+                TitleItem(size: size, text: 'Theo dõi chúng tôi'),
+                RoundedButton(
+                  press: () {
+                    onSignedOut;
+                    _auth.signOut();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute<dynamic>(
+                          builder: (context) => const StartPage()),
+                      (Route<dynamic> route) => false,
+                    );
+                  },
+                  text: 'Đăng xuất',
+                  btnWidth: 200,
+                  btnHeight: 50,
+                )
+              ],
+            );
+          }),
+      bottomNavigationBar: BottomNavigation(
+        onSignedOut: () {},
+      ),
+    );
   }
 }
 

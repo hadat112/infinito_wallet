@@ -2,7 +2,7 @@ import 'package:country_code_picker/country_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'Screens/Welcome/StartPage.dart';
+import 'Screens/Welcome/start_page.dart';
 
 
 Future<void> main() async {
@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      supportedLocales: [
-        Locale('en', 'US'),
-      ],
+      // supportedLocales: [
+      //   Locale('en', 'US'),
+      // ],
       localizationsDelegates: [
         CountryLocalizations.delegate,
       ],

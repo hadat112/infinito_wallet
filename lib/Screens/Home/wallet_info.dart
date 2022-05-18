@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import '../../components/small_button.dart';
 import '../../services/auth.dart';
 
-class walletInfo extends StatefulWidget {
-  const walletInfo({Key? key}) : super(key: key);
+class WalletInfo extends StatefulWidget {
+  const WalletInfo({Key? key}) : super(key: key);
   @override
-  State<walletInfo> createState() => _walletInfoState();
+  State<WalletInfo> createState() => _WalletInfoState();
 }
 
-class _walletInfoState extends State<walletInfo> {
+class _WalletInfoState extends State<WalletInfo> {
   bool pressHide = true;
   String hideBtnText = 'Ẩn';
   final AuthService _auth = AuthService();
@@ -90,10 +90,9 @@ class _walletInfoState extends State<walletInfo> {
                       width: 65,
                       height: 20,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(15),
                         border: Border.all(
                             color: Colors.white,
-                            style: BorderStyle.solid,
                             width: 0.80),
                       ),
                       child: ClipRRect(
@@ -107,7 +106,7 @@ class _walletInfoState extends State<walletInfo> {
                               return DropdownMenuItem(
                                 value: value.id,
                                 child: Text(
-                                  '${value.id}',
+                                  value.id,
                                 ),
                               );
                             }).toList(),
@@ -128,7 +127,6 @@ class _walletInfoState extends State<walletInfo> {
                   text: hideBtnText,
                   btnWidth: 50,
                   press: () {
-                    print('press');
                     setState(() {
                       hideBtnText == 'Ẩn'
                           ? hideBtnText = 'Hiện'

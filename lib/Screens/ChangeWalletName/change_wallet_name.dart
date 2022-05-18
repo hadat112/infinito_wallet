@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:infinito_wallet/services/auth.dart';
+import 'package:infinito_wallet/services/database.dart';
 
 import '../../components/appbar.dart';
 import '../../components/rounded_button.dart';
 import '../../components/rounded_input_field.dart';
 
-class ChangeName extends StatelessWidget {
-  ChangeName({Key? key}) : super(key: key);
+class ChangeWalletName extends StatelessWidget {
+  ChangeWalletName({Key? key}) : super(key: key);
   final inputEditingController = TextEditingController();
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +20,13 @@ class ChangeName extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RoundedInputField(inputEditingController: inputEditingController, onChanged: (value) {}, inputTitle: 'Tên ví'),
+            RoundedInputField(inputEditingController: inputEditingController, onChanged: (value) {
+            }, inputTitle: 'Tên ví'),
             SizedBox(height: size.height * 0.05),
-            RoundedButton(text: 'Cập nhật', press: () {}),
+            RoundedButton(text: 'Cập nhật', press: () {
+              DatabaseService(uid: _auth.getCurrentUser()!.uid).changeName(inputEditingController.text, 'wallet_name');
+              Navigator.pop(context);
+            }),
           ],
         ));
   }

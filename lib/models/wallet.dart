@@ -1,7 +1,19 @@
 class Wallet {
-  final String name;
-  final double amount;
-  final String wallet_name;
+  Wallet({this.amount});
 
-  Wallet({required this.wallet_name, required this.name, required this.amount});
+  // receiving data from server
+  factory Wallet.fromMap(dynamic map) {
+    return Wallet(
+      amount: map['amount']
+    );
+  }
+
+  double? amount;
+
+  // sending data to our server
+  Map<String, dynamic> toMap() {
+    return {
+      'amount': amount
+    };
+  }
 }

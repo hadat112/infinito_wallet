@@ -20,7 +20,7 @@ class SmallWhiteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       width: btnWidth,
       height: btnHeight,
       child: ClipRRect(

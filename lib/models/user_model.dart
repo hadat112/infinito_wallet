@@ -1,8 +1,8 @@
 class UserModel {
-  UserModel({this.uid, this.email, this.country, this.transactionPassword, this.name, walletName});
+  UserModel({this.uid, this.email, this.country, this.transactionPassword, this.name, this.walletName});
 
   // receiving data from server
-  factory UserModel.fromMap(map) {
+  factory UserModel.fromMap(dynamic map) {
     return UserModel(
       uid: map['uid'],
       email: map['email'],

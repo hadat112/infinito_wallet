@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:infinito_wallet/Screens/Signup/SignUpPage.dart';
-import 'package:infinito_wallet/models/coin_model.dart';
+import 'package:infinito_wallet/Screens/Signup/sign_up_page.dart';
 import 'package:infinito_wallet/models/user_model.dart';
-import 'package:infinito_wallet/services/database.dart';
+import 'package:infinito_wallet/models/wallet.dart';
 
 import '../Screens/Home/home.dart';
 
@@ -27,8 +26,7 @@ class AuthService {
   // }
 
   User? getCurrentUser() {
-    if(_auth != null)
-      return _auth.currentUser;
+    return _auth.currentUser;
   }
 
   Future<String?> currentUser() async {
@@ -37,13 +35,17 @@ class AuthService {
   }
 
   void _createNewUserInFirestore() {
-        final CoinModel coinModel = CoinModel();
-        coinModel.amount = 0;
+        final Wallet coinModel = Wallet();
+        {
+          coinModel.amount = 0;
+        }
         FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid).collection('wallet')
         .doc('BTC').set(coinModel.toMap());
+        FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid).collection('wallet')
+        .doc('ETH').set(coinModel.toMap());
   }
 
-  Future signInWithEmailAndPassword(
+  Future<dynamic> signInWithEmailAndPassword(
       String email, String password, BuildContext context) async {
     try {
       await _auth
@@ -51,7 +53,7 @@ class AuthService {
           .then((uid) => {
                 Fluttertoast.showToast(msg: 'Login Successful'),
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => Home(onSignedOut: () {  },))),
+                    MaterialPageRoute<dynamic>(builder: (context) => Home(onSignedOut: () {  },))),
               });
     } on FirebaseAuthException catch (error) {
       switch (error.code) {
@@ -80,8 +82,8 @@ class AuthService {
     }
   }
 
-  Future signUp(String email, String password, String country,
-      String transactionPassword, BuildContext context, bool loading) async {
+  Future<dynamic> signUp(String email, String password, String country,
+      String transactionPassword, BuildContext context, dynamic loading) async {
     try {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -90,13 +92,13 @@ class AuthService {
                 postDetailsToFirestore(context, country, transactionPassword);
                 _createNewUserInFirestore();
               })
-          .catchError((e) {
+          .catchError((dynamic e) {
         Fluttertoast.showToast(msg: e!.message as String);
       });
     } on FirebaseAuthException catch (error) {
       await Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => SignUpPage()),
+        MaterialPageRoute<dynamic>(builder: (context) => const SignUpPage()),
         (route) => false);
       loading = false;
       switch (error.code) {
@@ -125,7 +127,7 @@ class AuthService {
     }
   }
 
-  void postDetailsToFirestore(
+  Future<void> postDetailsToFirestore(
       BuildContext context, String country, String transactionPassword) async {
     // calling our firestore
     // calling our user model
@@ -137,14 +139,20 @@ class AuthService {
 
     final User? user = _auth.currentUser;
     userModel.email = user!.email;
-    userModel.uid = user.uid;
+    {
+      userModel.uid = user.uid;
+    }
     userModel.country = country;
-    userModel.transactionPassword = transactionPassword;
+    {
+      userModel.transactionPassword = transactionPassword;
+    }
 
-    String? userName = user.email!.replaceAll('@gmail.com', '');
+    final String? userName = user.email!.replaceAll('@gmail.com', '');
 
     userModel.name = userName;
-    userModel.name = 'Infinito Wallet';
+    {
+      userModel.walletName = 'Infinito Wallet';
+    }
 
     await firebaseFirestore
         .collection('users')
@@ -154,7 +162,7 @@ class AuthService {
 
     await Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => Home(onSignedOut: () {  },)),
+        MaterialPageRoute<dynamic>(builder: (context) => Home(onSignedOut: () {  },)),
         (route) => false);
   }
 
