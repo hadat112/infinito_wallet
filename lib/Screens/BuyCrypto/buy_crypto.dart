@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:infinito_wallet/Screens/Loading/loading.dart';
 
@@ -6,125 +5,124 @@ import 'package:infinito_wallet/components/rounded_button.dart';
 
 import '../../components/appbar.dart';
 import '../../components/info_card.dart';
+import '../../models/coin_model.dart';
 import '../../services/auth.dart';
-import '../../services/coin_data.dart';
 import '../../services/database.dart';
 
 class BuyCryptoPage extends StatefulWidget {
-  const BuyCryptoPage({Key? key}) : super(key: key);
+  const BuyCryptoPage({Key? key, required this.coins}) : super(key: key);
+
+  final List<Coin>? coins;
 
   @override
   _BuyCryptoPage createState() => _BuyCryptoPage();
 }
 
 class _BuyCryptoPage extends State<BuyCryptoPage> {
-  String selectedCurrency = 'USD';
-  dynamic selectedCrypto;
+  // String selectedCurrency = 'USD';
+  late Coin? selectedCrypto;
   bool setDefaultCrypto = true;
+  dynamic selectedCryptoImg;
 
-  StreamBuilder<QuerySnapshot> cryptoDropdown() {
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('users')
-            .doc(_auth.getCurrentUser()?.uid)
-            .collection('wallet')
-            .snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (setDefaultCrypto) {
-            selectedCrypto = snapshot.data?.docs[0].id;
-          }
-          return DropdownButton(
-            borderRadius: BorderRadius.circular(8),
-            underline: const SizedBox(),
-            isExpanded: false,
-            value: selectedCrypto,
-            items: snapshot.data?.docs.map((value) {
-              return DropdownMenuItem(
-                value: value.id,
-                child: Text(
-                  value.id,
-                ),
-              );
-            }).toList(),
-            onChanged: (value) async {
-              setState(
-                () {
-                  isWaiting = true;
-                  selectedCrypto = value;
-                  setDefaultCrypto = false;
-                },
-              );
-              await getData();
-              setState(() {
-                isWaiting = false;
-                amountToCrypto = amountValue /
-                    double.parse(coinValue[selectedCurrency] ?? '1');
-              });
-            },
-            // dropdownColor: Colors.black,
-            style: const TextStyle(color: Color.fromRGBO(28, 149, 214, 1)),
-            iconEnabledColor: const Color.fromRGBO(28, 149, 214, 1),
-            iconDisabledColor: const Color.fromRGBO(28, 149, 214, 1),
-          );
-        });
-  }
-
-  Row currenciesDropdown() {
-    final List<DropdownMenuItem<String>> dropdownItems = [];
-    for (final String i in currenciesList) {
-      final newItem = DropdownMenuItem(
-        value: i,
-        child: Text(i),
-      );
-      dropdownItems.add(newItem);
+  Widget cryptoDropdown() {
+    if (setDefaultCrypto) {
+      selectedCrypto = widget.coins?.elementAt(0);
+      selectedCryptoImg = widget.coins?.elementAt(0).imageUrl;
     }
-
     return Row(children: [
-      Container(
-        height: 30,
-        width: 30,
-        // color: Colors.purple,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/$selectedCurrency.png'),
-          ),
-        ),
-      ),
-      DropdownButton<String>(
-        value: selectedCurrency,
-        items: dropdownItems,
-        icon: const Icon(Icons.expand_more),
-        style: const TextStyle(color: Colors.deepPurple),
-        onChanged: (initValue) {
-          setState(() async {
-            selectedCurrency = initValue!;
-            amountToCrypto =
-                amountValue / double.parse(coinValue[selectedCurrency] ?? '1');
-            await getData();
+      Image.network(selectedCryptoImg ?? ''),
+      const SizedBox(width: 5,),
+      DropdownButton<Coin>(
+        borderRadius: BorderRadius.circular(8),
+        underline: const SizedBox(),
+        value: selectedCrypto,
+        items: widget.coins?.map((coin) {
+          return DropdownMenuItem(
+            value: coin,
+            child: Text(coin.symbol.toUpperCase(),),
+          );
+        }).toList(),
+        onChanged: (value) {
+          setState(
+            () {
+              isWaiting = true;
+              selectedCrypto = value;
+              selectedCryptoImg = value?.imageUrl;
+              setDefaultCrypto = false;
+            },
+          );
+          setState(() {
+            isWaiting = false;
+            amountToCrypto = amountValue / (value?.price ?? 1);
           });
         },
-      )
+        // dropdownColor: Colors.black,
+        style: const TextStyle(color: Color.fromRGBO(28, 149, 214, 1)),
+        iconEnabledColor: const Color.fromRGBO(28, 149, 214, 1),
+        iconDisabledColor: const Color.fromRGBO(28, 149, 214, 1),
+      ),
     ]);
+    // return DropdownButton(
+    //   borderRadius: BorderRadius.circular(8),
+    //   underline: const SizedBox(),
+    //   isExpanded: false,
+    //   value: selectedCrypto,
+    //   items: snapshot.data?.docs.map((value) {
+    //     return DropdownMenuItem(
+    //       value: value.id,
+    //       child: Text(
+    //         value.id,
+    //       ),
+    //     );
+    //   }).toList(),
+    //   onChanged: (value) async {
+    //     setState(
+    //       () {
+    //         isWaiting = true;
+    //         selectedCrypto = value;
+    //         setDefaultCrypto = false;
+    //       },
+    //     );
+    //     await getData();
+    //     setState(() {
+    //       isWaiting = false;
+    //       amountToCrypto = amountValue /
+    //           double.parse(coinValue[selectedCurrency] ?? '1');
+    //     });
+    //   },
+    //   // dropdownColor: Colors.black,
+    //   style: const TextStyle(color: Color.fromRGBO(28, 149, 214, 1)),
+    //   iconEnabledColor: const Color.fromRGBO(28, 149, 214, 1),
+    //   iconDisabledColor: const Color.fromRGBO(28, 149, 214, 1),
+    // );
   }
 
-  Map<String, String> coinValue = {};
+  // Row currenciesDropdown() {
+  //   final List<DropdownMenuItem<String>> dropdownItems = [];
+  //   for (final String i in currenciesList) {
+  //     final newItem = DropdownMenuItem(
+  //       value: i,
+  //       child: Text(i),
+  //     );
+  //     dropdownItems.add(newItem);
+  //   }
+
+  //   return Row(children: [
+  //     DropdownButton<String>(
+  //       value: selectedCurrency,
+  //       items: dropdownItems,
+  //       style: const TextStyle(color: Colors.deepPurple),
+  //       onChanged: (initValue) {
+  //         setState(() {
+  //           selectedCurrency = initValue!;
+  //           amountToCrypto = amountValue / (selectedCrypto?.price ?? 1);
+  //         });
+  //       },
+  //     )
+  //   ]);
+  // }
 
   bool isWaiting = false;
-
-//  String coinValue = '?';
-  Future<void> getData() async {
-    try {
-      final data = await CoinData().getCoinData(selectedCrypto);
-      coinValue = data;
-    } catch (error) {
-      debugPrint(error.toString());
-    }
-  }
 
   void showAlertDialog(BuildContext context) {
     // set up the buttons
@@ -138,7 +136,7 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
       child: const Text('Đồng ý'),
       onPressed: () {
         DatabaseService(uid: _auth.getCurrentUser()!.uid)
-            .addCoin(selectedCrypto, amountToCrypto);
+            .addCoin(selectedCrypto?.symbol ?? 'BTC', amountToCrypto);
         Navigator.pop(context, false);
       },
     );
@@ -164,10 +162,8 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
 
   @override
   void initState() {
-    getData();
-    amountToCrypto =
-        amountValue / double.parse(coinValue[selectedCurrency] ?? '1');
-        super.initState();
+    amountToCrypto = amountValue / (widget.coins?.elementAt(0).price ?? 1);
+    super.initState();
   }
 
   final TextEditingController textEditingController = TextEditingController();
@@ -175,7 +171,7 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
   bool _value = false;
   late bool dieukhoan = false;
   late double amountToCrypto =
-      amountValue / double.parse(coinValue[selectedCurrency] ?? '1');
+      amountValue / (widget.coins?.elementAt(0).price ?? 1);
   final AuthService _auth = AuthService();
 
   // late String currency = 'USD';
@@ -233,7 +229,18 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
                       ),
                       child: Row(
                         children: [
-                          currenciesDropdown(),
+                          Container(
+                            height: 30,
+                            width: 30,
+                            // color: Colors.purple,
+                            decoration:const BoxDecoration(
+                              image: DecorationImage(
+                                image:
+                                    AssetImage('assets/USD.png'),
+                              ),
+                            ),
+                          ),
+                          const Text('USD'),
                           const VerticalDivider(
                             thickness: 2,
                           ),
@@ -245,11 +252,9 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
                                 value = '0';
                               }
                               amountValue = double.parse(value);
-                              await getData();
                               setState(() {
-                                amountToCrypto = amountValue /
-                                    double.parse(
-                                        coinValue[selectedCurrency] ?? '1');
+                                amountToCrypto =
+                                    amountValue / (selectedCrypto?.price ?? 1);
                               });
                             },
                             decoration: const InputDecoration(
@@ -286,18 +291,6 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
                       ),
                       child: Row(
                         children: [
-                          Container(
-                            height: 30,
-                            width: 30,
-                            // color: Colors.purple,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(selectedCrypto != null
-                                    ? 'assets/$selectedCrypto.png'
-                                    : 'assets/BTC.png'),
-                              ),
-                            ),
-                          ),
                           cryptoDropdown(),
                           const VerticalDivider(
                             thickness: 2,
@@ -388,11 +381,11 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
               Center(
                   child: RoundedButton(
                 press: () {
-                  if(_value){
+                  if (_value) {
                     setState(() {
-                    dieukhoan = false;
+                      dieukhoan = false;
                     });
-                  showAlertDialog(context);
+                    showAlertDialog(context);
                   } else {
                     setState(() {
                       dieukhoan = true;
@@ -402,13 +395,16 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
                 text: 'Tiếp tục',
               )),
               if (dieukhoan)
-                 const Center(child: Text('Bạn chưa đồng ý điều khoản dịch vụ',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 12,
-                ),))
+                const Center(
+                    child: Text(
+                  'Bạn chưa đồng ý điều khoản dịch vụ',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 12,
+                  ),
+                ))
               else
-                 const Text('')
+                const Text('')
             ],
           ),
         ));

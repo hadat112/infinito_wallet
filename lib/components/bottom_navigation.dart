@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:infinito_wallet/Screens/Home/home.dart';
-import 'package:infinito_wallet/Screens/Setting/setting.dart';
+import 'package:infinito_wallet/Screens/Setting/setting_page.dart';
 
 import 'icon_text.dart';
+
+
+bool onHome = true;
+bool onSetting = false;
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({
@@ -17,10 +21,6 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  bool onHome = true;
-
-  bool onSetting = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,14 +39,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   text: 'Home',
                   icon: Icons.home,
                   tap: () {
-                    print(onHome);
-                      print(onSetting);
                     if(!onHome) {
                       setState(() {
                       onHome = true;
                       onSetting = false;
                       });
-                    }
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute<dynamic>(
@@ -54,6 +51,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                                   onSignedOut: () {},
                                 )),
                         (route) => false);
+                    }
                   }),
               IconText(
                   text: 'Wallet',
@@ -71,14 +69,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   icon: Icons.account_circle_outlined,
                   tap: () {
                     if(!onSetting) {
-                      setState(() {
-                        
+                      setState(() {                       
                     onSetting = true; 
                     onHome = false; 
                       });
-                      print(onHome);
-                      print(onSetting);
-                    }
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute<dynamic>(
@@ -86,6 +80,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                                   onSignedOut: widget.onSignedOut,
                                 )),
                         (route) => false);
+                    }
                   }),
             ],
           ),

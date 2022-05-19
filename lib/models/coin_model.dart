@@ -25,7 +25,6 @@ class Coin {
   num price;
   num change;
   num changePercentage;
-
 }
 
 List<Coin> coinList = [];

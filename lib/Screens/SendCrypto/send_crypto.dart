@@ -76,6 +76,15 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
         });
   }
 
+  Future<DocumentSnapshot<Object?>> getCoinInWallet() async {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(_auth.getCurrentUser()?.uid)
+        .collection('wallet')
+        .doc(selectedCrypto)
+        .get();
+  }
+
   Map<String, String> coinValue = {};
 
   bool isWaiting = false;
@@ -85,8 +94,7 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
     try {
       final data = await CoinData().getCoinData(selectedCrypto!);
       coinValue = data;
-      setState(() {
-      });
+      setState(() {});
     } catch (error) {
       debugPrint(error.toString());
     }
@@ -195,28 +203,36 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                             thickness: 2,
                           ),
                           const SizedBox(width: 5),
-                          Flexible(
-                              child: TextField(
-                            controller: amountController,
-                            onChanged: (String value) {
-                              if (value == '') {
-                                value = '0';
-                              }
-                              if (double.parse(value) <= 0) {
-                                validAmount = false;
-                              } else {
-                                validAmount = true;
-                              }
-                              amountValue = double.parse(value);
-                            },
-                            keyboardType: TextInputType.number,
-                            // inputFormatters: <TextInputFormatter>[
-                            //   FilteringTextInputFormatter.digitsOnly
-                            // ],
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                            ),
-                          )),
+                          FutureBuilder<DocumentSnapshot>(
+                              future: getCoinInWallet(),
+                              builder: (context, snapshot) {
+                                return Flexible(
+                                    child: TextField(
+                                  controller: amountController,
+                                  onChanged: (String value) {
+                                    if (value == '') {
+                                      value = '0';
+                                    }
+                                    if (double.parse(value) <= 0 ||
+                                        amountValue >
+                                            snapshot.data
+                                                ?.get('amount')
+                                                .toDouble()) {
+                                      validAmount = false;
+                                    } else {
+                                      validAmount = true;
+                                    }
+                                    amountValue = double.parse(value);
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  // inputFormatters: <TextInputFormatter>[
+                                  //   FilteringTextInputFormatter.digitsOnly
+                                  // ],
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                  ),
+                                ));
+                              }),
                           if (isWaiting)
                             const Loading(
                               size: 30,
