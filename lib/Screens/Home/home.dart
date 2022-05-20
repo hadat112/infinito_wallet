@@ -11,8 +11,7 @@ import '../Market/market_crypto.dart';
 import '../TradeCoin/trade_coin.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key, required this.onSignedOut}) : super(key: key);
-  final VoidCallback onSignedOut;
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -31,91 +30,97 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(150), child: WalletInfo()),
-      body: FutureBuilder<List<Coin>>(
-          future: coinList,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasData) {
-                final List<Coin>? coins = snapshot.data;
-                return Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Table(children: [
-                    TableRow(children: [
-                      CircleBtn(
-                        path: 'assets/send.png',
-                        text: 'Nạp-Gửi',
-                        tap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute<dynamic>(builder: (context) {
-                            return SendCryptoPage(
-                              coins: coins,
-                            );
-                          }));
-                        },
-                      ),
-                      CircleBtn(
-                        path: 'assets/buy.png',
-                        text: 'Mua Crypto',
-                        tap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute<dynamic>(builder: (context) {
-                            return BuyCryptoPage(coins: coins);
-                          }));
-                        },
-                      ),
-                      CircleBtn(
-                        path: 'assets/trade.png',
-                        text: 'Trade Crypto',
-                        tap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute<dynamic>(builder: (context) {
-                            return TradeCoinPage(
-                              coins: coins,
-                            );
-                          }));
-                        },
-                      )
-                    ]),
-                    TableRow(children: [
-                      // CircleBtn(
-                      //   path: 'assets/tygia.png',
-                      //   text: 'Tỷ giá',
-                      //   tap: () {},
-                      // ),
-
-                      CircleBtn(
-                        path: 'assets/thitruong.png',
-                        text: 'Tín hiệu thị trường',
-                        tap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute<dynamic>(builder: (context) {
-                            return MarketCrypto(coins: coins);
-                          }));
-                        },
-                      ),
-                      const SizedBox(),
-                      const SizedBox(),
-                      // CircleBtn(
-                      //   path: 'assets/gift.png',
-                      //   text: 'Tặng thưởng',
-                      //   tap: () {},
-                      // )
-                    ])
-                  ]),
-                );
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
+    return SafeArea(
+      child: Scaffold(
+        // appBar: const PreferredSize(
+        //     preferredSize: Size.fromHeight(150), child: WalletInfo()),
+        body: FutureBuilder<List<Coin>>(
+            future: coinList,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  final List<Coin>? coins = snapshot.data;
+                  return Column(
+                    children:[
+                    const WalletInfo(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Table(children: [
+                        TableRow(children: [
+                          CircleBtn(
+                            path: 'assets/send.png',
+                            text: 'Nạp-Gửi',
+                            tap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute<dynamic>(builder: (context) {
+                                return SendCryptoPage(
+                                  coins: coins,
+                                );
+                              }));
+                            },
+                          ),
+                          CircleBtn(
+                            path: 'assets/buy.png',
+                            text: 'Mua Crypto',
+                            tap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute<dynamic>(builder: (context) {
+                                return BuyCryptoPage(coins: coins);
+                              }));
+                            },
+                          ),
+                          CircleBtn(
+                            path: 'assets/trade.png',
+                            text: 'Trade Crypto',
+                            tap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute<dynamic>(builder: (context) {
+                                return TradeCoinPage(
+                                  coins: coins,
+                                );
+                              }));
+                            },
+                          )
+                        ]),
+                        TableRow(children: [
+                          // CircleBtn(
+                          //   path: 'assets/tygia.png',
+                          //   text: 'Tỷ giá',
+                          //   tap: () {},
+                          // ),
+                  
+                          CircleBtn(
+                            path: 'assets/thitruong.png',
+                            text: 'Tín hiệu thị trường',
+                            tap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute<dynamic>(builder: (context) {
+                                return MarketCrypto(coins: coins);
+                              }));
+                            },
+                          ),
+                          const SizedBox(),
+                          const SizedBox(),
+                          // CircleBtn(
+                          //   path: 'assets/gift.png',
+                          //   text: 'Tặng thưởng',
+                          //   tap: () {},
+                          // )
+                        ])
+                      ]),
+                    ),
+                    ] 
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
               }
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }),
-      bottomNavigationBar: BottomNavigation(
-        onSignedOut: widget.onSignedOut,
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }),
+        bottomNavigationBar: const BottomNavigation(
+        ),
       ),
     );
   }

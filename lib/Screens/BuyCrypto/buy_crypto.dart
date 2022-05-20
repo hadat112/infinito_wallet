@@ -8,6 +8,7 @@ import '../../components/info_card.dart';
 import '../../models/coin_model.dart';
 import '../../services/auth.dart';
 import '../../services/database.dart';
+import '../Home/home.dart';
 
 class BuyCryptoPage extends StatefulWidget {
   const BuyCryptoPage({Key? key, required this.coins}) : super(key: key);
@@ -137,7 +138,10 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
       onPressed: () {
         DatabaseService(uid: _auth.getCurrentUser()!.uid)
             .addCoin(selectedCrypto?.symbol ?? 'BTC', amountToCrypto);
-        Navigator.pop(context, false);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute<dynamic>(builder: (context) => const Home()),
+            (route) => false);
       },
     );
 

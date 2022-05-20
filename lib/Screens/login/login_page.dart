@@ -10,8 +10,7 @@ import '../../components/rounded_password_field.dart';
 import '../Signup/sign_up_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required this.onSignedIn}) : super(key: key);
-  final VoidCallback onSignedIn;
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();

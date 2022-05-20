@@ -13,13 +13,12 @@ import '../../components/rounded_button.dart';
 import '../ChangeName/change_name.dart';
 
 class SettingPage extends StatelessWidget {
-  SettingPage({Key? key, required this.onSignedOut}) : super(key: key);
+  SettingPage({Key? key}) : super(key: key);
   final AuthService _auth = AuthService();
-  final VoidCallback onSignedOut;
   String getInitials({String? string, int? limitTo}) {
     final buffer = StringBuffer();
     final split = string?.split(' ');
-    if ((split?.length ?? 1) > 2) {
+    if ((split?.length ?? 1) >= 2) {
       for (var i = 0; i < (limitTo ?? split!.length); i++) {
         buffer.write(split![i][0]);
       }
@@ -105,7 +104,7 @@ class SettingPage extends StatelessWidget {
                     color: Color.fromRGBO(90, 195, 240, 1),
                     size: 35,
                   ),
-                  text: 'Đổi tên người dùng',
+                  text: 'Cài đặt',
                 ),
                 SettingBtn(
                     press: () {
@@ -141,8 +140,7 @@ class SettingPage extends StatelessWidget {
               ],
             );
           }),
-      bottomNavigationBar: BottomNavigation(
-        onSignedOut: () {},
+      bottomNavigationBar: const BottomNavigation(
       ),
     );
   }

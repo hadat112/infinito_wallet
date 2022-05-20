@@ -20,13 +20,40 @@ class ChangeName extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RoundedInputField(inputEditingController: inputEditingController, onChanged: (value) {
-            }, inputTitle: 'Tên người dùng mới'),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              width: size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Địa chỉ ETH',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                  ),
+                  Text(
+                    _auth.getCurrentUser()!.uid,
+                    style: const TextStyle(
+                        fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            RoundedInputField(
+                inputEditingController: inputEditingController,
+                onChanged: (value) {},
+                inputTitle: 'Tên người dùng mới'),
             SizedBox(height: size.height * 0.05),
-            RoundedButton(text: 'Cập nhật', press: () {
-              DatabaseService(uid: _auth.getCurrentUser()!.uid).changeName(inputEditingController.text, 'name');
-              Navigator.pop(context);
-            }),
+            RoundedButton(
+                text: 'Cập nhật',
+                press: () {
+                  DatabaseService(uid: _auth.getCurrentUser()!.uid)
+                      .changeName(inputEditingController.text, 'name');
+                  Navigator.pop(context);
+                }),
           ],
         ));
   }

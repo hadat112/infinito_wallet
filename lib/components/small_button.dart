@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class SmallWhiteButton extends StatelessWidget {
@@ -34,7 +36,7 @@ class SmallWhiteButton extends StatelessWidget {
             ),
             child: Text(text,
                 style: TextStyle(
-                  fontSize: 8,
+                  fontSize: 12,
                   color: textColor,
                 )),
             ),

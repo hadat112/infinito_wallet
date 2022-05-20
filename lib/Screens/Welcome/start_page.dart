@@ -4,15 +4,8 @@ import 'package:infinito_wallet/services/auth.dart';
 import '../../components/appbar.dart';
 import '../../components/rounded_button.dart';
 import '../../components/white_button.dart';
-import '../Home/home.dart';
 import '../Signup/sign_up_page.dart';
 import '../login/login_page.dart';
-
-enum AuthStatus {
-  notDetermined,
-  notSignedIn,
-  signedIn,
-}
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -22,30 +15,11 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  AuthStatus authStatus = AuthStatus.notDetermined;
-
   @override
   void initState() {
     super.initState();
     final AuthService auth = AuthService();
-    auth.currentUser().then((userId) {
-      setState(() {
-        authStatus =
-            userId == null ? AuthStatus.notSignedIn : AuthStatus.signedIn;
-      });
-    });
-  }
-
-  void _signedIn() {
-    setState(() {
-      authStatus = AuthStatus.signedIn;
-    });
-  }
-
-  void _signedOut() {
-    setState(() {
-      authStatus = AuthStatus.notSignedIn;
-    });
+    auth.currentUser().then((userId) {});
   }
 
   @override
@@ -68,22 +42,9 @@ class _StartPageState extends State<StartPage> {
             RoundedButton(
                 text: 'Đăng nhập',
                 press: () {
-                  Navigator.push(context, MaterialPageRoute<dynamic>(builder: (context) {
-                    switch (authStatus) {
-                      case AuthStatus.notSignedIn:
-                        return LoginPage(
-                          onSignedIn: _signedIn,
-                        );
-                      case AuthStatus.signedIn:
-                        return Home(
-                          onSignedOut: _signedOut,
-                        );
-                      case AuthStatus.notDetermined:
-                        // TODO: Handle this case.
-                        break;
-                    }
-                    return const StartPage();
-                  }));
+                  Navigator.push(context,
+                      MaterialPageRoute<dynamic>(builder: (context) => const LoginPage()
+                  ));
                 }),
             Align(
               child: WhiteButton(

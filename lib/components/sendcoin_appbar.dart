@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../services/auth.dart';
 
+
+// ignore: prefer_mixin
 class SendCoinAppBar extends StatefulWidget with PreferredSizeWidget {
   SendCoinAppBar(this.amountToCrypto,
       {Key? key,
@@ -92,8 +94,8 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                       ),
                       child: Row(children: [
                         Container(
-                          height: 20,
-                          width: 20,
+                          height: 30,
+                          width: 30,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
@@ -107,8 +109,8 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                             initialsName ?? '',
                             style: const TextStyle(
                                 color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
                           )),
                         ),
                         const SizedBox(

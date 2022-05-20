@@ -59,7 +59,7 @@ class AuthService {
           .then((uid) => {
                 Fluttertoast.showToast(msg: 'Login Successful'),
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute<dynamic>(builder: (context) => Home(onSignedOut: () {  },))),
+                    MaterialPageRoute<dynamic>(builder: (context) => const Home())),
               });
     } on FirebaseAuthException catch (error) {
       switch (error.code) {
@@ -168,7 +168,7 @@ class AuthService {
 
     await Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute<dynamic>(builder: (context) => Home(onSignedOut: () {  },)),
+        MaterialPageRoute<dynamic>(builder: (context) => const Home()),
         (route) => false);
   }
 

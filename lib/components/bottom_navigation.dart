@@ -11,10 +11,8 @@ bool onSetting = false;
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({
     Key? key,
-    required this.onSignedOut,
   }) : super(key: key);
 
-  final VoidCallback onSignedOut;
 
   @override
   State<BottomNavigation> createState() => _BottomNavigationState();
@@ -33,7 +31,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         child: Padding(
           padding: const EdgeInsets.only(left: 40, right: 51, top: 10),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconText(
                   text: 'Home',
@@ -48,23 +46,22 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute<dynamic>(
-                            builder: (context) => Home(
-                                  onSignedOut: () {},
+                            builder: (context) => const Home(
                                 )),
                         (route) => false);
                     }
                   }),
-              IconText(
-                  text: 'Wallet',
-                  icon: Icons.wallet_membership_outlined,
-                  tap: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute<dynamic>(builder: (context) {
-                    //   return SettingPage(
-                    //     onSignedOut: onSignedOut,
-                    //   );
-                    // }));
-                  }),
+              // IconText(
+              //     text: 'Wallet',
+              //     icon: Icons.wallet_membership_outlined,
+              //     tap: () {
+              //       // Navigator.push(context,
+              //       //     MaterialPageRoute<dynamic>(builder: (context) {
+              //       //   return SettingPage(
+              //       //     onSignedOut: onSignedOut,
+              //       //   );
+              //       // }));
+              //     }),
               IconText(
                   text: 'Account',
                   icon: Icons.account_circle_outlined,
@@ -79,7 +76,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
                         context,
                         MaterialPageRoute<dynamic>(
                             builder: (context) => SettingPage(
-                                  onSignedOut: widget.onSignedOut,
                                 )),
                         (route) => false);
                     }

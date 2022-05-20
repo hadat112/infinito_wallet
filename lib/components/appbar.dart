@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: prefer_mixin
 class Appbar extends StatelessWidget with PreferredSizeWidget {
   const Appbar({
     Key? key,
