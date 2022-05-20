@@ -20,6 +20,12 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  
+  }
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 90,

@@ -19,8 +19,13 @@ class _MarketCryptoState extends State<MarketCrypto> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
   void addKey() {
+    Future<dynamic> ft = Future((){});
     for (int i = 0; i < (widget.coins?.length ?? 0); i++) {
+      ft = ft.then((value) {
+        return Future.delayed(const Duration(microseconds: 100), () {
       _listKey.currentState?.insertItem(i);
+        });
+      });
     }
   }
 

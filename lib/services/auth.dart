@@ -37,6 +37,8 @@ class AuthService {
   }
 
   Future<void> _createNewUserInFirestore() async {
+            print('work');
+
       final List<Coin> coinList = await CoinData().fetchCoin();
       final coins = coinList.take(10);
       for (final element in coins) { 
@@ -44,7 +46,6 @@ class AuthService {
         await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid).collection('wallet')
         .doc(element.symbol).set(coinModel.toMap());
       }
-        
         // await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid).collection('wallet')
         // .doc('BTC').set(coinModel.toMap());
         // await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid).collection('wallet')
@@ -95,8 +96,8 @@ class AuthService {
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) 
               async {
-                await postDetailsToFirestore(context, country, transactionPassword);
                 await _createNewUserInFirestore();
+                await postDetailsToFirestore(context, country, transactionPassword);
               })
           .catchError((dynamic e) {
         Fluttertoast.showToast(msg: e!.message as String);

@@ -23,8 +23,8 @@ class SettingPage extends StatelessWidget {
         buffer.write(split![i][0]);
       }
       return buffer.toString().toUpperCase();
-    }
-    return string ?? '';
+    } 
+    return string![0].toUpperCase();
   }
 
   @override
@@ -132,6 +132,8 @@ class SettingPage extends StatelessWidget {
                           builder: (context) => const StartPage()),
                       (Route<dynamic> route) => false,
                     );
+                    onHome = true;
+                    onSetting = false;
                   },
                   text: 'Đăng xuất',
                   btnWidth: 200,
