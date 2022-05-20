@@ -79,8 +79,6 @@ flutter:
     - assets/BTC.png
     - assets/ETH.png
     - assets/EUR.png
-    - assets/3.png
-    - assets/4.png
 
 
   # The following line ensures that the Material Icons font is
