@@ -7,7 +7,7 @@ class SendCoinAppBar extends StatefulWidget with PreferredSizeWidget {
   SendCoinAppBar(this.amountToCrypto,
       {Key? key,
       required this.size,
-      this.selectedCrypto = 'BTC',
+      this.selectedCrypto = 'ada',
       })
       : super(key: key);
 
@@ -37,10 +37,13 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
   String getInitials({String? string, int? limitTo}) {
     final buffer = StringBuffer();
     final split = string?.split(' ');
-    for (var i = 0; i < (limitTo ?? split!.length); i++) {
-      buffer.write(split?[i][0]);
+    if ((split?.length ?? 1) >= 2) {
+      for (var i = 0; i < (limitTo ?? split!.length); i++) {
+        buffer.write(split![i][0]);
+      }
+      return buffer.toString().toUpperCase();
     }
-    return buffer.toString().toUpperCase();
+    return string ?? '';
   }
 
   Future<DocumentSnapshot<Object?>> getData() async {
@@ -68,7 +71,7 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
               walletName = snapshot.data?.get('wallet_name');
               initialsName = getInitials(string: walletName, limitTo: 2);
               return Container(
-                margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
+                margin: const EdgeInsets.only(top: 70, left: 16, right: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(9),
                   gradient: const LinearGradient(colors: <Color>[
@@ -176,7 +179,7 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                             Container(
                               padding: const EdgeInsets.only(bottom: 4),
                               child: Text(
-                                widget.selectedCrypto,
+                                widget.selectedCrypto.toUpperCase(),
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w300,
                                     color: Color.fromRGBO(255, 255, 255, 0.6),

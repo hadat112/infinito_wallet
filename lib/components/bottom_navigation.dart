@@ -38,6 +38,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               IconText(
                   text: 'Home',
                   icon: Icons.home,
+                  color: onHome ? Colors.blueAccent : const Color.fromRGBO(0, 0, 0, 0.6),
                   tap: () {
                     if(!onHome) {
                       setState(() {
@@ -67,6 +68,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               IconText(
                   text: 'Account',
                   icon: Icons.account_circle_outlined,
+                  color: onSetting ? Colors.blueAccent : const Color.fromRGBO(0, 0, 0, 0.6),
                   tap: () {
                     if(!onSetting) {
                       setState(() {                       

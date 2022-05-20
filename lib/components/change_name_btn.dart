@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../Screens/ChangeName/change_name.dart';
-
-
 class SettingBtn extends StatefulWidget {
   const SettingBtn({
     Key? key,
     this.text = '',
-    required this.icon,
+    required this.icon, required this.press,
   }) : super(key: key);
 
   final String text;
   final Icon icon;
+  final void Function() press;
+
 
   @override
   State<SettingBtn> createState() => _SettingButtonState();
@@ -34,12 +33,7 @@ class _SettingButtonState extends State<SettingBtn> {
       duration: const Duration(milliseconds: 100),
       opacity: _opacity,
       child: GestureDetector(
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute<dynamic>(builder: (context) {
-            return ChangeName();
-          }));
-        },
+        onTap: widget.press,
         onTapDown: (TapDownDetails details) {
           setState(() {
             _opacity = 0.3;

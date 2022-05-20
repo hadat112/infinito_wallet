@@ -18,10 +18,13 @@ class _WalletInfoState extends State<WalletInfo> {
   String getInitials({String? string, int? limitTo}) {
     final buffer = StringBuffer();
     final split = string?.split(' ');
-    for (var i = 0; i < (limitTo ?? split!.length); i++) {
-      buffer.write(split?[i][0]);
+    if ((split?.length ?? 1) >= 2) {
+      for (var i = 0; i < (limitTo ?? split!.length); i++) {
+        buffer.write(split![i][0]);
+      }
+      return buffer.toString().toUpperCase();
     }
-    return buffer.toString().toUpperCase();
+    return string ?? '';
   }
 
   @override

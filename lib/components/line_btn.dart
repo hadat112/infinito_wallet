@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../Screens/SettingWallet/setting_wallet.dart';
-import 'circle_icon.dart';
-
 class LineBtn extends StatefulWidget {
  const LineBtn({
     Key? key,

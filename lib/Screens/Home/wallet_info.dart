@@ -14,7 +14,7 @@ class _WalletInfoState extends State<WalletInfo> {
   bool pressHide = true;
   String hideBtnText = 'Ẩn';
   final AuthService _auth = AuthService();
-  String? selectedCrypto = 'BTC';
+  String? selectedCrypto = 'btc';
   var setDefaultCrypto = true;
 
   @override
@@ -82,12 +82,12 @@ class _WalletInfoState extends State<WalletInfo> {
                       );
                     }
                     if (setDefaultCrypto) {
-                      selectedCrypto = snapshot.data?.docs[0].id;
+                      // selectedCrypto = snapshot.data?.docs[0].id;
                     }
                     return Container(
                       margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                      width: 65,
+                      width: 73,
                       height: 20,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -106,7 +106,7 @@ class _WalletInfoState extends State<WalletInfo> {
                               return DropdownMenuItem(
                                 value: value.id,
                                 child: Text(
-                                  value.id,
+                                  value.id.toUpperCase(),
                                 ),
                               );
                             }).toList(),

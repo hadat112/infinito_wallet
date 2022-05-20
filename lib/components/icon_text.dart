@@ -1,30 +1,56 @@
 import 'package:flutter/material.dart';
 
-class IconText extends StatelessWidget {
+class IconText extends StatefulWidget {
   const IconText({
     Key? key,
-    required this.text, required this.icon, required this.tap,
+    required this.text, required this.icon, required this.tap, this.color,
   }) : super(key: key);
   final String text;
   final IconData icon;
+  final Color? color;
   final void Function() tap;
 
   @override
+  State<IconText> createState() => _IconTextState();
+}
+
+class _IconTextState extends State<IconText> {
+  double _opacity = 1;
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: tap,
-      child: Column(
-        children: [    
-          Icon(icon, size: 36, color: const Color.fromRGBO(0, 0, 0, 0.8),),
-          Text(
-            text,
-            style: const TextStyle(
-              color: Color.fromRGBO(0, 0, 0, 0.6),
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+    return AnimatedOpacity(
+      opacity: _opacity,
+      duration: const Duration(milliseconds: 100),
+      child: GestureDetector(
+        onTap: widget.tap,
+        onTapDown: (TapDownDetails details) {
+            setState(() {
+              _opacity = 0.3;
+            });
+          },
+          onTapUp: (TapUpDetails details) {
+            setState(() {
+              _opacity = 1;
+            });
+          },
+          onTapCancel: (){
+            setState(() {
+              _opacity = 1;
+            });
+          },
+        child: Column(
+          children: [    
+            Icon(widget.icon, size: 36, color: widget.color,),
+            Text(
+              widget.text,
+              style: TextStyle(
+                color: widget.color,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

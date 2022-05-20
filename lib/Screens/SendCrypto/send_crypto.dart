@@ -8,19 +8,23 @@ import '../../components/rounded_button.dart';
 import '../../components/rounded_input_field.dart';
 import '../../components/sendcoin_appbar.dart';
 import '../../components/white_button.dart';
+import '../../models/coin_model.dart';
 import '../../services/auth.dart';
 import '../../services/coin_data.dart';
 import '../ConfirmSend/confirm_send.dart';
 
 class SendCryptoPage extends StatefulWidget {
-  const SendCryptoPage({Key? key}) : super(key: key);
+  const SendCryptoPage({Key? key, this.coins}) : super(key: key);
+  final List<Coin>? coins;
 
   @override
   State<SendCryptoPage> createState() => _SendCryptoPageState();
 }
 
 class _SendCryptoPageState extends State<SendCryptoPage> {
-  String? selectedCrypto = 'BTC';
+  String? selectedCrypto = 'ada';
+  dynamic selectedCryptoPrice;
+
   double cryptoToCurrency = 0;
   bool setDefaultCrypto = true;
   bool validAddress = true;
@@ -50,11 +54,11 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
               return DropdownMenuItem(
                 value: value.id,
                 child: Text(
-                  value.id,
+                  value.id.toUpperCase(),
                 ),
               );
             }).toList(),
-            onChanged: (value) async {
+            onChanged: (value) {
               setState(
                 () {
                   isWaiting = true;
@@ -62,7 +66,7 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                   setDefaultCrypto = false;
                 },
               );
-              await getData();
+              getData();
               setState(() {
                 selectedCrypto = value as String?;
                 isWaiting = false;
@@ -85,16 +89,18 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
         .get();
   }
 
-  Map<String, String> coinValue = {};
+  // Map<String, String> coinValue = {};
 
   bool isWaiting = false;
 
 //  String coinValue = '?';
-  Future<void> getData() async {
+  void getData() {
     try {
-      final data = await CoinData().getCoinData(selectedCrypto!);
-      coinValue = data;
-      setState(() {});
+      for (final Coin coin in widget.coins ?? []) {
+        if (coin.symbol == selectedCrypto) {
+          selectedCryptoPrice = coin.price;
+        }
+      }
     } catch (error) {
       debugPrint(error.toString());
     }
@@ -131,9 +137,10 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
 
   @override
   Widget build(BuildContext context) {
+    getData();
     final size = MediaQuery.of(context).size;
-    final amountToUSD = amountValue * double.parse(coinValue['USD'] ?? '0');
-    cryptoToCurrency = double.parse(coinValue['USD'] ?? '0');
+    final amountToUSD = amountValue * selectedCryptoPrice;
+    cryptoToCurrency = selectedCryptoPrice.toDouble();
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -314,7 +321,7 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                           Row(
                             children: [
                               Text(
-                                '${amountController.text} $selectedCrypto',
+                                '${amountController.text} ${selectedCrypto?.toUpperCase()}',
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
@@ -367,7 +374,7 @@ class _SendCryptoPageState extends State<SendCryptoPage> {
                               context,
                               MaterialPageRoute<dynamic>(
                                   builder: (context) => ConfirmSendCryptoPage(
-                                      selectedCrypto ?? 'BTC',
+                                      selectedCrypto ?? 'ada',
                                       amountValue,
                                       inputEditingController.text,
                                       cryptoToCurrency)));

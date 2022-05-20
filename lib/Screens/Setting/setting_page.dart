@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:infinito_wallet/Screens/ChangeName/change_name.dart';
+import 'package:infinito_wallet/Screens/DiffrentSetting/different_setting.dart';
 import 'package:infinito_wallet/Screens/Welcome/start_page.dart';
 import 'package:infinito_wallet/components/change_name_btn.dart';
 import 'package:infinito_wallet/components/circle_icon.dart';
 import 'package:infinito_wallet/components/setting_wallet_btn.dart';
-import 'package:infinito_wallet/components/rounded_button.dart';
 import 'package:infinito_wallet/services/auth.dart';
 
 import '../../components/appbar.dart';
 import '../../components/bottom_navigation.dart';
-import '../SettingWallet/setting_wallet.dart';
+import '../../components/rounded_button.dart';
+import '../ChangeName/change_name.dart';
 
 class SettingPage extends StatelessWidget {
   SettingPage({Key? key, required this.onSignedOut}) : super(key: key);
@@ -19,10 +19,13 @@ class SettingPage extends StatelessWidget {
   String getInitials({String? string, int? limitTo}) {
     final buffer = StringBuffer();
     final split = string?.split(' ');
-    for (var i = 0; i < (limitTo ?? split!.length); i++) {
-      buffer.write(split?[i][0]);
+    if ((split?.length ?? 1) > 2) {
+      for (var i = 0; i < (limitTo ?? split!.length); i++) {
+        buffer.write(split![i][0]);
+      }
+      return buffer.toString().toUpperCase();
     }
-    return buffer.toString().toUpperCase();
+    return string ?? '';
   }
 
   @override
@@ -90,16 +93,28 @@ class SettingPage extends StatelessWidget {
                   height: 10,
                 ),
                 TitleItem(size: size, text: 'Cài đặt và những mục khác'),
-                const SettingBtn(
-                  icon: Icon(
+                SettingBtn(
+                  press: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<dynamic>(builder: (context) {
+                      return ChangeName();
+                    }));
+                  },
+                  icon: const Icon(
                     Icons.settings,
                     color: Color.fromRGBO(90, 195, 240, 1),
                     size: 35,
                   ),
                   text: 'Đổi tên người dùng',
                 ),
-                const SettingBtn(
-                    icon: Icon(
+                SettingBtn(
+                    press: () {
+                      Navigator.push(context,
+                          MaterialPageRoute<dynamic>(builder: (context) {
+                        return const DifferentSettingPage();
+                      }));
+                    },
+                    icon: const Icon(
                       Icons.menu_outlined,
                       color: Color.fromRGBO(90, 195, 240, 1),
                       size: 35,

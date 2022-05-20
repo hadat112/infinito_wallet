@@ -40,6 +40,11 @@ class _CircleBtnState extends State<CircleBtn> {
               _opacity = 1;
             });
           },
+          onTapCancel: () {
+            setState(() {
+              _opacity = 1;
+            });
+          },
           child: Column(
             children: [
               Container(

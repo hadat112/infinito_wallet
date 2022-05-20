@@ -5,8 +5,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:infinito_wallet/Screens/Signup/sign_up_page.dart';
 import 'package:infinito_wallet/models/user_model.dart';
 import 'package:infinito_wallet/models/wallet.dart';
+import 'package:infinito_wallet/services/coin_data.dart';
 
 import '../Screens/Home/home.dart';
+import '../models/coin_model.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -34,15 +36,19 @@ class AuthService {
     return user?.uid;
   }
 
-  void _createNewUserInFirestore() {
-        final Wallet coinModel = Wallet();
-        {
-          coinModel.amount = 0;
-        }
-        FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid).collection('wallet')
-        .doc('BTC').set(coinModel.toMap());
-        FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid).collection('wallet')
-        .doc('ETH').set(coinModel.toMap());
+  Future<void> _createNewUserInFirestore() async {
+      final List<Coin> coinList = await CoinData().fetchCoin();
+      final coins = coinList.take(10);
+      for (final element in coins) { 
+        final Wallet coinModel = Wallet(imageUrl: element.imageUrl);
+        await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid).collection('wallet')
+        .doc(element.symbol).set(coinModel.toMap());
+      }
+        
+        // await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid).collection('wallet')
+        // .doc('BTC').set(coinModel.toMap());
+        // await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid).collection('wallet')
+        // .doc('ETH').set(coinModel.toMap());
   }
 
   Future<dynamic> signInWithEmailAndPassword(
@@ -88,9 +94,9 @@ class AuthService {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) 
-              {
-                postDetailsToFirestore(context, country, transactionPassword);
-                _createNewUserInFirestore();
+              async {
+                await postDetailsToFirestore(context, country, transactionPassword);
+                await _createNewUserInFirestore();
               })
           .catchError((dynamic e) {
         Fluttertoast.showToast(msg: e!.message as String);

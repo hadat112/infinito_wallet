@@ -32,30 +32,31 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(150), child: WalletInfo()),
-      body: Padding(
-        padding: const EdgeInsets.all(4),
-        child: Table(children: [
-          TableRow(children: [
-            CircleBtn(
-              path: 'assets/send.png',
-              text: 'Nạp-Gửi',
-              tap: () {
-                Navigator.push(context,
-                    MaterialPageRoute<dynamic>(builder: (context) {
-                  return const SendCryptoPage();
-                }));
-              },
-            ),
-            FutureBuilder<List<Coin>>(
-                future: coinList,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasData) {
-                      final List<Coin>? coins = snapshot.data;
-                      return CircleBtn(
+      body: FutureBuilder<List<Coin>>(
+          future: coinList,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                final List<Coin>? coins = snapshot.data;
+                return Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: Table(children: [
+                    TableRow(children: [
+                      CircleBtn(
+                        path: 'assets/send.png',
+                        text: 'Nạp-Gửi',
+                        tap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute<dynamic>(builder: (context) {
+                            return SendCryptoPage(
+                              coins: coins,
+                            );
+                          }));
+                        },
+                      ),
+                      CircleBtn(
                         path: 'assets/buy.png',
                         text: 'Mua Crypto',
                         tap: () {
@@ -64,42 +65,28 @@ class _HomeState extends State<Home> {
                             return BuyCryptoPage(coins: coins);
                           }));
                         },
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text('${snapshot.error}');
-                    }
-                  }
+                      ),
+                      CircleBtn(
+                        path: 'assets/trade.png',
+                        text: 'Trade Crypto',
+                        tap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute<dynamic>(builder: (context) {
+                            return TradeCoinPage(
+                              coins: coins,
+                            );
+                          }));
+                        },
+                      )
+                    ]),
+                    TableRow(children: [
+                      // CircleBtn(
+                      //   path: 'assets/tygia.png',
+                      //   text: 'Tỷ giá',
+                      //   tap: () {},
+                      // ),
 
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }),
-            CircleBtn(
-              path: 'assets/trade.png',
-              text: 'Trade Crypto',
-              tap: () {
-                Navigator.push(context,
-                    MaterialPageRoute<dynamic>(builder: (context) {
-                  return const TradeCoinPage();
-                }));
-              },
-            ),
-          ]),
-          TableRow(children: [
-            
-
-            // CircleBtn(
-            //   path: 'assets/tygia.png',
-            //   text: 'Tỷ giá',
-            //   tap: () {},
-            // ),
-            FutureBuilder<List<Coin>>(
-                future: coinList,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasData) {
-                      final List<Coin>? coins = snapshot.data;
-                      return CircleBtn(
+                      CircleBtn(
                         path: 'assets/thitruong.png',
                         text: 'Tín hiệu thị trường',
                         tap: () {
@@ -108,26 +95,25 @@ class _HomeState extends State<Home> {
                             return MarketCrypto(coins: coins);
                           }));
                         },
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text('${snapshot.error}');
-                    }
-                  }
-
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }),
-                const SizedBox(),
+                      ),
                       const SizedBox(),
-            // CircleBtn(
-            //   path: 'assets/gift.png',
-            //   text: 'Tặng thưởng',
-            //   tap: () {},
-            // )
-          ])
-        ]),
-      ),
+                      const SizedBox(),
+                      // CircleBtn(
+                      //   path: 'assets/gift.png',
+                      //   text: 'Tặng thưởng',
+                      //   tap: () {},
+                      // )
+                    ])
+                  ]),
+                );
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }),
       bottomNavigationBar: BottomNavigation(
         onSignedOut: widget.onSignedOut,
       ),

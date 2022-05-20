@@ -21,10 +21,23 @@ class CoinCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric( vertical: 6),
       child: Container(
-        decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey))),
+        padding: const EdgeInsets.symmetric(vertical:12, horizontal: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF4F4F4),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 2,
+          ),
+        ],
+      ),
+        // decoration: const BoxDecoration(
+        //     border: Border(bottom: BorderSide(color: Colors.grey))),
         child: Row(
           children: [
             Expanded(
@@ -42,33 +55,33 @@ class CoinCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          symbol.toUpperCase(),
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.grey[900],
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                  Flexible(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            symbol.toUpperCase(),
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.grey[900],
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
+                        Text(
                           name,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color:Color.fromRGBO(0, 0, 0, 0.53),
-                            fontSize: 13,
+                            fontSize: 14,
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

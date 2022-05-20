@@ -2,16 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:infinito_wallet/components/rounded_button.dart';
 import 'package:infinito_wallet/services/auth.dart';
-import 'package:infinito_wallet/services/coin_data.dart';
 
 import '../../components/appbar.dart';
 import '../../components/info_card.dart';
 import '../../components/white_button.dart';
+import '../../models/coin_model.dart';
 import '../../services/database.dart';
 import '../Loading/loading.dart';
 
 class TradeCoinPage extends StatefulWidget {
-  const TradeCoinPage({Key? key}) : super(key: key);
+  const TradeCoinPage({Key? key, this.coins}) : super(key: key);
+  final List<Coin>? coins;
 
   @override
   State<TradeCoinPage> createState() => _TradeCoinPageState();
@@ -19,10 +20,21 @@ class TradeCoinPage extends StatefulWidget {
 
 class _TradeCoinPageState extends State<TradeCoinPage> {
   dynamic selectedCrypto;
+  double selectedCryptoPrice = 1;
+  double selectedReceiveCryptoPrice = 1;
+
   dynamic selectedReceiveCrypto;
 
   bool setDefaultCrypto = true;
   bool setDefaultReceiveCrypto = true;
+  bool isWaiting = false;
+  bool validAmount = true;
+
+
+  late double amountValue = 0;
+  late double amountToCrypto = 1;
+  late double tygia = 1;
+  final AuthService _auth = AuthService();
 
   StreamBuilder<QuerySnapshot> cryptoDropdown() {
     return StreamBuilder(
@@ -49,11 +61,11 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
               return DropdownMenuItem(
                 value: value.id,
                 child: Text(
-                  value.id,
+                  value.id.toUpperCase(),
                 ),
               );
             }).toList(),
-            onChanged: (value) async {
+            onChanged: (value) {
               setState(
                 () {
                   isWaiting = true;
@@ -61,13 +73,12 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                   setDefaultCrypto = false;
                 },
               );
-              await getData();
-              await getReceiveData();
-              amountToCrypto = double.parse(coinValue['USD'] ?? '1') *
+              getData();
+
+              amountToCrypto = selectedCryptoPrice *
                   amountValue /
-                  double.parse(coinReceiveValue['USD'] ?? '1');
-              tygia = double.parse(coinValue['USD'] ?? '1') /
-                  double.parse(coinReceiveValue['USD'] ?? '1');
+                  selectedReceiveCryptoPrice;
+              tygia = selectedCryptoPrice / selectedReceiveCryptoPrice;
 
               setState(() {
                 selectedCrypto = value!;
@@ -107,11 +118,11 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
               return DropdownMenuItem(
                 value: value.id,
                 child: Text(
-                  value.id,
+                  value.id.toUpperCase(),
                 ),
               );
             }).toList(),
-            onChanged: (value) async {
+            onChanged: (value) {
               setState(
                 () {
                   isWaiting = true;
@@ -119,13 +130,12 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                   setDefaultReceiveCrypto = false;
                 },
               );
-              await getData();
-              await getReceiveData();
-              amountToCrypto = double.parse(coinValue['USD'] ?? '1') *
+              getData();
+
+              amountToCrypto = selectedCryptoPrice *
                   amountValue /
-                  double.parse(coinReceiveValue['USD'] ?? '1');
-              tygia = double.parse(coinValue['USD'] ?? '1') /
-                  double.parse(coinReceiveValue['USD'] ?? '1');
+                  selectedReceiveCryptoPrice;
+              tygia = selectedCryptoPrice / selectedReceiveCryptoPrice;
               setState(() {
                 selectedReceiveCrypto = value!;
                 isWaiting = false;
@@ -139,25 +149,17 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
         });
   }
 
-  Map<String, String> coinValue = {};
-  Map<String, String> coinReceiveValue = {};
-
-  bool isWaiting = false;
-
-//  String coinValue = '?';
-  Future<void> getData() async {
+  void getData() {
     try {
-      final data = await CoinData().getCoinData(selectedCrypto);
-      coinValue = data;
-    } catch (error) {
-      debugPrint(error.toString());
-    }
-  }
+      for (final Coin coin in widget.coins ?? []) {
+        if (coin.symbol == selectedCrypto) {
+          selectedCryptoPrice = coin.price.toDouble();
+        }
 
-  Future<void> getReceiveData() async {
-    try {
-      final data1 = await CoinData().getCoinData(selectedReceiveCrypto);
-      coinReceiveValue = data1;
+        if (coin.symbol == selectedReceiveCrypto) {
+          selectedReceiveCryptoPrice = coin.price.toDouble();
+        }
+      }
     } catch (error) {
       debugPrint(error.toString());
     }
@@ -204,22 +206,12 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
   @override
   void initState() {
     getData();
-    getReceiveData();
-    amountToCrypto = double.parse(coinValue['USD'] ?? '1') *
-        amountValue /
-        double.parse(coinReceiveValue['USD'] ?? '1');
-    tygia = double.parse(coinValue['USD'] ?? '1') /
-        double.parse(coinReceiveValue['USD'] ?? '1');
-        super.initState();
-  }
+    super.initState();
+    amountToCrypto =
+        selectedCryptoPrice * amountValue / selectedReceiveCryptoPrice;
+    tygia = selectedCryptoPrice / selectedReceiveCryptoPrice;
 
-  late double amountValue = 0;
-  late double amountToCrypto = double.parse(coinValue['USD'] ?? '1') *
-      amountValue /
-      double.parse(coinReceiveValue['USD'] ?? '1');
-  late double tygia = double.parse(coinValue['USD'] ?? '1') /
-      double.parse(coinReceiveValue['USD'] ?? '1');
-  final AuthService _auth = AuthService();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -274,18 +266,18 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                       ),
                       child: Row(
                         children: [
-                          Container(
-                            height: 30,
-                            width: 30,
-                            // color: Colors.purple,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(selectedCrypto != null
-                                    ? 'assets/$selectedCrypto.png'
-                                    : 'assets/BTC.png'),
-                              ),
-                            ),
-                          ),
+                          // Container(
+                          //   height: 30,
+                          //   width: 30,
+                          //   // color: Colors.purple,
+                          //   decoration: BoxDecoration(
+                          //     image: DecorationImage(
+                          //       image: AssetImage(selectedCrypto != null
+                          //           ? 'assets/$selectedCrypto.png'
+                          //           : 'assets/BTC.png'),
+                          //     ),
+                          //   ),
+                          // ),
                           cryptoDropdown(),
                           const VerticalDivider(
                             thickness: 2,
@@ -297,15 +289,20 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                               if (value == '') {
                                 value = '0';
                               }
+                              if (double.parse(value) <= 0 ) {
+                                      validAmount = false;
+                                    } else {
+                                      validAmount = true;
+                                    }
                               amountValue = double.parse(value);
                               setState(() {
+                                getData();                         
                                 amountToCrypto =
-                                    double.parse(coinValue['USD'] ?? '1') *
-                                        amountValue /
-                                        double.parse(
-                                            coinReceiveValue['USD'] ?? '1');
+                                    selectedCryptoPrice /
+                                        selectedReceiveCryptoPrice;
                               });
                             },
+                            keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
@@ -313,6 +310,15 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                         ],
                       ),
                     ),
+                    if (validAmount)
+                  const Text('')
+                else
+                  const Text(
+                    'Vui lòng nhập số lượng hợp lệ',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
                   ],
                 ),
               ),
@@ -340,18 +346,18 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                       ),
                       child: Row(
                         children: [
-                          Container(
-                            height: 30,
-                            width: 30,
-                            // color: Colors.purple,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(selectedCrypto != null
-                                    ? 'assets/$selectedReceiveCrypto.png'
-                                    : 'assets/BTC.png'),
-                              ),
-                            ),
-                          ),
+                          // Container(
+                          //   height: 30,
+                          //   width: 30,
+                          //   // color: Colors.purple,
+                          //   decoration: BoxDecoration(
+                          //     image: DecorationImage(
+                          //       image: AssetImage(selectedCrypto != null
+                          //           ? 'assets/$selectedReceiveCrypto.png'
+                          //           : 'assets/BTC.png'),
+                          //     ),
+                          //   ),
+                          // ),
                           cryptoReceiveDropdown(),
                           const VerticalDivider(
                             thickness: 2,
@@ -397,7 +403,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                               color: Color.fromRGBO(7, 15, 87, 1)),
                         ),
                         Text(
-                          '1 ${selectedCrypto ?? 'BTC'} ~ $tygia ${selectedReceiveCrypto ?? 'BTC'}',
+                          '1 ${(selectedCrypto ?? 'ADA').toUpperCase()} ~ ${tygia.toStringAsFixed(9)} ${(selectedReceiveCrypto ?? 'ADA').toUpperCase()}',
                           style: const TextStyle(
                             fontWeight: FontWeight.w600,
                           ),
