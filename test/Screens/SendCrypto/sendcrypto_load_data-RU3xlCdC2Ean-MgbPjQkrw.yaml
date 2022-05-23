@@ -1,7 +1,7 @@
-id: HiKWB1sidUGz6NQCXfhyjg
+id: GXgR8blCxEy_iQ7v_-zPug
 projectId: qfh00_FG30y796lTMTELHg
 projectName: My first Project
-created: 2022-05-13T08:08:01.4553402Z
+created: 2022-05-23T15:58:00.0230312Z
 owner: 19021234 Hà Văn Đạt
 protocol: 1
 tests:
@@ -13,7 +13,7 @@ tests:
   driverType: Appium_Android
   version: 0.1
   creationDate: 2022-05-13T08:05:58.0000000
-  modificationDate: 2022-05-13T08:07:49.0000000
+  modificationDate: 2022-05-20T17:44:39.0000000
   settings:
     automationAssistant: true
     deviceId: emulator-5554

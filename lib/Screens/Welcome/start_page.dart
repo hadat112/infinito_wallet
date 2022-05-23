@@ -28,36 +28,38 @@ class _StartPageState extends State<StartPage> {
     final Size size = MediaQuery.of(context).size;
     const String _title = 'Bắt đầu';
 
-    return Scaffold(
-      appBar: const Appbar(title: _title),
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Align(
-              child: Container(
-                  margin: const EdgeInsets.only(bottom: 40),
-                  width: size.width,
-                  child: Image.asset('assets/start.jpg')),
-            ),
-            RoundedButton(
-                text: 'Đăng nhập',
-                press: () {
-                  Navigator.push(context,
-                      MaterialPageRoute<dynamic>(builder: (context) => const LoginPage()
-                  ));
-                }),
-            Align(
-              child: WhiteButton(
-                  text: 'Đăng Ký',
-                  textColor: const Color.fromRGBO(90, 195, 240, 1),
+    return SafeArea(
+      child: Scaffold(
+        appBar: const Appbar(title: _title),
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Align(
+                child: Container(
+                    margin: const EdgeInsets.only(bottom: 40),
+                    width: size.width,
+                    child: Image.asset('assets/start.jpg')),
+              ),
+              RoundedButton(
+                  text: 'Đăng nhập',
                   press: () {
                     Navigator.push(context,
-                        MaterialPageRoute<dynamic>(builder: (context) {
-                      return const SignUpPage();
-                    }));
+                        MaterialPageRoute<dynamic>(builder: (context) => const LoginPage()
+                    ));
                   }),
-            ),
-          ]),
+              Align(
+                child: WhiteButton(
+                    text: 'Đăng Ký',
+                    textColor: const Color.fromRGBO(90, 195, 240, 1),
+                    press: () {
+                      Navigator.push(context,
+                          MaterialPageRoute<dynamic>(builder: (context) {
+                        return const SignUpPage();
+                      }));
+                    }),
+              ),
+            ]),
+      ),
     );
   }
 }

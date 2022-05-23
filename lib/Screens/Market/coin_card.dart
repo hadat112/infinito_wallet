@@ -24,7 +24,7 @@ class CoinCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric( vertical: 6),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical:12, horizontal: 4),
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: const Color(0xFFF4F4F4),
         borderRadius: BorderRadius.circular(16),
@@ -109,8 +109,8 @@ class CoinCard extends StatelessWidget {
                   children: [
                     Text(
                       change.toDouble() < 0
-                          ? '${(change.toDouble()* 100000000).round() / 100000000.0}'
-                          : '+${(change.toDouble()* 100000000).round() / 100000000.0}',
+                          ? '${(change.toDouble()* 10000000).round() / 10000000.0}'
+                          : '+${(change.toDouble()* 10000000).round() / 10000000.0}',
                       style: TextStyle(
                         color: change.toDouble() < 0
                             ? const Color.fromRGBO(215, 13, 13, 1)

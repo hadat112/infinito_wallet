@@ -14,7 +14,7 @@ class _WalletInfoState extends State<WalletInfo> {
   bool pressHide = true;
   String hideBtnText = 'Ẩn';
   final AuthService _auth = AuthService();
-  String? selectedCrypto = 'btc';
+  String? selectedCrypto = 'ada';
   var setDefaultCrypto = true;
 
   @override

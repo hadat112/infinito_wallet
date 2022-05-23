@@ -42,26 +42,28 @@ final Tween<Offset> _offset = Tween(begin: const Offset(1, 0), end: const Offset
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: const Appbar(
-          title: 'Thị trường',
-        ),
-        body: AnimatedList(
-          key: _listKey,
-          initialItemCount: widget.coins?.length ?? 1,
-          itemBuilder: (context, index, animation) {
-            return SlideTransition(
-              position: animation.drive(_offset),
-              child: CoinCard(
-                name: coinList[index].name,
-                symbol: coinList[index].symbol,
-                imageUrl: coinList[index].imageUrl,
-                price: coinList[index].price.toDouble(),
-                change: coinList[index].change.toDouble(),
-                changePercentage: coinList[index].changePercentage.toDouble(),
-              ),
-            );
-          },
-        ));
+    return SafeArea(
+      child: Scaffold(
+          appBar: const Appbar(
+            title: 'Thị trường',
+          ),
+          body: AnimatedList(
+            key: _listKey,
+            initialItemCount: widget.coins?.length ?? 1,
+            itemBuilder: (context, index, animation) {
+              return SlideTransition(
+                position: animation.drive(_offset),
+                child: CoinCard(
+                  name: coinList[index].name,
+                  symbol: coinList[index].symbol,
+                  imageUrl: coinList[index].imageUrl,
+                  price: coinList[index].price.toDouble(),
+                  change: coinList[index].change.toDouble(),
+                  changePercentage: coinList[index].changePercentage.toDouble(),
+                ),
+              );
+            },
+          )),
+    );
   }
 }

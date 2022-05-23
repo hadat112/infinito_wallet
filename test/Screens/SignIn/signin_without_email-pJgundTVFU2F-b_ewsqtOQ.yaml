@@ -1,7 +1,7 @@
-id: W72Q0DzNsUmRgqUoFWuUYA
+id: 9eXA0I_3EUGm0v4Uj1sRcQ
 projectId: qfh00_FG30y796lTMTELHg
 projectName: My first Project
-created: 2022-05-13T06:21:25.1713605Z
+created: 2022-05-23T15:58:16.7401424Z
 owner: 19021234 Hà Văn Đạt
 protocol: 1
 tests:
@@ -13,7 +13,7 @@ tests:
   driverType: Appium_Android
   version: 0.1
   creationDate: 2022-05-13T04:16:25.0000000
-  modificationDate: 2022-05-13T04:17:53.0000000
+  modificationDate: 2022-05-23T15:15:32.0000000
   settings:
     automationAssistant: true
     deviceId: emulator-5554
@@ -133,14 +133,14 @@ tests:
     conditions: []
     validations: []
     contexts: []
-  - id: BV4AlYiAVkSUQC5FaVU4ow
+  - id: 82GFTn3-P0akjFg8RAS1ZA
     comments: ''
     enabled: true
     invertResult: false
     order: 6
     repeat: 1
     type: Action
-    elementId: 4ghBdpna9k-9WxLpo7Qb9w
+    elementId: 3SMThbMEW0CjubzZr_-rbg
     settings:
       sleepTime: -1
       timeout: -1
@@ -148,12 +148,9 @@ tests:
       failureBehaviorType: Inherit
       takeScreenshotConditionType: Inherit
     action:
-      id: 85da72d0-c5a4-4587-be33-8cb3b5fa7910
+      id: a9ab4ae7-38ca-4451-a636-1b801a774503
       source: System
-    parameterMaps:
-    - name: text
-      value: Hãy nhập Email của bạn
-      direction: Input
+    parameterMaps: []
     conditions: []
     validations: []
     contexts: []
@@ -205,8 +202,8 @@ elements:
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[2]/android.widget.EditText[2]
     priority: 1
-- id: 4ghBdpna9k-9WxLpo7Qb9w
-  name: Hãy nhập Email của bạn
+- id: 3SMThbMEW0CjubzZr_-rbg
+  name: Hãy nhập Email của bạn1
   type:
     id: jUwODgyNjAyNzk2NTk4NDY
     name: android.view.View
@@ -216,7 +213,7 @@ elements:
     value: //android.view.View[@content-desc = 'Hãy nhập Email của bạn']
     priority: 0
   - name: XPATH
-    value: //android.widget.EditText/android.view.View
+    value: //android.widget.EditText[1]/android.view.View
     priority: 1
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[2]/android.widget.EditText[1]/android.view.View[1]

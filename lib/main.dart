@@ -4,10 +4,16 @@ import 'package:flutter/material.dart';
 
 import 'Screens/Welcome/start_page.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    // options: const FirebaseOptions(
+    //   apiKey: 'AIzaSyAUOXWTxxb2je7EkAFsPRcm1jW1BPnr07E',
+    //   appId: '1:10319697662:android:ab94551ce1a25bfcab77af',
+    //   messagingSenderId: '10319697662',
+    //   projectId: 'infinito-wallet-fea37',
+    // ),
+  );
   runApp(const MyApp());
 } 
 

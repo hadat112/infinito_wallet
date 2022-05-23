@@ -1,7 +1,7 @@
-id: 3OYc3YbHgUSnKj8kXgt-hQ
+id: paDPH1Uxfkio9W-E2YASEQ
 projectId: qfh00_FG30y796lTMTELHg
 projectName: My first Project
-created: 2022-05-13T08:04:24.9353203Z
+created: 2022-05-23T15:57:55.3925488Z
 owner: 19021234 Hà Văn Đạt
 protocol: 1
 tests:
@@ -170,10 +170,10 @@ elements:
   locators:
   - name: XPATH
     value: //android.widget.Button[@content-desc = 'Đăng xuất']
-    priority: 0
+    priority: 1
   - name: XPATH
     value: //android.widget.Button[2]
-    priority: 1
+    priority: 0
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.widget.Button[2]
     priority: 2
@@ -186,10 +186,10 @@ elements:
   locators:
   - name: XPATH
     value: //android.view.View[@content-desc = 'Bắt đầu']
-    priority: 0
+    priority: 1
   - name: XPATH
     value: //android.view.View/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View/android.view.View
-    priority: 1
+    priority: 0
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]
     priority: 2

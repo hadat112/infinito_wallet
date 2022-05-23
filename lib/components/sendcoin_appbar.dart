@@ -73,7 +73,7 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
               walletName = snapshot.data?.get('wallet_name');
               initialsName = getInitials(string: walletName, limitTo: 2);
               return Container(
-                margin: const EdgeInsets.only(top: 70, left: 16, right: 16),
+                margin: const EdgeInsets.only(top: 10, left: 16, right: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(9),
                   gradient: const LinearGradient(colors: <Color>[
@@ -193,7 +193,7 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                       ),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 4,
                     ),
                     FutureBuilder<DocumentSnapshot>(
                         future: getData(),

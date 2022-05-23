@@ -1,7 +1,7 @@
-id: i-MCVzKdnUqs7KMk-ugW_Q
+id: hBHBjg01V0WLkZpr_Va1PQ
 projectId: qfh00_FG30y796lTMTELHg
 projectName: My first Project
-created: 2022-05-13T07:58:32.7449612Z
+created: 2022-05-23T15:57:47.5176072Z
 owner: 19021234 Hà Văn Đạt
 protocol: 1
 tests:
@@ -140,10 +140,10 @@ elements:
   locators:
   - name: XPATH
     value: //android.view.View[@content-desc = '1234.000000000']
-    priority: 0
+    priority: 1
   - name: XPATH
     value: //android.view.View/android.view.View[1]/android.view.View[1]/android.view.View/android.view.View[1]
-    priority: 1
+    priority: 0
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]
     priority: 2
@@ -156,10 +156,10 @@ elements:
   locators:
   - name: XPATH
     value: //android.view.View[@content-desc = 'hadta']
-    priority: 0
+    priority: 1
   - name: XPATH
     value: //android.view.View[3]
-    priority: 1
+    priority: 0
   - name: XPATH
     value: //android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View[3]
     priority: 2

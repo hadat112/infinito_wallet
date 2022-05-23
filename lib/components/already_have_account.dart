@@ -12,20 +12,26 @@ class AlreadyHaveAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          login ? 'Bạn không có tài khoản?' : 'Bạn đã có tài khoản?'
-        ),
-        TextButton(
-          onPressed: press,
-          child: Text(
-            login ? 'Đăng ký' : 'Đăng nhập',
-            style: const TextStyle(fontSize: 20),
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text(
+            login ? 'Bạn không có tài khoản?' : 'Bạn đã có tài khoản?'
           ),
-        )
-      ],
+          const SizedBox(width: 8),
+          GestureDetector(
+            onTap: press,
+            child: Text(
+              login ? 'Đăng ký' : 'Đăng nhập',
+              style: const TextStyle(fontSize: 20,
+              color: Colors.blueAccent),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

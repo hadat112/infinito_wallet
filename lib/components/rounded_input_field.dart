@@ -47,7 +47,7 @@ class RoundedInputField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
+            borderRadius: BorderRadius.all(Radius.circular(28)),
           ),
         ),
       )

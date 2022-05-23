@@ -30,12 +30,14 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
       selectedCrypto = widget.coins?.elementAt(0);
       selectedCryptoImg = widget.coins?.elementAt(0).imageUrl;
     }
-    return Row(children: [
+    return Row(
+      children: [
       Image.network(selectedCryptoImg ?? ''),
       const SizedBox(width: 5,),
       DropdownButton<Coin>(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(28),
         underline: const SizedBox(),
+        iconSize: 28,
         value: selectedCrypto,
         items: widget.coins?.map((coin) {
           return DropdownMenuItem(
@@ -184,233 +186,238 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     const String _title = 'Mua Crypto';
-    return Scaffold(
-        appBar: const Appbar(title: _title),
-        body: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Center(
-                child: Container(
-                  width: size.width * 0.45,
-                  margin: const EdgeInsets.only(top: 20),
-                  padding: const EdgeInsets.only(bottom: 10),
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(width: 2),
+    return SafeArea(
+      child: Scaffold(
+          appBar: const Appbar(title: _title),
+          body: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Center(
+                  child: Container(
+                    width: size.width * 0.45,
+                    margin: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(bottom: 10),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(width: 2),
+                      ),
                     ),
-                  ),
-                  child: const Align(
-                    child: Text(
-                      'Tạo đơn hàng',
-                      style: TextStyle(fontSize: 16),
+                    child: const Align(
+                      child: Text(
+                        'Tạo đơn hàng',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 30),
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('Bạn muốn mua với bao nhiêu tiền',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w600))),
-                    ),
-                    Container(
-                      height: 60,
-                      width: size.width * 0.9,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 10),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromRGBO(0, 0, 0, 0.4)),
-                        borderRadius: BorderRadius.circular(8),
+                Container(
+                  margin: const EdgeInsets.only(top: 30),
+                  child: Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('Bạn muốn mua với bao nhiêu tiền?',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600))),
                       ),
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 30,
-                            width: 30,
-                            // color: Colors.purple,
-                            decoration:const BoxDecoration(
-                              image: DecorationImage(
-                                image:
-                                    AssetImage('assets/USD.png'),
+                                            const SizedBox(height: 4),
+                      Container(
+                        height: 60,
+                        width: size.width * 0.9,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 10),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color.fromRGBO(0, 0, 0, 0.4)),
+                          borderRadius: BorderRadius.circular(28),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 40,
+                              width: 30,
+                              // color: Colors.purple,
+                              decoration:const BoxDecoration(
+                                image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/USD.png'),
+                                ),
                               ),
                             ),
-                          ),
-                          const Text('USD'),
-                          const VerticalDivider(
-                            thickness: 2,
-                          ),
-                          const SizedBox(width: 5),
-                          Flexible(
-                              child: TextField(
-                            onChanged: (value) async {
-                              if (value == '') {
-                                value = '0';
-                              }
-                              amountValue = double.parse(value);
-                              setState(() {
-                                amountToCrypto =
-                                    amountValue / (selectedCrypto?.price ?? 1);
-                              });
-                            },
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
+                            const Text('USD'),
+                            const VerticalDivider(
+                              thickness: 2,
                             ),
-                          ))
-                        ],
+                            const SizedBox(width: 5),
+                            Flexible(
+                                child: TextField(
+                              onChanged: (value) async {
+                                if (value == '') {
+                                  value = '0';
+                                }
+                                amountValue = double.parse(value);
+                                setState(() {
+                                  amountToCrypto =
+                                      amountValue / (selectedCrypto?.price ?? 1);
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                            ))
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 30),
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('Nhận',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w600))),
-                    ),
-                    Container(
-                      height: 60,
-                      width: size.width * 0.9,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 10),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromRGBO(0, 0, 0, 0.4)),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        children: [
-                          cryptoDropdown(),
-                          const VerticalDivider(
-                            thickness: 2,
-                          ),
-                          const SizedBox(width: 5),
-                          if (isWaiting)
-                            const Loading(
-                              size: 30,
-                            )
-                          else
-                            Text(amountToCrypto.toStringAsFixed(9))
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const WalletInfo(),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: const Text(
-                  'Chấp nhận',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Color.fromRGBO(0, 0, 0, 0.5),
+                    ],
                   ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                height: 30,
-                width: 30,
-                // color: Colors.purple,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/visa.png'),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 80,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        _value = !_value;
-                      });
-                    },
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.blue),
-                      child: Padding(
-                        padding: const EdgeInsets.all(2),
-                        child: _value
-                            ? const Icon(
-                                Icons.check,
-                                size: 15,
-                                color: Colors.white,
+                Container(
+                  margin: const EdgeInsets.only(top: 30),
+                  child: Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('Nhận',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600))),
+                      ),
+                      const SizedBox(height: 4),
+                      Container(
+                        height: 60,
+                        width: size.width * 0.9,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 10),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color.fromRGBO(0, 0, 0, 0.4)),
+                          borderRadius: BorderRadius.circular(28),
+                        ),
+                        child: Row(
+                          children: [
+                            cryptoDropdown(),
+                            const VerticalDivider(
+                              thickness: 2,
+                            ),
+                            const SizedBox(width: 5),
+                            if (isWaiting)
+                              const Loading(
+                                size: 30,
                               )
-                            : const Icon(
-                                Icons.check_box_outline_blank,
-                                size: 15,
-                                color: Colors.blue,
-                              ),
+                            else
+                              Text(amountToCrypto.toStringAsFixed(9))
+                          ],
+                        ),
                       ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const WalletInfo(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: const Text(
+                    'Chấp nhận',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(0, 0, 0, 1),
                     ),
                   ),
-                  const SizedBox(
-                    width: 5,
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  height: 30,
+                  width: 30,
+                  // color: Colors.purple,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/visa.png'),
+                    ),
                   ),
-                  const Text('Tôi đồng ý với điều khoản dịch vụ'),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Center(
-                  child: RoundedButton(
-                press: () {
-                  if (_value) {
-                    setState(() {
-                      dieukhoan = false;
-                    });
-                    showAlertDialog(context);
-                  } else {
-                    setState(() {
-                      dieukhoan = true;
-                    });
-                  }
-                },
-                text: 'Tiếp tục',
-              )),
-              if (dieukhoan)
-                const Center(
-                    child: Text(
-                  'Bạn chưa đồng ý điều khoản dịch vụ',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 12,
-                  ),
-                ))
-              else
-                const Text('')
-            ],
-          ),
-        ));
+                ),
+                const SizedBox(
+                  height: 80,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _value = !_value;
+                        });
+                      },
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.blue),
+                        child: Padding(
+                          padding: const EdgeInsets.all(2),
+                          child: _value
+                              ? const Icon(
+                                  Icons.check,
+                                  size: 15,
+                                  color: Colors.white,
+                                )
+                              : const Icon(
+                                  Icons.check_box_outline_blank,
+                                  size: 15,
+                                  color: Colors.blue,
+                                ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text('Tôi đồng ý với điều khoản dịch vụ'),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Center(
+                    child: RoundedButton(
+                  press: () {
+                    if (_value) {
+                      setState(() {
+                        dieukhoan = false;
+                      });
+                      showAlertDialog(context);
+                    } else {
+                      setState(() {
+                        dieukhoan = true;
+                      });
+                    }
+                  },
+                  text: 'Tiếp tục',
+                )),
+                if (dieukhoan)
+                  const Center(
+                      child: Text(
+                    'Bạn chưa đồng ý điều khoản dịch vụ',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                    ),
+                  ))
+                else
+                  const Text('')
+              ],
+            ),
+          )),
+    );
   }
 }

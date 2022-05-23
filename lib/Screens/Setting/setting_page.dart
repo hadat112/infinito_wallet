@@ -91,7 +91,7 @@ class SettingPage extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                TitleItem(size: size, text: 'Cài đặt và những mục khác'),
+                TitleItem(size: size, text: 'Cài đặt'),
                 SettingBtn(
                   press: () {
                     Navigator.push(context,
@@ -106,23 +106,26 @@ class SettingPage extends StatelessWidget {
                   ),
                   text: 'Cài đặt',
                 ),
-                SettingBtn(
-                    press: () {
-                      Navigator.push(context,
-                          MaterialPageRoute<dynamic>(builder: (context) {
-                        return const DifferentSettingPage();
-                      }));
-                    },
-                    icon: const Icon(
-                      Icons.menu_outlined,
-                      color: Color.fromRGBO(90, 195, 240, 1),
-                      size: 35,
-                    ),
-                    text: 'Những mục khác'),
                 const SizedBox(
                   height: 20,
                 ),
-                TitleItem(size: size, text: 'Theo dõi chúng tôi'),
+                // SettingBtn(
+                //     press: () {
+                //       Navigator.push(context,
+                //           MaterialPageRoute<dynamic>(builder: (context) {
+                //         return const DifferentSettingPage();
+                //       }));
+                //     },
+                //     icon: const Icon(
+                //       Icons.menu_outlined,
+                //       color: Color.fromRGBO(90, 195, 240, 1),
+                //       size: 35,
+                //     ),
+                //     text: 'Những mục khác'),
+                // const SizedBox(
+                //   height: 20,
+                // ),
+                // TitleItem(size: size, text: 'Theo dõi chúng tôi'),
                 RoundedButton(
                   press: () {
                     _auth.signOut();

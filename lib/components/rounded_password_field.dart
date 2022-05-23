@@ -74,7 +74,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
                     color: Color.fromRGBO(90, 195, 240, 1)),
               ),
               border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderRadius: BorderRadius.all(Radius.circular(28)),
               ),
             )),
         if (widget.aToZ == true)

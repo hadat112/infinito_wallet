@@ -54,7 +54,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
             selectedCrypto = snapshot.data?.docs[0].id;
           }
           return DropdownButton(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(28),
             underline: const SizedBox(),
             isExpanded: false,
             value: selectedCrypto,
@@ -111,7 +111,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
             selectedReceiveCrypto = snapshot.data?.docs[0].id;
           }
           return DropdownButton(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(28),
             underline: const SizedBox(),
             isExpanded: false,
             value: selectedReceiveCrypto,
@@ -266,7 +266,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: const Color.fromRGBO(0, 0, 0, 0.4)),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(28),
                         ),
                         child: Row(
                           children: [
@@ -346,7 +346,7 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: const Color.fromRGBO(0, 0, 0, 0.4)),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(28),
                         ),
                         child: Row(
                           children: [

@@ -23,6 +23,8 @@ class ChangePassword extends StatelessWidget {
                 onChanged: (value) {},
                 aToZ: false,
               ),
+                            SizedBox(height: size.height * 0.04),
+
               RoundedPasswordField(
                 passwordController: passwordController,
                 onChanged:(value) {}, inputTitle: 'Mật khẩu mới',
