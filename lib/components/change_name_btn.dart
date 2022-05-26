@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingBtn extends StatefulWidget {
   const SettingBtn({
@@ -50,7 +51,7 @@ class _SettingButtonState extends State<SettingBtn> {
           });
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
           decoration: const BoxDecoration(
               border: Border(
             bottom: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.4)),
@@ -65,14 +66,15 @@ class _SettingButtonState extends State<SettingBtn> {
                 ),
                 Text(
                   widget.text,
-                  style: const TextStyle(
-                      fontSize: 16,
+                  style:  TextStyle(
+                      fontSize: 16.sp,
                       color: Colors.black,
                       fontWeight: FontWeight.w500),
                 ),
               ],
             ),
-            const Icon(Icons.arrow_forward_ios)
+            Icon(Icons.arrow_forward_ios, 
+            size: 20.sp,)
           ]),
         ),
       ),

@@ -17,17 +17,19 @@ class ChangeWalletName extends StatelessWidget {
     const String _title = 'Đặt lại tên';
     return Scaffold(
         appBar: const Appbar(title: _title),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            RoundedInputField(inputEditingController: inputEditingController, onChanged: (value) {
-            }, inputTitle: 'Tên ví'),
-            SizedBox(height: size.height * 0.05),
-            RoundedButton(text: 'Cập nhật', press: () {
-              DatabaseService(uid: _auth.getCurrentUser()!.uid).changeName(inputEditingController.text, 'wallet_name');
-              Navigator.pop(context);
-            }),
-          ],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              RoundedInputField(inputEditingController: inputEditingController, onChanged: (value) {
+              }, inputTitle: 'Tên ví'),
+              SizedBox(height: size.height * 0.05),
+              RoundedButton(text: 'Cập nhật', press: () {
+                DatabaseService(uid: _auth.getCurrentUser()!.uid).changeName(inputEditingController.text, 'wallet_name');
+                Navigator.pop(context);
+              }),
+            ],
+          ),
         ));
   }
 }

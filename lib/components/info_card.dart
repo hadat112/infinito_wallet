@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../services/auth.dart';
 import 'circle_icon.dart';
@@ -36,72 +37,79 @@ class _WalletInfoState extends State<WalletInfo> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text('Ví',
-                  style: TextStyle(
-                      color: Color.fromRGBO(0, 0, 0, 1),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600))),
-        ),
-        Card(
-          color: const Color(0xFFF4F4F4),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(29),
-          ),
-          child: FutureBuilder<DocumentSnapshot>(
-              future: FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(_auth.getCurrentUser()?.uid)
-                  .get(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const Center();
-                }
-                final String name = snapshot.data!.get('wallet_name');
-                return Container(
-                  height: 60,
-                  width: size.width * 0.9,
-                  // padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: [
-                      IconCircle(
-                        textInside: getInitials(string: name, limitTo: 2),
-                        circleSize: 60,
+    return Center(
+      child: Container(
+          width: size.width * 0.9,
+        child: Column(
+
+          children: [
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Text('Ví',
+                      style: TextStyle(
+                          color: const Color.fromRGBO(0, 0, 0, 1),
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600)),
+                )),
+            Card(
+              color: const Color(0xFFF4F4F4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: FutureBuilder<DocumentSnapshot>(
+                  future: FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(_auth.getCurrentUser()?.uid)
+                      .get(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center();
+                    }
+                    final String name = snapshot.data!.get('wallet_name');
+                    return Container(
+                      height: size.height*0.06,
+                      // padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
                       ),
-                      const SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      child: Row(
                         children: [
-                          Text(
-                            name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                            ),
+                          IconCircle(
+                            textInside: getInitials(string: name, limitTo: 2),
+                            circleSize: size.height*0.06,
                           ),
-                          Text(
-                            _auth.getCurrentUser()!.uid,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w300,
-                                color: Color.fromRGBO(7, 15, 87, 1)),
-                          )
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                name,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14.sp
+                                ),
+                              ),
+                              Text(
+                                _auth.getCurrentUser()!.uid,
+                                style:  TextStyle(
+                                  fontSize: 14.sp,
+                                    fontWeight: FontWeight.w300,
+                                    color: const Color.fromRGBO(7, 15, 87, 1)),
+                              )
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  ),
-                );
-              }),
+                    );
+                  }),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

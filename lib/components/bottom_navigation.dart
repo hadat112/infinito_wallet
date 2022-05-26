@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinito_wallet/Screens/Home/home.dart';
 import 'package:infinito_wallet/Screens/Setting/setting_page.dart';
 
@@ -28,14 +29,14 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
+      height: 80.h,
       // color: Colors.white,
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: const Color(0xffE0E0E0))),
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.only(left: 40, right: 51, top: 10),
+          padding: EdgeInsets.only(top: 10.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

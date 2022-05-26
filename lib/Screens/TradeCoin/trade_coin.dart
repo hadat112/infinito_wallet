@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinito_wallet/components/rounded_button.dart';
 import 'package:infinito_wallet/services/auth.dart';
 
@@ -31,7 +32,6 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
   bool isWaiting = false;
   bool validAmount = true;
 
-
   late double amountValue = 0;
   late double amountToCrypto = 1;
   late double tygia = 1;
@@ -56,7 +56,6 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
           return DropdownButton(
             borderRadius: BorderRadius.circular(28),
             underline: const SizedBox(),
-            isExpanded: false,
             value: selectedCrypto,
             items: snapshot.data?.docs.map((value) {
               return DropdownMenuItem(
@@ -86,8 +85,9 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                 isWaiting = false;
               });
             },
+            iconSize: 18.sp,
             // dropdownColor: Colors.black,
-            style: const TextStyle(color: Color.fromRGBO(28, 149, 214, 1)),
+            style:  TextStyle(color: const Color.fromRGBO(28, 149, 214, 1),fontSize: 14.sp),
             iconEnabledColor: const Color.fromRGBO(28, 149, 214, 1),
             iconDisabledColor: const Color.fromRGBO(28, 149, 214, 1),
           );
@@ -113,7 +113,6 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
           return DropdownButton(
             borderRadius: BorderRadius.circular(28),
             underline: const SizedBox(),
-            isExpanded: false,
             value: selectedReceiveCrypto,
             items: snapshot.data?.docs.map((value) {
               return DropdownMenuItem(
@@ -142,8 +141,9 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
                 isWaiting = false;
               });
             },
+            iconSize: 18.sp,
             // dropdownColor: Colors.black,
-            style: const TextStyle(color: Color.fromRGBO(28, 149, 214, 1)),
+            style: TextStyle(color: const Color.fromRGBO(28, 149, 214, 1),fontSize: 14.sp),
             iconEnabledColor: const Color.fromRGBO(28, 149, 214, 1),
             iconDisabledColor: const Color.fromRGBO(28, 149, 214, 1),
           );
@@ -181,14 +181,17 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
             .addCoin(selectedReceiveCrypto, amountToCrypto);
         DatabaseService(uid: _auth.getCurrentUser()!.uid)
             .addCoin(selectedCrypto, -amountValue);
-      Navigator.pushAndRemoveUntil(
+        Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute<dynamic>(builder: (context) => const Home()),
-            (route) => false);      },
+            (route) => false);
+      },
     );
 
     // set up the AlertDialog
     final AlertDialog alert = AlertDialog(
+      shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12))),
       title: const Text('Tạo giao dịch'),
       content: const Text('Bạn có đồng ý tạo giao dịch này?'),
       actions: [
@@ -213,7 +216,6 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
     amountToCrypto =
         selectedCryptoPrice * amountValue / selectedReceiveCryptoPrice;
     tygia = selectedCryptoPrice / selectedReceiveCryptoPrice;
-
   }
 
   @override
@@ -225,247 +227,269 @@ class _TradeCoinPageState extends State<TradeCoinPage> {
           appBar: const Appbar(title: _title),
           body: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Center(
-                  child: Container(
-                    width: size.width * 0.45,
-                    margin: const EdgeInsets.only(top: 20),
-                    padding: const EdgeInsets.only(bottom: 10),
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(width: 2),
-                      ),
-                    ),
-                    child: const Align(
-                      child: Text(
-                        'Tạo giao dịch',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 30),
-                  child: Column(
+            child: Container(
+              height: size.height - AppBar().preferredSize.height * 2-24,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20, bottom: 2),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('Gửi',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600))),
+                      Center(
+                        child: Container(
+                          width: size.width * 0.45,
+                          margin: EdgeInsets.only(top: 8.h),
+                          padding: EdgeInsets.only(bottom: 8.h),
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(width: 2),
+                            ),
+                          ),
+                          child: Align(
+                            child: Text(
+                              'Tạo giao dịch',
+                              style: TextStyle(fontSize: 16.sp),
+                            ),
+                          ),
+                        ),
                       ),
                       Container(
-                        height: 60,
                         width: size.width * 0.9,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromRGBO(0, 0, 0, 0.4)),
-                          borderRadius: BorderRadius.circular(28),
-                        ),
-                        child: Row(
+                        margin:  EdgeInsets.only(top: 30.h),
+                        child: Column(
                           children: [
-                            // Container(
-                            //   height: 30,
-                            //   width: 30,
-                            //   // color: Colors.purple,
-                            //   decoration: BoxDecoration(
-                            //     image: DecorationImage(
-                            //       image: AssetImage(selectedCrypto != null
-                            //           ? 'assets/$selectedCrypto.png'
-                            //           : 'assets/BTC.png'),
-                            //     ),
-                            //   ),
-                            // ),
-                            cryptoDropdown(),
-                            const VerticalDivider(
-                              thickness: 2,
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('Gửi',
+                                      style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w600))),
                             ),
-                            const SizedBox(width: 5),
-                            Flexible(
-                                child: TextField(
-                              onChanged: (value) {
-                                if (value == '') {
-                                  value = '0';
-                                }
-                                if (double.parse(value) <= 0 ) {
+                            SizedBox(
+                              height: 4.h,
+                            ),
+                            Container(
+                              height: size.height * 0.06,
+                              width: size.width * 0.9,
+                              padding:
+                                 EdgeInsets.symmetric(horizontal: 10.w),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color.fromRGBO(0, 0, 0, 0.4)),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Row(
+                                children: [
+                                  // Container(
+                                  //   height: 30,
+                                  //   width: 30,
+                                  //   // color: Colors.purple,
+                                  //   decoration: BoxDecoration(
+                                  //     image: DecorationImage(
+                                  //       image: AssetImage(selectedCrypto != null
+                                  //           ? 'assets/$selectedCrypto.png'
+                                  //           : 'assets/BTC.png'),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  cryptoDropdown(),
+                                  const VerticalDivider(
+                                    thickness: 2,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Flexible(
+                                      child: TextField(
+                                                    style: TextStyle(fontSize: 14.sp),
+                                    onChanged: (value) {
+                                      if (value == '') {
+                                        value = '0';
+                                      }
+                                      if (double.parse(value) <= 0) {
                                         validAmount = false;
                                       } else {
                                         validAmount = true;
                                       }
-                                amountValue = double.parse(value);
-                                setState(() {
-                                  getData();                         
-                                  amountToCrypto =
-                                      selectedCryptoPrice /
-                                          selectedReceiveCryptoPrice;
-                                });
-                              },
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
+                                      amountValue = double.parse(value);
+                                      setState(() {
+                                        getData();
+                                        amountToCrypto = selectedCryptoPrice /
+                                            selectedReceiveCryptoPrice;
+                                      });
+                                    },
+                                    keyboardType: TextInputType.number,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                    ),
+                                  ))
+                                ],
                               ),
-                            ))
+                            ),
+                            SizedBox(height: 2.h,),
+                            if (validAmount)
+                              const Text('')
+                            else
+                               Text(
+                                'Vui lòng nhập số lượng hợp lệ',
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: Colors.red,
+                                ),
+                              ),
                           ],
                         ),
-                      ),
-                      if (validAmount)
-                    const Text('')
-                  else
-                    const Text(
-                      'Vui lòng nhập số lượng hợp lệ',
-                      style: TextStyle(
-                        color: Colors.red,
-                      ),
-                    ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 30),
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20, bottom: 2),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('Nhận',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600))),
                       ),
                       Container(
-                        height: 60,
                         width: size.width * 0.9,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromRGBO(0, 0, 0, 0.4)),
-                          borderRadius: BorderRadius.circular(28),
-                        ),
-                        child: Row(
+                        margin: EdgeInsets.only(top: 25.h),
+                        child: Column(
                           children: [
-                            // Container(
-                            //   height: 30,
-                            //   width: 30,
-                            //   // color: Colors.purple,
-                            //   decoration: BoxDecoration(
-                            //     image: DecorationImage(
-                            //       image: AssetImage(selectedCrypto != null
-                            //           ? 'assets/$selectedReceiveCrypto.png'
-                            //           : 'assets/BTC.png'),
-                            //     ),
-                            //   ),
-                            // ),
-                            cryptoReceiveDropdown(),
-                            const VerticalDivider(
-                              thickness: 2,
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('Nhận',
+                                      style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w600))),
                             ),
-                            const SizedBox(width: 5),
-                            if (isWaiting)
-                              const Loading(
-                                size: 30,
-                              )
-                            else
-                              Text(amountToCrypto.toStringAsFixed(9))
+                            SizedBox(
+                              height: 4.h,
+                            ),
+                            Container(
+                              height: size.height * 0.06,
+                              padding:
+                                   EdgeInsets.symmetric(horizontal: 10.w),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color.fromRGBO(0, 0, 0, 0.4)),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Row(
+                                children: [
+                                  // Container(
+                                  //   height: 30,
+                                  //   width: 30,
+                                  //   // color: Colors.purple,
+                                  //   decoration: BoxDecoration(
+                                  //     image: DecorationImage(
+                                  //       image: AssetImage(selectedCrypto != null
+                                  //           ? 'assets/$selectedReceiveCrypto.png'
+                                  //           : 'assets/BTC.png'),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  cryptoReceiveDropdown(),
+                                  const VerticalDivider(
+                                    thickness: 2,
+                                  ),
+                                  SizedBox(width: 5.w),
+                                  if (isWaiting)
+                                    const Loading(
+                                      size: 30,
+                                    )
+                                  else
+                                    Text(amountToCrypto.toStringAsFixed(9), 
+                                    style: TextStyle(fontSize: 14.sp),
+                                    )
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                // RoundedDropdownInput(
-                //   inputTitle: 'Gửi',
-                //   dropdownValue: 'ONT',
-                // ),
-                // RoundedDropdownInput(
-                //   inputTitle: 'Nhận',
-                //   dropdownValue: 'ETH',
-                // ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Text(
-                            'Tỷ giá',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                color: Color.fromRGBO(7, 15, 87, 1)),
-                          ),
-                          Text(
-                            '1 ${(selectedCrypto ?? 'ADA').toUpperCase()} ~ ${tygia.toStringAsFixed(9)} ${(selectedReceiveCrypto ?? 'ADA').toUpperCase()}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
+                      // RoundedDropdownInput(
+                      //   inputTitle: 'Gửi',
+                      //   dropdownValue: 'ONT',
+                      // ),
+                      // RoundedDropdownInput(
+                      //   inputTitle: 'Nhận',
+                      //   dropdownValue: 'ETH',
+                      // ),
+                      SizedBox(
+                        height: 10.h,
                       ),
-                      Column(
-                        children: const [
-                          Text(
-                            'Cung cấp bởi',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                color: Color.fromRGBO(7, 15, 87, 1)),
-                          ),
-                          Text(
-                            'Changelly',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
+                      Container(
+                        width: size.width * 0.9,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // mainAxisSize: MainAxisSize.min,
+                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                 Text(
+                                  'Tỷ giá',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                      fontWeight: FontWeight.w300,
+                                      color: const Color.fromRGBO(7, 15, 87, 1)),
+                                ),
+                                Text(
+                                  '1 ${(selectedCrypto ?? 'ADA').toUpperCase()} ~ ${tygia.toStringAsFixed(9)} ${(selectedReceiveCrypto ?? 'ADA').toUpperCase()}',
+                                  style:  TextStyle(
+                                    fontSize: 11.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      )
+                            Column(
+                              children: [
+                                Text(
+                                  'Cung cấp bởi',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                      fontWeight: FontWeight.w300,
+                                      color: const Color.fromRGBO(7, 15, 87, 1)),
+                                ),
+                                Text(
+                                  'Changelly',
+                                  style: TextStyle(
+                                    fontSize: 11.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      const WalletInfo(),
+
+                      // RoundedInputField(
+                      //     onChanged: (value) {}, inputTitle: 'Mật khẩu giao dịch'),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 35,
-                ),
-                const WalletInfo(),
-                const SizedBox(
-                  height: 20,
-                ),
-                // RoundedInputField(
-                //     onChanged: (value) {}, inputTitle: 'Mật khẩu giao dịch'),
-                const SizedBox(
-                  height: 100,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    WhiteButton(
-                      text: 'Trở về',
-                      press: () {
-                        Navigator.pop(context);
-                      },
-                      textColor: Colors.black,
-                      btnWidth: 180,
-                    ),
-                    RoundedButton(
-                      text: 'Giao dịch ngay',
-                      press: () {
-                        showAlertDialog(context);
-                      },
-                      btnWidth: 180,
-                    ),
-                  ],
-                ),
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      WhiteButton(
+                        text: 'Trở về',
+                        singleBtn: false,
+                        press: () {
+                          Navigator.pop(context);
+                        },
+                        textColor: Colors.black,
+                        // btnWidth: 180,
+                      ),
+                      RoundedButton(
+                        text: 'Giao dịch ngay',
+                        singleBtn: false,
+                        press: () {
+                          showAlertDialog(context);
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           )),
     );

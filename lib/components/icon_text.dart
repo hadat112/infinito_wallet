@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class IconText extends StatefulWidget {
   const IconText({
@@ -40,12 +41,12 @@ class _IconTextState extends State<IconText> {
           },
         child: Column(
           children: [    
-            Icon(widget.icon, size: 36, color: widget.color,),
+            Icon(widget.icon, size: 36.sp, color: widget.color,),
             Text(
               widget.text,
               style: TextStyle(
                 color: widget.color,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),

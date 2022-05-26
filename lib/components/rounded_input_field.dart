@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:infinito_wallet/components/text_field_container.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RoundedInputField extends StatelessWidget {
   const RoundedInputField(
@@ -21,36 +21,43 @@ class RoundedInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return TextFieldContainer(
-        child: Column(children: [
-      Align(
+    return Container(
+      width: size.width*0.9,
+      child: Column(children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: Align(
           alignment: Alignment.centerLeft,
           child: Text(inputTitle,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600))),
-      SizedBox(height: size.height * 0.005),
-      TextFormField(
-        scrollPadding: const EdgeInsets.only(
-            bottom: 80),
-        controller: inputEditingController,
-        keyboardType: TextInputType.name,
-        validator: (value) {
+              style:  TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600))),
+        ),
+        SizedBox(height: 4.h),
+        Container(
+          height: size.height*0.06,
+          child: TextFormField(
+            style: TextStyle(fontSize: 14.sp),
+      controller: inputEditingController,
+      keyboardType: TextInputType.name,
+      validator: (value) {
           if (value!.isEmpty) {
             return validateText;
           }
           return null;
-        },
-        onSaved: (value) {
+      },
+      onSaved: (value) {
           inputEditingController.text = value!;
-        },
-        textInputAction: TextInputAction.next,
-        onChanged: onChanged,
-        decoration: InputDecoration(
+      },
+      textInputAction: TextInputAction.next,
+      onChanged: onChanged,
+      decoration: InputDecoration(
           hintText: hintText,
           border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(28)),
+            borderRadius: BorderRadius.all(Radius.circular(50)),
           ),
-        ),
-      )
-    ]));
+      ),
+          ),
+        )
+      ]),
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../services/auth.dart';
 
@@ -21,7 +22,7 @@ class SendCoinAppBar extends StatefulWidget with PreferredSizeWidget {
   State<SendCoinAppBar> createState() => _SendCoinAppBarState();
 
   @override
-  Size get preferredSize => const Size.fromHeight(170);
+  Size get preferredSize =>  Size.fromHeight(170.h);
 }
 
 class _SendCoinAppBarState extends State<SendCoinAppBar> {
@@ -60,7 +61,7 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
-        preferredSize: const Size.fromHeight(170),
+        preferredSize: Size.fromHeight(170.h),
         child: FutureBuilder<DocumentSnapshot>(
             future: FirebaseFirestore.instance
                 .collection('users')
@@ -73,7 +74,7 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
               walletName = snapshot.data?.get('wallet_name');
               initialsName = getInitials(string: walletName, limitTo: 2);
               return Container(
-                margin: const EdgeInsets.only(top: 10, left: 16, right: 16),
+                margin: EdgeInsets.only(top: 10.h, left: 16.w, right: 16.w),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(9),
                   gradient: const LinearGradient(colors: <Color>[
@@ -82,11 +83,11 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                   ]),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  padding: EdgeInsets.only(top: 10.h, left: 20.h, right: 20.h),
                   child: Column(children: [
                     Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      margin: EdgeInsets.only(bottom: 20.h),
+                      padding:  EdgeInsets.symmetric(vertical: 10.h),
                       decoration: const BoxDecoration(
                         border: Border(
                           bottom: BorderSide(color: Colors.white),
@@ -94,8 +95,8 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                       ),
                       child: Row(children: [
                         Container(
-                          height: 30,
-                          width: 30,
+                          height: 30.h,
+                          width: 30.h,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
@@ -107,9 +108,9 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                           child: Center(
                               child: Text(
                             initialsName ?? '',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 14,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500),
                           )),
                         ),
@@ -118,8 +119,8 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                         ),
                         Text(
                           '$walletName',
-                          style: const TextStyle(
-                              fontSize: 16,
+                          style: TextStyle(
+                              fontSize: 16.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),
                         )
@@ -128,19 +129,19 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                     Card(
                       color: const Color.fromRGBO(71, 145, 176, 1),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(29),
+                        borderRadius: BorderRadius.circular(100),
                       ),
                       child: Container(
-                        height: 37,
-                        width: widget.size.width * 0.52,
+                        height: 37.h,
+                        width: 200.w,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(100),
                         ),
                         child: Row(
                           children: [
                             Container(
-                              height: 35,
-                              width: 35,
+                              height: 35.h,
+                              width: 35.h,
                               decoration: const BoxDecoration(
                                 color: Color.fromRGBO(90, 195, 240, 1),
                                 borderRadius: BorderRadius.only(
@@ -152,9 +153,9 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                               child: Center(
                                   child: Text(
                                 initialsName ?? '',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 14,
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.w400),
                               )),
                             ),
@@ -171,29 +172,29 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                                       snapshot.data?.get('amount').toDouble();
                                   return Text(
                                     '${amount?.toStringAsFixed(9)} ',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.white,
-                                        fontSize: 16),
+                                        fontSize: 16.sp),
                                   );
                                 }),
                             const SizedBox(width: 2),
                             Container(
-                              padding: const EdgeInsets.only(bottom: 4),
+                              padding: EdgeInsets.only(bottom: 4.h),
                               child: Text(
                                 widget.selectedCrypto.toUpperCase(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontWeight: FontWeight.w300,
-                                    color: Color.fromRGBO(255, 255, 255, 0.6),
-                                    fontSize: 12),
+                                    color: const Color.fromRGBO(255, 255, 255, 0.6),
+                                    fontSize: 12.sp),
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 4,
+                     SizedBox(
+                      height: 4.h,
                     ),
                     FutureBuilder<DocumentSnapshot>(
                         future: getData(),
@@ -201,10 +202,10 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                           amount = snapshot.data?.get('amount').toDouble();
                           return Text(
                             '(${((amount ?? 0) * widget.amountToCrypto).toStringAsFixed(8)} USD)',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontWeight: FontWeight.w300,
                                 color: Color.fromRGBO(255, 255, 255, 0.6),
-                                fontSize: 16),
+                                fontSize: 16.sp),
                           );
                         }),
                   ]),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinito_wallet/Screens/Loading/loading.dart';
 
 import 'package:infinito_wallet/components/rounded_button.dart';
@@ -30,19 +31,22 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
       selectedCrypto = widget.coins?.elementAt(0);
       selectedCryptoImg = widget.coins?.elementAt(0).imageUrl;
     }
-    return Row(
-      children: [
-      Image.network(selectedCryptoImg ?? ''),
-      const SizedBox(width: 5,),
+    return Row(children: [
+      Image.network(selectedCryptoImg ?? '',),
+      const SizedBox(
+        width: 5,
+      ),
       DropdownButton<Coin>(
         borderRadius: BorderRadius.circular(28),
         underline: const SizedBox(),
-        iconSize: 28,
+        iconSize: 18.sp,
         value: selectedCrypto,
         items: widget.coins?.map((coin) {
           return DropdownMenuItem(
             value: coin,
-            child: Text(coin.symbol.toUpperCase(),),
+            child: Text(
+              coin.symbol.toUpperCase(),
+            ),
           );
         }).toList(),
         onChanged: (value) {
@@ -60,7 +64,8 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
           });
         },
         // dropdownColor: Colors.black,
-        style: const TextStyle(color: Color.fromRGBO(28, 149, 214, 1)),
+        style:  TextStyle(color: const Color.fromRGBO(28, 149, 214, 1),
+        fontSize: 12.sp),
         iconEnabledColor: const Color.fromRGBO(28, 149, 214, 1),
         iconDisabledColor: const Color.fromRGBO(28, 149, 214, 1),
       ),
@@ -149,6 +154,8 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
 
     // set up the AlertDialog
     final AlertDialog alert = AlertDialog(
+       shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12))),
       title: const Text('Xác nhận'),
       content: const Text('Bạn có đồng ý mua Crypto?'),
       actions: [
@@ -191,231 +198,266 @@ class _BuyCryptoPage extends State<BuyCryptoPage> {
           appBar: const Appbar(title: _title),
           body: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Center(
-                  child: Container(
-                    width: size.width * 0.45,
-                    margin: const EdgeInsets.only(top: 20),
-                    padding: const EdgeInsets.only(bottom: 10),
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(width: 2),
-                      ),
-                    ),
-                    child: const Align(
-                      child: Text(
-                        'Tạo đơn hàng',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 30),
-                  child: Column(
+            child: Container(
+              height: 580.h,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('Bạn muốn mua với bao nhiêu tiền?',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600))),
-                      ),
-                                            const SizedBox(height: 4),
-                      Container(
-                        height: 60,
-                        width: size.width * 0.9,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromRGBO(0, 0, 0, 0.4)),
-                          borderRadius: BorderRadius.circular(28),
+                      Center(
+                        child: Container(
+                          width: size.width * 0.45,
+                          margin: EdgeInsets.only(top: 16.h),
+                          padding:  EdgeInsets.only(bottom: 8.h),
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(width: 2),
+                            ),
+                          ),
+                          child: Align(
+                            child: Text(
+                              'Tạo đơn hàng',
+                              style: TextStyle(fontSize: 16.sp),
+                            ),
+                          ),
                         ),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 40,
-                              width: 30,
-                              // color: Colors.purple,
-                              decoration:const BoxDecoration(
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/USD.png'),
+                      ),
+                       SizedBox(
+                        height: 15.h,
+                      ),
+                      Center(
+                        child: Container(
+                          width: size.width * 0.9,
+                          margin: EdgeInsets.only(
+                            top: 30.h,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:  const EdgeInsets.only(left: 16),
+                                child:  Text('Bạn muốn mua với bao nhiêu tiền?',
+                                    style: TextStyle(
+                                        fontSize: 16.sp, fontWeight: FontWeight.w600)),
+                              ),
+                              SizedBox(height: 4.h),
+                              Container(
+                                height: size.height * 0.06,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromRGBO(0, 0, 0, 0.4)),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 40.h,
+                                      width: 30.h,
+                                      // color: Colors.purple,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/USD.png'),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text('USD', 
+                                    style: TextStyle(fontSize: 12.sp),),
+                                    const VerticalDivider(
+                                      thickness: 2,
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Flexible(
+                                        child: TextField(
+                                                      style: TextStyle(fontSize: 14.sp),
+                                      onChanged: (value) async {
+                                        if (value == '') {
+                                          value = '0';
+                                        }
+                                        amountValue = double.parse(value);
+                                        setState(() {
+                                          amountToCrypto = amountValue /
+                                              (selectedCrypto?.price ?? 1);
+                                        });
+                                      },
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                      ),
+                                    ))
+                                  ],
                                 ),
                               ),
-                            ),
-                            const Text('USD'),
-                            const VerticalDivider(
-                              thickness: 2,
-                            ),
-                            const SizedBox(width: 5),
-                            Flexible(
-                                child: TextField(
-                              onChanged: (value) async {
-                                if (value == '') {
-                                  value = '0';
-                                }
-                                amountValue = double.parse(value);
-                                setState(() {
-                                  amountToCrypto =
-                                      amountValue / (selectedCrypto?.price ?? 1);
-                                });
-                              },
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      Center(
+                        child: Container(
+                          width: size.width * 0.9,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding:  const EdgeInsets.only(left: 16),
+                                child:  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text('Nhận',
+                                        style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600))),
                               ),
-                            ))
-                          ],
+                              const SizedBox(height: 4),
+                              Container(
+                                height: size.height * 0.06,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromRGBO(0, 0, 0, 0.4)),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Row(
+                                  children: [
+                                    cryptoDropdown(),
+                                    const VerticalDivider(
+                                      thickness: 2,
+                                    ),
+                                    const SizedBox(width: 5),
+                                    if (isWaiting)
+                                      const Loading(
+                                        size: 30,
+                                      )
+                                    else
+                                      Text(amountToCrypto.toStringAsFixed(9),
+                                      style: TextStyle(fontSize: 12.sp),
+                                      )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 30),
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('Nhận',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600))),
+                      SizedBox(
+                        height: 30.h,
                       ),
-                      const SizedBox(height: 4),
-                      Container(
-                        height: 60,
-                        width: size.width * 0.9,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromRGBO(0, 0, 0, 0.4)),
-                          borderRadius: BorderRadius.circular(28),
-                        ),
-                        child: Row(
-                          children: [
-                            cryptoDropdown(),
-                            const VerticalDivider(
-                              thickness: 2,
+                      const WalletInfo(),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Center(
+                        child: Container(
+                          width: size.width * 0.9,
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Text(
+                            'Chấp nhận',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                              color: const Color.fromRGBO(0, 0, 0, 1),
                             ),
-                            const SizedBox(width: 5),
-                            if (isWaiting)
-                              const Loading(
-                                size: 30,
-                              )
-                            else
-                              Text(amountToCrypto.toStringAsFixed(9))
-                          ],
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const WalletInfo(),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: const Text(
-                    'Chấp nhận',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromRGBO(0, 0, 0, 1),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  height: 30,
-                  width: 30,
-                  // color: Colors.purple,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/visa.png'),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 80,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          _value = !_value;
-                        });
-                      },
-                      child: Container(
-                        width: 20,
-                        height: 20,
+                      Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.07),
+                        height: 30.h,
+                        width: 30.h,
+                        // color: Colors.purple,
                         decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.blue),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: _value
-                              ? const Icon(
-                                  Icons.check,
-                                  size: 15,
-                                  color: Colors.white,
-                                )
-                              : const Icon(
-                                  Icons.check_box_outline_blank,
-                                  size: 15,
-                                  color: Colors.blue,
-                                ),
+                          image: DecorationImage(
+                            image: AssetImage('assets/visa.png'),
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Text('Tôi đồng ý với điều khoản dịch vụ'),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Center(
-                    child: RoundedButton(
-                  press: () {
-                    if (_value) {
-                      setState(() {
-                        dieukhoan = false;
-                      });
-                      showAlertDialog(context);
-                    } else {
-                      setState(() {
-                        dieukhoan = true;
-                      });
-                    }
-                  },
-                  text: 'Tiếp tục',
-                )),
-                if (dieukhoan)
-                  const Center(
-                      child: Text(
-                    'Bạn chưa đồng ý điều khoản dịch vụ',
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 12,
-                    ),
-                  ))
-                else
-                  const Text('')
-              ],
+                    ],
+                  ),
+                  // const SizedBox(
+                  //   height: 50,
+                  // ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                _value = !_value;
+                              });
+                            },
+                            child: Container(
+                              width: 20.h,
+                              height: 20.h,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.blue),
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: _value
+                                    ? const Icon(
+                                        Icons.check,
+                                        size: 15,
+                                        color: Colors.white,
+                                      )
+                                    : const Icon(
+                                        Icons.check_box_outline_blank,
+                                        size: 15,
+                                        color: Colors.blue,
+                                      ),
+                              ),
+                            ),
+                          ),
+                           SizedBox(
+                            width: 5.w,
+                          ),
+                          Text('Tôi đồng ý với điều khoản dịch vụ',
+                          style: TextStyle(fontSize: 13.sp),),
+
+                        ],
+                      ),
+                       SizedBox(
+                        height: 10.h,
+                      ),
+                      Center(
+                          child: RoundedButton(
+                        press: () {
+                          if (_value) {
+                            setState(() {
+                              dieukhoan = false;
+                            });
+                            showAlertDialog(context);
+                          } else {
+                            setState(() {
+                              dieukhoan = true;
+                            });
+                          }
+                        },
+                        text: 'Tiếp tục',
+                      )),
+                      if (dieukhoan)
+                        Center(
+                            child: Text(
+                          'Bạn chưa đồng ý điều khoản dịch vụ',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 12.sp,
+                          ),
+                        ))
+                      else
+                        const Text('')
+                    ],
+                  ),
+                ],
+              ),
             ),
           )),
     );

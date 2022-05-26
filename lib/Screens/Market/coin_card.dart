@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CoinCard extends StatelessWidget {
   const CoinCard({
@@ -23,8 +24,8 @@ class CoinCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric( vertical: 6),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical:12, horizontal: 4),
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+        padding:  EdgeInsets.symmetric(vertical:12.h, horizontal: 4.w),
+      margin: EdgeInsets.symmetric(horizontal: 16.h, vertical: 4.h),
       decoration: BoxDecoration(
         color: const Color(0xFFF4F4F4),
         borderRadius: BorderRadius.circular(16),
@@ -45,10 +46,10 @@ class CoinCard extends StatelessWidget {
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 2),
+                    padding: EdgeInsets.only(right: 2.w),
                     child: Container(
-                      height: 50,
-                      width: 50,
+                      height: 50.h,
+                      width: 50.h,
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Image.network(imageUrl),
@@ -67,7 +68,7 @@ class CoinCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               color: Colors.grey[900],
-                              fontSize: 18,
+                              fontSize: 18.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -75,9 +76,9 @@ class CoinCard extends StatelessWidget {
                         Text(
                           name,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style:  TextStyle(
                             color:Color.fromRGBO(0, 0, 0, 0.53),
-                            fontSize: 14,
+                            fontSize: 14.sp,
                           ),
                         ),
                       ],
@@ -94,7 +95,7 @@ class CoinCard extends StatelessWidget {
                   '\$ ${(price.toDouble() * 1000000).round() / 1000000.0}',
                   style: TextStyle(
                     color: Colors.grey[900],
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
@@ -115,7 +116,7 @@ class CoinCard extends StatelessWidget {
                         color: change.toDouble() < 0
                             ? const Color.fromRGBO(215, 13, 13, 1)
                             : const Color.fromRGBO(10, 151, 63, 1),
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -127,7 +128,7 @@ class CoinCard extends StatelessWidget {
                         color: changePercentage.toDouble() < 0
                             ? const Color.fromRGBO(215, 13, 13, 1)
                             : const Color.fromRGBO(10, 151, 63, 1),
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

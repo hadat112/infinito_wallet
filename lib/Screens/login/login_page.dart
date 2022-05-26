@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinito_wallet/Screens/Loading/loading.dart';
 import 'package:infinito_wallet/services/auth.dart';
 
@@ -53,8 +54,8 @@ class _LoginPageState extends State<LoginPage> {
                           validateText: 'Bạn chưa nhập Email',
                           inputTitle: 'Email',
                           onChanged: (value) {}),
-                      const SizedBox(
-                        height: 30,
+                      SizedBox(
+                        height: 30.h,
                       ),
                       RoundedPasswordField(
                         key: const Key('password'),
@@ -63,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                         inputTitle: 'Mật khẩu',
                         aToZ: false,
                       ),
-                      const SizedBox(height: 40,),
+                      SizedBox(height: 40.h,),
                       // TextButton(
                       //   onPressed: () {
                       //     //forgot password screen

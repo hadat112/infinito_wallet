@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../components/small_button.dart';
 import '../../services/auth.dart';
@@ -27,11 +28,11 @@ class _WalletInfoState extends State<WalletInfo> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
-      height: 156,
+      height: 156.h,
       child: Stack(
         children:[
          Container(
-          height: 130,
+          height: 128.h,
           decoration: const BoxDecoration(
             gradient: LinearGradient(colors: <Color>[
               Color.fromRGBO(7, 15, 87, 1),
@@ -39,7 +40,7 @@ class _WalletInfoState extends State<WalletInfo> {
             ]),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20,),
+            padding: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.h,),
             child: Column(children: [
               Row(children: [
                 // Container(
@@ -63,11 +64,11 @@ class _WalletInfoState extends State<WalletInfo> {
                         return const Center();
                       }
                       return Container(
-                        padding: const EdgeInsets.only(left: 4),
+                        padding: EdgeInsets.only(left: 4.w),
                         child: Text(
                           pressHide ? '${snapshot.data?.get('amount').toStringAsFixed(9)}' : '*********',
-                          style: const TextStyle(
-                              fontSize: 24,
+                          style: TextStyle(
+                              fontSize: 24.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
@@ -93,10 +94,10 @@ class _WalletInfoState extends State<WalletInfo> {
                           // selectedCrypto = snapshot.data?.docs[0].id;
                         }
                         return Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                          width: 73,
-                          height: 20,
+                          margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
+                          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
+                          width: 60.h,
+                          height: 16.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
@@ -106,15 +107,16 @@ class _WalletInfoState extends State<WalletInfo> {
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: DropdownButton(
+                                isExpanded: true,
                                 borderRadius: BorderRadius.circular(8),
                                 underline: const SizedBox(),
-                                isExpanded: false,
                                 value: selectedCrypto,
                                 items: snapshot.data?.docs.map((value) {
                                   return DropdownMenuItem(
                                     value: value.id,
                                     child: Text(
                                       value.id.toUpperCase(),
+                                      style: TextStyle(fontSize: 12.sp),
                                     ),
                                   );
                                 }).toList(),
@@ -152,7 +154,7 @@ class _WalletInfoState extends State<WalletInfo> {
        
          Positioned(
            left: size.width*0.05,
-           top: 75,
+           top: 80.h,
            child:  TweenAnimationBuilder(
                     tween: Tween<double>(begin: 0, end: 1),
                     duration: const Duration(milliseconds: 500),
@@ -172,12 +174,15 @@ class _WalletInfoState extends State<WalletInfo> {
                     ),
                   ),
                   margin: const EdgeInsets.only(top: 5),
-                  height: 55,
+                  height: 55.h,
                   width: size.width * 0.9,
                   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: Center(
-                    child: Column(children: [
-                      const Text('Xin chào,'),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                      Text('Xin chào,',
+                      style: TextStyle(fontSize: 12.sp),),
                       FutureBuilder<DocumentSnapshot>(
                       future: FirebaseFirestore.instance
                           .collection('users')
@@ -188,8 +193,10 @@ class _WalletInfoState extends State<WalletInfo> {
                           return const Center();
                         }
                             return Text(snapshot.data?.get('email').replaceAll('@gmail.com', ''),
-                                style: const TextStyle(
-                                    color: Color.fromRGBO(40, 43, 150, 1)));
+                                style:  TextStyle(
+                                    color: const Color.fromRGBO(40, 43, 150, 1
+                                    ),
+                                    fontSize: 12.sp));
                           })
                     ]),
                   ),

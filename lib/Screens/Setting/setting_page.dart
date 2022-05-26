@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:infinito_wallet/Screens/DiffrentSetting/different_setting.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinito_wallet/Screens/Welcome/start_page.dart';
 import 'package:infinito_wallet/components/change_name_btn.dart';
 import 'package:infinito_wallet/components/circle_icon.dart';
@@ -49,22 +49,22 @@ class SettingPage extends StatelessWidget {
             return Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
                   child: Row(
                     children: [
                       IconCircle(
-                        circleSize: 53,
+                        circleSize: 44.h,
                         textInside: getInitials(string: name, limitTo: 2),
-                        textSize: 18,
+                        textSize: 18.sp,
                       ),
                       const SizedBox(
                         width: 10,
                       ),
                       Text(
                         name,
-                        style: const TextStyle(
-                            fontSize: 18,
-                            color: Color.fromRGBO(29, 35, 46, 0.65),
+                        style: TextStyle(
+                            fontSize: 18.sp,
+                            color: const Color.fromRGBO(29, 35, 46, 0.65),
                             fontWeight: FontWeight.w500),
                       ),
                     ],
@@ -78,8 +78,8 @@ class SettingPage extends StatelessWidget {
                 SettingWalletButton(
                   walletName: walletName,
                 ),
-                const SizedBox(
-                  height: 10,
+                 SizedBox(
+                  height: 10.h,
                 ),
 
                 // RoundedButton(
@@ -88,8 +88,8 @@ class SettingPage extends StatelessWidget {
                 //   btnHeight: 30,
                 //   text: 'Thêm ví',
                 // ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: 10.h,
                 ),
                 TitleItem(size: size, text: 'Cài đặt'),
                 SettingBtn(
@@ -99,15 +99,15 @@ class SettingPage extends StatelessWidget {
                       return ChangeName();
                     }));
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.settings,
-                    color: Color.fromRGBO(90, 195, 240, 1),
-                    size: 35,
+                    color: const Color.fromRGBO(90, 195, 240, 1),
+                    size: 35.sp,
                   ),
                   text: 'Cài đặt',
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: 20.h,
                 ),
                 // SettingBtn(
                 //     press: () {
@@ -139,8 +139,7 @@ class SettingPage extends StatelessWidget {
                     onSetting = false;
                   },
                   text: 'Đăng xuất',
-                  btnWidth: 200,
-                  btnHeight: 50,
+               
                 )
               ],
             );
@@ -166,11 +165,11 @@ class TitleItem extends StatelessWidget {
     return Container(
       color: const Color.fromRGBO(214, 246, 253, 1),
       width: size.width,
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding:  EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
       child: Text(
         text,
-        style: const TextStyle(
-            fontSize: 15, color: Colors.black, fontWeight: FontWeight.w400),
+        style: TextStyle(
+            fontSize: 15.sp, color: Colors.black, fontWeight: FontWeight.w400),
       ),
     );
   }

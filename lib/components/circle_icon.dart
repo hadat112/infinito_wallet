@@ -16,10 +16,10 @@ class IconCircle extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Color.fromRGBO(90, 195, 240, 1),
         borderRadius: BorderRadius.only(
-            topRight: Radius.circular(40),
-            bottomRight: Radius.circular(40),
-            topLeft: Radius.circular(40),
-            bottomLeft: Radius.circular(40)),
+            topRight: Radius.circular(100),
+            bottomRight: Radius.circular(100),
+            topLeft: Radius.circular(100),
+            bottomLeft: Radius.circular(100)),
       ),
       child: Center(child: Text(textInside,
         style: TextStyle(

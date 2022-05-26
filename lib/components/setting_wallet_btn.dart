@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../Screens/SettingWallet/setting_wallet.dart';
 import 'circle_icon.dart';
@@ -56,8 +57,8 @@ class _SettingWalletButtonState extends State<SettingWalletButton> {
             });
           },
         child: Container(
-          padding: const EdgeInsets.symmetric(
-              vertical: 15, horizontal: 20),
+          padding: EdgeInsets.symmetric(
+              vertical: 15.h, horizontal: 20.w),
           decoration: const BoxDecoration(
               border: Border(
             bottom: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.4)),
@@ -68,24 +69,25 @@ class _SettingWalletButtonState extends State<SettingWalletButton> {
                 Row(
                   children: [
                     IconCircle(
-                      circleSize: 35,
+                      circleSize: 30.h,
                       textInside:
                           getInitials(string: widget.walletName, limitTo: 2),
-                      textSize: 12,
+                      textSize: 12.sp,
                     ),
                     const SizedBox(
                       width: 10,
                     ),
                     Text(
                       widget.walletName,
-                      style: const TextStyle(
-                          fontSize: 16,
+                      style: TextStyle(
+                          fontSize: 16.sp,
                           color: Colors.black,
                           fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
-                const Icon(Icons.arrow_forward_ios)
+                 Icon(Icons.arrow_forward_ios,
+                size: 20.sp,)
               ]),
         ),
       ),

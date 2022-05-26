@@ -81,4 +81,11 @@ Future<void> changeName(String newName, String field) async {
       field: newName
     });
 }
+
+// Future<double> getWalletPrice() async {
+//     double amount = 0;
+    
+//     return amount;
+//   }  
+
 }

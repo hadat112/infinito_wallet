@@ -37,8 +37,6 @@ class AuthService {
   }
 
   Future<void> _createNewUserInFirestore() async {
-            print('work');
-
       final List<Coin> coinList = await CoinData().fetchCoin();
       final coins = coinList.take(10);
       for (final element in coins) { 

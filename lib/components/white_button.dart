@@ -1,30 +1,35 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+// ignore: must_be_immutable
 class WhiteButton extends StatelessWidget {
-  const WhiteButton({
+  WhiteButton({
     Key? key,
     this.text = '',
     this.color = const Color.fromRGBO(90, 195, 240, 1),
     this.textColor = Colors.white,
     required this.press,
-    this.btnWidth = 260,
-    this.btnHeight = 55,
+    this.singleBtn = true
   }) : super(key: key);
 
   final String text;
-  final double btnWidth;
-  final double btnHeight;
+  bool singleBtn;
+  late double btnWidth;
   final void Function() press;
   final Color color, textColor;
 
   @override
   Widget build(BuildContext context) {
+    if(singleBtn) {
+    btnWidth = MediaQuery.of(context).size.width * 0.7; // width = 25% of the screen
+    } else {
+      btnWidth = MediaQuery.of(context).size.width * 0.44; // width = 25% of the screen
+    }
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       width: btnWidth,
-      height: btnHeight,
+      height: MediaQuery.of(context).size.height * 0.06,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(29),
         child: FlatButton(
@@ -38,6 +43,7 @@ class WhiteButton extends StatelessWidget {
             child: Text(text,
                 style: TextStyle(
                   color: textColor,
+                  fontSize: 16.sp
                 )),
             ),
       ),

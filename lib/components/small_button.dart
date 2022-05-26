@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SmallWhiteButton extends StatelessWidget {
   const SmallWhiteButton({
@@ -23,8 +24,8 @@ class SmallWhiteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      width: btnWidth,
-      height: btnHeight,
+      width: 50.h,
+      height: 16.h,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(50),
         child: FlatButton(
@@ -36,7 +37,7 @@ class SmallWhiteButton extends StatelessWidget {
             ),
             child: Text(text,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   color: textColor,
                 )),
             ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinito_wallet/Screens/Home/home.dart';
 import 'package:infinito_wallet/services/database.dart';
 
@@ -73,6 +74,8 @@ class _ConfirmSendCryptoPageState extends State<ConfirmSendCryptoPage> {
 
     // set up the AlertDialog
     final AlertDialog alert = AlertDialog(
+       shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12))),
       title: const Text('Tạo giao dịch'),
       content: const Text('Bạn có đồng ý tạo giao dịch này?'),
       actions: [
@@ -104,189 +107,205 @@ class _ConfirmSendCryptoPageState extends State<ConfirmSendCryptoPage> {
               height: constraints.maxHeight,
               child: SingleChildScrollView(
                   physics: const ClampingScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Sending',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Color.fromRGBO(0, 0, 0, 1),
-                                  fontSize: 16),
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  '${widget.fee} ${widget.selectedCrypto.toUpperCase()}',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                      fontSize: 26),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  '${widget.fee * widget.amountToCrypto} USD',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                      fontSize: 16),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Column(
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      height: constraints.maxHeight,
+                      width: size.width * 0.9,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: 20),
-                            child: Text(
-                              'Gửi tới địa chỉ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Color.fromRGBO(0, 0, 0, 1),
-                                  fontSize: 16),
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            height: 55,
-                            width: size.width * 0.9,
-                            decoration: BoxDecoration(
-                                color: const Color.fromRGBO(150, 227, 244, 1),
-                                border: Border.all(
-                                    color:
-                                        const Color.fromRGBO(150, 227, 244, 1)),
-                                borderRadius: BorderRadius.circular(28)),
-                            child: Center(
-                              child: Text(
-                                widget.address,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                        children: <Widget>[
+                          Column(
+                            children: [
+                               SizedBox(
+                                height: 16.h,
                               ),
-                            ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                   Text(
+                                    'Gửi',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color.fromRGBO(0, 0, 0, 1),
+                                        fontSize: 16.sp),
+                                  ),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        '${widget.fee} ${widget.selectedCrypto.toUpperCase()}',
+                                        style:  TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                            fontSize: 22.sp),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        '${widget.fee * widget.amountToCrypto} USD',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                            fontSize: 16.sp),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                               SizedBox(
+                                height: 30.h,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                   Text(
+                                    'Gửi tới địa chỉ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color.fromRGBO(0, 0, 0, 1),
+                                        fontSize: 16.sp),
+                                  ),
+                                   SizedBox(
+                                height: 4.h,
+                              ),
+                                  Container(
+                                    height: 44.h,
+                                    width: size.width * 0.9,
+                                    padding: EdgeInsets.all(4.h),
+                                    decoration: BoxDecoration(
+                                        color: const Color.fromRGBO(
+                                            150, 227, 244, 1),
+                                        border: Border.all(
+                                            color: const Color.fromRGBO(
+                                                150, 227, 244, 1)),
+                                        borderRadius:
+                                            BorderRadius.circular(28)),
+                                    child: Center(
+                                      child: Text(
+                                        widget.address,
+                                        style:  TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                               SizedBox(
+                                height: 20.h,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                   Text(
+                                    'Phí',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color.fromRGBO(0, 0, 0, 1),
+                                        fontSize: 16.sp),
+                                  ),
+                                    SizedBox(
+                                height: 4.h,
+                              ),
+                                  Container(
+                                    width: size.width * 0.9,
+                                    padding: EdgeInsets.all(10.h),
+                                    decoration: BoxDecoration(
+                                        color: const Color.fromRGBO(
+                                            150, 227, 244, 1),
+                                        border: Border.all(
+                                            color: const Color.fromRGBO(
+                                                150, 227, 244, 1)),
+                                        borderRadius:
+                                            BorderRadius.circular(28)),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          '${widget.fee} ${widget.selectedCrypto.toUpperCase()}',
+                                          style:  TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.black,
+                                              fontSize: 16.sp),
+                                        ),
+                                         SizedBox(
+                                          width: 4.w,
+                                        ),
+                                        Text(
+                                          '${widget.fee * widget.amountToCrypto} USD',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color.fromRGBO(
+                                                  0, 0, 0, 0.5),
+                                              fontSize: 14.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                               SizedBox(
+                                height: 20.h,
+                              ),
+                              RoundedPasswordField(
+                                  passwordController: passwordController,
+                                  inputTitle: 'Mật khẩu giao dịch',
+                                  onChanged: (value) {},
+                                  aToZ: false),
+                              if (validPassword)
+                                const Text('')
+                              else
+                                Container(
+                                    margin: const EdgeInsets.only(left: 22),
+                                    child: const Text(
+                                      'Mật khẩu giao dịch không hợp lệ.',
+                                      style:
+                                          TextStyle(color: Colors.redAccent),
+                                    )),
+                            ],
+                          ),
+                          
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              WhiteButton(
+                                text: 'Huỷ bỏ',
+                                singleBtn: false,
+                                press: () {
+                                  Navigator.pop(context);
+                                },
+                                textColor: Colors.black,
+                                // btnWidth: 180,
+                              ),
+                              RoundedButton(
+                                text: 'Gửi',
+                                singleBtn: false,
+                                press: () async {
+                                  final String transactionpPassword =
+                                      await DatabaseService(
+                                              uid: _auth.getCurrentUser()!.uid)
+                                          .getTransactionPassword();
+                                  if (transactionpPassword !=
+                                      passwordController.text) {
+                                    setState(() {
+                                      validPassword = false;
+                                    });
+                                  } else {
+                                    showAlertDialog(context);
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: 20),
-                            child: Text(
-                              'Fee',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Color.fromRGBO(0, 0, 0, 1),
-                                  fontSize: 16),
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            decoration: BoxDecoration(
-                                color: const Color.fromRGBO(150, 227, 244, 1),
-                                border: Border.all(
-                                    color:
-                                        const Color.fromRGBO(150, 227, 244, 1)),
-                                borderRadius: BorderRadius.circular(28)),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  '${widget.fee} ${widget.selectedCrypto.toUpperCase()}',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                      fontSize: 16),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  '${widget.fee * widget.amountToCrypto} USD',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Color.fromRGBO(0, 0, 0, 0.5),
-                                      fontSize: 14),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      RoundedPasswordField(
-                          passwordController: passwordController,
-                          inputTitle: 'Mật khẩu giao dịch',
-                          onChanged: (value) {},
-                          aToZ: false),
-                      if (validPassword)
-                        const Text('')
-                      else
-                        Container(
-                            margin: const EdgeInsets.only(left: 22),
-                            child: const Text(
-                              'Mật khẩu giao dịch không hợp lệ.',
-                              style: TextStyle(color: Colors.redAccent),
-                            )),
-                      const SizedBox(
-                        height: 80,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          WhiteButton(
-                            text: 'Huỷ bỏ',
-                            press: () {
-                              Navigator.pop(context);
-                            },
-                            textColor: Colors.black,
-                            btnWidth: 180,
-                          ),
-                          RoundedButton(
-                            text: 'Gửi',
-                            press: () async {
-                              final String transactionpPassword =
-                                  await DatabaseService(
-                                          uid: _auth.getCurrentUser()!.uid)
-                                      .getTransactionPassword();
-                              if (transactionpPassword !=
-                                  passwordController.text) {
-                                setState(() {
-                                  validPassword = false;
-                                });
-                              } else {
-                                showAlertDialog(context);
-                              }
-                            },
-                            btnWidth: 180,
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   )),
             );
           })),

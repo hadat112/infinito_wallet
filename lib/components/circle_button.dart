@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CircleBtn extends StatefulWidget {
   const CircleBtn({
@@ -27,7 +28,7 @@ class _CircleBtnState extends State<CircleBtn> {
       duration: const Duration(milliseconds: 100),
       opacity: _opacity,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24),
+        padding: EdgeInsets.symmetric(vertical: 24.h),
         child: GestureDetector(
           onTap: widget.tap,
           onTapDown: (TapDownDetails details) {
@@ -61,20 +62,20 @@ class _CircleBtnState extends State<CircleBtn> {
                 ]),
                 child: Image.asset(
                   widget.path,
-                  width: 44,
-                  height: 44,
+                  width: 44.h,
+                  height: 44.h,
                   fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(
-                height: 5,
+              SizedBox(
+                height: 5.h,
               ),
               Text(
                 widget.text,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Color.fromRGBO(0, 0, 0, 1),
-                  fontSize: 16,
+                style: TextStyle(
+                  color: const Color.fromRGBO(0, 0, 0, 1),
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w400,
                 ),
               ),

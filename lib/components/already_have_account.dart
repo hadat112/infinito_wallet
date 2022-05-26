@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AlreadyHaveAccount extends StatelessWidget {
   const AlreadyHaveAccount({
@@ -13,21 +14,27 @@ class AlreadyHaveAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding:  EdgeInsets.all(8.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Text(
-            login ? 'Bạn không có tài khoản?' : 'Bạn đã có tài khoản?'
+          FittedBox(
+            child: Text(
+              login ? 'Bạn không có tài khoản?' : 'Bạn đã có tài khoản?',
+                              style: TextStyle(fontSize: 14.h,)
+
+            ),
           ),
           const SizedBox(width: 8),
           GestureDetector(
             onTap: press,
-            child: Text(
-              login ? 'Đăng ký' : 'Đăng nhập',
-              style: const TextStyle(fontSize: 20,
-              color: Colors.blueAccent),
+            child: FittedBox(
+              child: Text(
+                login ? 'Đăng ký' : 'Đăng nhập',
+                style: TextStyle(fontSize: 16.h,
+                color: Colors.blueAccent),
+              ),
             ),
           )
         ],

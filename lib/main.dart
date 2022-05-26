@@ -1,6 +1,7 @@
 import 'package:country_code_picker/country_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'Screens/Welcome/start_page.dart';
 
@@ -21,14 +22,41 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      // supportedLocales: [
-      //   Locale('en', 'US'),
-      // ],
-      localizationsDelegates: [
-        CountryLocalizations.delegate,
-      ],
-      home: StartPage()
+    // return MaterialApp(
+    //   localizationsDelegates: const [
+    //     CountryLocalizations.delegate,
+    //   ],
+    //   builder: (context, child) => ResponsiveWrapper.builder(
+    //       child,
+    //       maxWidth: 1200,
+    //       minWidth: 480,
+    //       defaultScale: true,
+    //       breakpoints: [
+    //         const ResponsiveBreakpoint.resize(480, name: MOBILE),
+    //         const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+    //         const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+    //       ],
+    //       background: Container(color: const Color(0xFFF5F5F5))),
+    //   initialRoute: '/',
+    //   routes: {
+    //     '/' :(context) => const StartPage()
+    //   },
+    // );
+    return ScreenUtilInit(
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+      return  const MaterialApp(
+        // supportedLocales: [
+        //   Locale('en', 'US'),
+        // ],
+        localizationsDelegates: [
+          CountryLocalizations.delegate,
+        ],
+        home: StartPage()
+      );
+        
+      } 
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinito_wallet/components/already_have_account.dart';
 import 'package:infinito_wallet/components/rounded_button.dart';
 import 'package:infinito_wallet/services/auth.dart';
@@ -60,7 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               inputTitle: 'Email',
                               onChanged: (value) {},
                             ),
-                            const SizedBox(height: 20,),
+                            SizedBox(height: 20.h,),
                             RoundedPasswordField(
                               passwordController: passwordEditingController,
                               onChanged: (value) {},
@@ -68,23 +69,23 @@ class _SignUpPageState extends State<SignUpPage> {
                               aToZ: true,
                             ),
                             Container(
-                                margin: const EdgeInsets.symmetric(vertical: 5),
+                                width: size.width * 0.9,
+                                margin: EdgeInsets.symmetric(vertical: 5.h),
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 1),
+                                    vertical: 1),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(29),
                                 ),
                                 child: Column(children: [
-                                  const Align(
+                                  Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text('Quốc Gia',
                                           style: TextStyle(
-                                              fontSize: 16,
+                                              fontSize: 16.h,
                                               fontWeight: FontWeight.w600))),
-                                  SizedBox(height: size.height * 0.005),
+                                  SizedBox(height: 4.h),
                                   Container(
-                                    width: size.width,
-                                    height: 60,
+                                    height: size.height*0.06,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color:
@@ -100,10 +101,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                         countryEditingController.text =
                                             countryCode.name!;
                                       },
+                                      textStyle: TextStyle(
+                                        fontSize: 14.h,
+                                        color: Colors.black
+                                      ),
                                       initialSelection: 'VN',
                                       showOnlyCountryWhenClosed: true,
                                       showCountryOnly: true,
                                       alignLeft: true,
+                                      flagWidth: 32.sp,
                                       flagDecoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(7),
                                       ),
@@ -111,9 +117,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                   ),
                                 ])),
                             Container(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              padding: EdgeInsets.symmetric(vertical: 20.h),
                               color: const Color.fromRGBO(215, 241, 240, 1),
-                              margin: const EdgeInsets.only(top: 25),
+                              margin: EdgeInsets.only(top: 25.h),
                               child: Column(children: [
                                 // Row(
                                 //   mainAxisAlignment: MainAxisAlignment.center,
@@ -132,15 +138,20 @@ class _SignUpPageState extends State<SignUpPage> {
                                   inputTitle: 'Mật khẩu giao dịch',
                                   aToZ: true,
                                 ),
+                                SizedBox( height: 16.h,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children:  [
                                     Text(
                                       'Lưu ý:',
+                                      style: TextStyle(
+                                          fontSize: 16.h,
+                                            color: const Color.fromRGBO(0, 0, 0, 0.5))
                                     ),
                                     Text('Mật khẩu giao dịch dùng để gửi tiền',
                                         style: TextStyle(
-                                            color: Color.fromRGBO(0, 0, 0, 0.5)))
+                                          fontSize: 16.h,
+                                            color: const Color.fromRGBO(0, 0, 0, 0.5)))
                                   ],
                                 ),
                               ]),
@@ -154,9 +165,9 @@ class _SignUpPageState extends State<SignUpPage> {
                               },
                               login: false,
                             ),
-                            const SizedBox(height: 2,),
-                            const Text(
-                                'Bạn đồng ý với Chính sách bảo mật của chúng tôi'),
+                            SizedBox(height: 2.h,),
+                            // const Text(
+                            //     'Bạn đồng ý với Chính sách bảo mật của chúng tôi'),
                             RoundedButton(
                                 text: 'Đăng ký',
                                 press: () async {

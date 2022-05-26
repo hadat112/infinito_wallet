@@ -15,6 +15,10 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
+
+
+  
+
   @override
   void initState() {
     super.initState();
@@ -25,6 +29,13 @@ class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     didChangeDependencies();
+    // if (MediaQuery.of(context).size.width < 300){
+  //height = 25% of the screen 
+// }
+// else if(MediaQuery.of(context).size.width > 700){
+//   btnWidth = MediaQuery.of(context).size.width * 0.10; // width = 10% of the screen
+//   btnHeight = MediaQuery.of(context).size.height * 0.10; //height = 10% of the screen 
+// }
     final Size size = MediaQuery.of(context).size;
     const String _title = 'Bắt đầu';
 
@@ -42,22 +53,21 @@ class _StartPageState extends State<StartPage> {
               ),
               RoundedButton(
                   text: 'Đăng nhập',
+               
                   press: () {
                     Navigator.push(context,
                         MaterialPageRoute<dynamic>(builder: (context) => const LoginPage()
                     ));
                   }),
-              Align(
-                child: WhiteButton(
-                    text: 'Đăng Ký',
-                    textColor: const Color.fromRGBO(90, 195, 240, 1),
-                    press: () {
-                      Navigator.push(context,
-                          MaterialPageRoute<dynamic>(builder: (context) {
-                        return const SignUpPage();
-                      }));
-                    }),
-              ),
+              WhiteButton(
+                  text: 'Đăng Ký',
+                  textColor: const Color.fromRGBO(90, 195, 240, 1),
+                  press: () {
+                    Navigator.push(context,
+                        MaterialPageRoute<dynamic>(builder: (context) {
+                      return const SignUpPage();
+                    }));
+                  }),
             ]),
       ),
     );
