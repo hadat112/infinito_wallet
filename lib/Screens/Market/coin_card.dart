@@ -77,7 +77,7 @@ class CoinCard extends StatelessWidget {
                           name,
                           overflow: TextOverflow.ellipsis,
                           style:  TextStyle(
-                            color:Color.fromRGBO(0, 0, 0, 0.53),
+                            color:const Color.fromRGBO(0, 0, 0, 0.53),
                             fontSize: 14.sp,
                           ),
                         ),

@@ -33,7 +33,7 @@ class RoundedInputField extends StatelessWidget {
         ),
         SizedBox(height: 4.h),
         Container(
-          height: size.height*0.06,
+          height: size.height*0.07,
           child: TextFormField(
             style: TextStyle(fontSize: 14.sp),
       controller: inputEditingController,

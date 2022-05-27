@@ -28,7 +28,7 @@ class _WalletInfoState extends State<WalletInfo> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
-      height: 156.h,
+      height: 160.h,
       child: Stack(
         children:[
          Container(
@@ -95,9 +95,9 @@ class _WalletInfoState extends State<WalletInfo> {
                         }
                         return Container(
                           margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
-                          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
+                          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4),
                           width: 60.h,
-                          height: 16.h,
+                          height: 24.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(

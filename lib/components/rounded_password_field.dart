@@ -62,7 +62,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
             ),
             SizedBox(height: 4.h),
             Container(
-              height: size.height * 0.07,
+              height: size.height * 0.075,
               // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: TextFormField(
                   style: TextStyle(fontSize: 14.sp),

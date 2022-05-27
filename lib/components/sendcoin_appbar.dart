@@ -4,15 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../services/auth.dart';
 
-
 // ignore: prefer_mixin
 class SendCoinAppBar extends StatefulWidget with PreferredSizeWidget {
-  SendCoinAppBar(this.amountToCrypto,
-      {Key? key,
-      required this.size,
-      this.selectedCrypto = 'ada',
-      })
-      : super(key: key);
+  SendCoinAppBar(
+    this.amountToCrypto, {
+    Key? key,
+    required this.size,
+    this.selectedCrypto = 'ada',
+  }) : super(key: key);
 
   final Size size;
   final String selectedCrypto;
@@ -22,7 +21,7 @@ class SendCoinAppBar extends StatefulWidget with PreferredSizeWidget {
   State<SendCoinAppBar> createState() => _SendCoinAppBarState();
 
   @override
-  Size get preferredSize =>  Size.fromHeight(170.h);
+  Size get preferredSize => Size.fromHeight(170.h);
 }
 
 class _SendCoinAppBarState extends State<SendCoinAppBar> {
@@ -50,12 +49,12 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
   }
 
   Future<DocumentSnapshot<Object?>> getData() async {
-   return FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(_auth.getCurrentUser()?.uid)
-                            .collection('wallet')
-                            .doc(widget.selectedCrypto)
-                            .get();
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(_auth.getCurrentUser()?.uid)
+        .collection('wallet')
+        .doc(widget.selectedCrypto)
+        .get();
   }
 
   @override
@@ -87,7 +86,7 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                   child: Column(children: [
                     Container(
                       margin: EdgeInsets.only(bottom: 20.h),
-                      padding:  EdgeInsets.symmetric(vertical: 10.h),
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
                       decoration: const BoxDecoration(
                         border: Border(
                           bottom: BorderSide(color: Colors.white),
@@ -185,7 +184,8 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                                 widget.selectedCrypto.toUpperCase(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w300,
-                                    color: const Color.fromRGBO(255, 255, 255, 0.6),
+                                    color: const Color.fromRGBO(
+                                        255, 255, 255, 0.6),
                                     fontSize: 12.sp),
                               ),
                             ),
@@ -193,7 +193,7 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                         ),
                       ),
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 4.h,
                     ),
                     FutureBuilder<DocumentSnapshot>(
@@ -204,7 +204,7 @@ class _SendCoinAppBarState extends State<SendCoinAppBar> {
                             '(${((amount ?? 0) * widget.amountToCrypto).toStringAsFixed(8)} USD)',
                             style: TextStyle(
                                 fontWeight: FontWeight.w300,
-                                color: Color.fromRGBO(255, 255, 255, 0.6),
+                                color: const Color.fromRGBO(255, 255, 255, 0.6),
                                 fontSize: 16.sp),
                           );
                         }),

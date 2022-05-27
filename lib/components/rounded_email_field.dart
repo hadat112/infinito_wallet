@@ -47,11 +47,10 @@ class RoundedEmailField extends StatelessWidget {
           ),
           SizedBox(height: size.height * 0.005),
           Container(
-            height: size.height * 0.07,
+            height: size.height * 0.075,
             child: TextFormField(
               style: TextStyle(fontSize: 14.sp),
               key: key,
-              scrollPadding: const EdgeInsets.only(bottom: 80),
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               validator: EmailFieldValidator.validate,

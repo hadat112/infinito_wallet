@@ -24,23 +24,23 @@ class SmallWhiteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      width: 50.h,
-      height: 16.h,
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      width: 56.h,
+      height: 31.h,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(50),
         child: FlatButton(
-            onPressed: press,
-            shape: RoundedRectangleBorder(
-              side: const BorderSide(
-                  color: Colors.white),
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: Text(text,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  color: textColor,
-                )),
-            ),
+          onPressed: press,
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Text(text,
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: textColor,
+              )),
+        ),
       ),
     );
   }
